@@ -22,4 +22,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           yoast-url: ${{ secrets.YOAST_URL }}
+          yoast-product-slug: yoast-seo-wordpress-premium
           plugin-basename: wordpress-seo-premium/wp-seo-premium.php
