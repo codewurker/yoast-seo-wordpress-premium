@@ -83,13 +83,14 @@ class Crawl_Cleanup_Rss implements Integration_Interface {
 	public function maybe_disable_feeds() {
 		\_deprecated_function( __METHOD__, 'Yoast SEO Premium 20.4', 'Yoast\WP\SEO\Integrations\Front_End\Crawl_Cleanup_Rss::maybe_disable_feeds()' );
 
-		if ( \is_singular() && $this->is_true( 'remove_feed_post_comments' )
+		if ( ( \is_singular() && $this->is_true( 'remove_feed_post_comments' ) )
 			|| ( \is_author() && $this->is_true( 'remove_feed_authors' ) )
 			|| ( \is_category() && $this->is_true( 'remove_feed_categories' ) )
 			|| ( \is_tag() && $this->is_true( 'remove_feed_tags' ) )
 			|| ( \is_tax() && $this->is_true( 'remove_feed_custom_taxonomies' ) )
 			|| ( \is_post_type_archive() && $this->is_true( 'remove_feed_post_types' ) )
-			|| ( \is_search() && $this->is_true( 'remove_feed_search' ) ) ) {
+			|| ( \is_search() && $this->is_true( 'remove_feed_search' ) )
+		) {
 			\remove_action( 'wp_head', 'feed_links_extra', 3 );
 		}
 	}

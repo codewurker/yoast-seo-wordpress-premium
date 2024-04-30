@@ -149,6 +149,8 @@ class Cached_Container extends Container
             'yoast\\wp\\seo\\premium\\routes\\prominent_words_route' => 'Yoast\\WP\\SEO\\Premium\\Routes\\Prominent_Words_Route',
             'yoast\\wp\\seo\\premium\\routes\\workouts_route' => 'Yoast\\WP\\SEO\\Premium\\Routes\\Workouts_Route',
             'yoast\\wp\\seo\\premium\\surfaces\\helpers_surface' => 'Yoast\\WP\\SEO\\Premium\\Surfaces\\Helpers_Surface',
+            'yoast\\wp\\seo\\premium\\user_meta\\framework\\additional_contactmethods\\mastodon' => 'Yoast\\WP\\SEO\\Premium\\User_Meta\\Framework\\Additional_Contactmethods\\Mastodon',
+            'yoast\\wp\\seo\\premium\\user_meta\\user_interface\\additional_contactmethods_integration' => 'Yoast\\WP\\SEO\\Premium\\User_Meta\\User_Interface\\Additional_Contactmethods_Integration',
             'yoast\\wp\\seo\\repositories\\indexable_cleanup_repository' => 'Yoast\\WP\\SEO\\Repositories\\Indexable_Cleanup_Repository',
             'yoast\\wp\\seo\\repositories\\indexable_repository' => 'Yoast\\WP\\SEO\\Repositories\\Indexable_Repository',
             'yoast\\wp\\seo\\repositories\\seo_links_repository' => 'Yoast\\WP\\SEO\\Repositories\\SEO_Links_Repository',
@@ -285,6 +287,8 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Premium\\Routes\\Prominent_Words_Route' => 'getProminentWordsRouteService',
             'Yoast\\WP\\SEO\\Premium\\Routes\\Workouts_Route' => 'getWorkoutsRouteService',
             'Yoast\\WP\\SEO\\Premium\\Surfaces\\Helpers_Surface' => 'getHelpersSurfaceService',
+            'Yoast\\WP\\SEO\\Premium\\User_Meta\\Framework\\Additional_Contactmethods\\Mastodon' => 'getMastodon2Service',
+            'Yoast\\WP\\SEO\\Premium\\User_Meta\\User_Interface\\Additional_Contactmethods_Integration' => 'getAdditionalContactmethodsIntegrationService',
             'Yoast\\WP\\SEO\\Repositories\\Indexable_Cleanup_Repository' => 'getIndexableCleanupRepositoryService',
             'Yoast\\WP\\SEO\\Repositories\\Indexable_Repository' => 'getIndexableRepositoryService',
             'Yoast\\WP\\SEO\\Repositories\\SEO_Links_Repository' => 'getSEOLinksRepositoryService',
@@ -849,6 +853,7 @@ class Cached_Container extends Container
         $instance->register_route('Yoast\\WP\\SEO\\Premium\\Routes\\Link_Suggestions_Route');
         $instance->register_route('Yoast\\WP\\SEO\\Premium\\Routes\\Prominent_Words_Route');
         $instance->register_route('Yoast\\WP\\SEO\\Premium\\Routes\\Workouts_Route');
+        $instance->register_integration('Yoast\\WP\\SEO\\Premium\\User_Meta\\User_Interface\\Additional_Contactmethods_Integration');
 
         return $instance;
     }
@@ -1633,6 +1638,26 @@ class Cached_Container extends Container
     protected function getHelpersSurfaceService()
     {
         return $this->services['Yoast\\WP\\SEO\\Premium\\Surfaces\\Helpers_Surface'] = new \Yoast\WP\SEO\Premium\Surfaces\Helpers_Surface($this);
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\User_Meta\Framework\Additional_Contactmethods\Mastodon' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\User_Meta\Framework\Additional_Contactmethods\Mastodon
+     */
+    protected function getMastodon2Service()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\User_Meta\\Framework\\Additional_Contactmethods\\Mastodon'] = new \Yoast\WP\SEO\Premium\User_Meta\Framework\Additional_Contactmethods\Mastodon();
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\User_Meta\User_Interface\Additional_Contactmethods_Integration' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\User_Meta\User_Interface\Additional_Contactmethods_Integration
+     */
+    protected function getAdditionalContactmethodsIntegrationService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\User_Meta\\User_Interface\\Additional_Contactmethods_Integration'] = new \Yoast\WP\SEO\Premium\User_Meta\User_Interface\Additional_Contactmethods_Integration(${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\User_Meta\\Framework\\Additional_Contactmethods\\Mastodon']) ? $this->services['Yoast\\WP\\SEO\\Premium\\User_Meta\\Framework\\Additional_Contactmethods\\Mastodon'] : ($this->services['Yoast\\WP\\SEO\\Premium\\User_Meta\\Framework\\Additional_Contactmethods\\Mastodon'] = new \Yoast\WP\SEO\Premium\User_Meta\Framework\Additional_Contactmethods\Mastodon())) && false ?: '_'});
     }
 
     /**

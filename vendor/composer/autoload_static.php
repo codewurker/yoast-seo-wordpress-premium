@@ -4,9 +4,17 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit638599fbdf87efb10b922f281acd7dd0
+class ComposerStaticInit7886bdb0724000e600613aac1c17bbe7
 {
+    public static $files = array (
+        '81db02b30f563b92907e271b66bd7559' => __DIR__ . '/..' . '/yoast/whip/src/Facades/wordpress.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
+        'Y' => 
+        array (
+            'Yoast\\WHIPv2\\' => 13,
+        ),
         'C' => 
         array (
             'Composer\\Installers\\' => 20,
@@ -14,6 +22,10 @@ class ComposerStaticInit638599fbdf87efb10b922f281acd7dd0
     );
 
     public static $prefixDirsPsr4 = array (
+        'Yoast\\WHIPv2\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/yoast/whip/src',
+        ),
         'Composer\\Installers\\' => 
         array (
             0 => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers',
@@ -123,6 +135,31 @@ class ComposerStaticInit638599fbdf87efb10b922f281acd7dd0
         'WPSEO_Validation_Result' => __DIR__ . '/../..' . '/classes/validation-result.php',
         'WPSEO_Validation_Warning' => __DIR__ . '/../..' . '/classes/validation-warning.php',
         'WPSEO_Watcher' => __DIR__ . '/../..' . '/classes/watcher.php',
+        'Yoast\\WHIPv2\\Configuration' => __DIR__ . '/..' . '/yoast/whip/src/Configuration.php',
+        'Yoast\\WHIPv2\\Exceptions\\EmptyProperty' => __DIR__ . '/..' . '/yoast/whip/src/Exceptions/EmptyProperty.php',
+        'Yoast\\WHIPv2\\Exceptions\\InvalidOperatorType' => __DIR__ . '/..' . '/yoast/whip/src/Exceptions/InvalidOperatorType.php',
+        'Yoast\\WHIPv2\\Exceptions\\InvalidType' => __DIR__ . '/..' . '/yoast/whip/src/Exceptions/InvalidType.php',
+        'Yoast\\WHIPv2\\Exceptions\\InvalidVersionComparisonString' => __DIR__ . '/..' . '/yoast/whip/src/Exceptions/InvalidVersionComparisonString.php',
+        'Yoast\\WHIPv2\\Host' => __DIR__ . '/..' . '/yoast/whip/src/Host.php',
+        'Yoast\\WHIPv2\\Interfaces\\DismissStorage' => __DIR__ . '/..' . '/yoast/whip/src/Interfaces/DismissStorage.php',
+        'Yoast\\WHIPv2\\Interfaces\\Listener' => __DIR__ . '/..' . '/yoast/whip/src/Interfaces/Listener.php',
+        'Yoast\\WHIPv2\\Interfaces\\Message' => __DIR__ . '/..' . '/yoast/whip/src/Interfaces/Message.php',
+        'Yoast\\WHIPv2\\Interfaces\\MessagePresenter' => __DIR__ . '/..' . '/yoast/whip/src/Interfaces/MessagePresenter.php',
+        'Yoast\\WHIPv2\\Interfaces\\Requirement' => __DIR__ . '/..' . '/yoast/whip/src/Interfaces/Requirement.php',
+        'Yoast\\WHIPv2\\Interfaces\\VersionDetector' => __DIR__ . '/..' . '/yoast/whip/src/Interfaces/VersionDetector.php',
+        'Yoast\\WHIPv2\\MessageDismisser' => __DIR__ . '/..' . '/yoast/whip/src/MessageDismisser.php',
+        'Yoast\\WHIPv2\\MessageFormatter' => __DIR__ . '/..' . '/yoast/whip/src/MessageFormatter.php',
+        'Yoast\\WHIPv2\\MessagesManager' => __DIR__ . '/..' . '/yoast/whip/src/MessagesManager.php',
+        'Yoast\\WHIPv2\\Messages\\BasicMessage' => __DIR__ . '/..' . '/yoast/whip/src/Messages/BasicMessage.php',
+        'Yoast\\WHIPv2\\Messages\\HostMessage' => __DIR__ . '/..' . '/yoast/whip/src/Messages/HostMessage.php',
+        'Yoast\\WHIPv2\\Messages\\InvalidVersionRequirementMessage' => __DIR__ . '/..' . '/yoast/whip/src/Messages/InvalidVersionRequirementMessage.php',
+        'Yoast\\WHIPv2\\Messages\\NullMessage' => __DIR__ . '/..' . '/yoast/whip/src/Messages/NullMessage.php',
+        'Yoast\\WHIPv2\\Messages\\UpgradePhpMessage' => __DIR__ . '/..' . '/yoast/whip/src/Messages/UpgradePhpMessage.php',
+        'Yoast\\WHIPv2\\Presenters\\WPMessagePresenter' => __DIR__ . '/..' . '/yoast/whip/src/Presenters/WPMessagePresenter.php',
+        'Yoast\\WHIPv2\\RequirementsChecker' => __DIR__ . '/..' . '/yoast/whip/src/RequirementsChecker.php',
+        'Yoast\\WHIPv2\\VersionRequirement' => __DIR__ . '/..' . '/yoast/whip/src/VersionRequirement.php',
+        'Yoast\\WHIPv2\\WPDismissOption' => __DIR__ . '/..' . '/yoast/whip/src/WPDismissOption.php',
+        'Yoast\\WHIPv2\\WPMessageDismissListener' => __DIR__ . '/..' . '/yoast/whip/src/WPMessageDismissListener.php',
         'Yoast\\WP\\SEO\\Config\\Migrations\\WpYoastPremiumImprovedInternalLinking' => __DIR__ . '/../..' . '/src/config/migrations/20190715101200_WpYoastPremiumImprovedInternalLinking.php',
         'Yoast\\WP\\SEO\\Integrations\\Blocks\\Block_Patterns' => __DIR__ . '/../..' . '/src/deprecated/integrations/blocks/block-patterns.php',
         'Yoast\\WP\\SEO\\Integrations\\Blocks\\Job_Posting_Block' => __DIR__ . '/../..' . '/src/deprecated/integrations/blocks/job-posting-block.php',
@@ -243,6 +280,8 @@ class ComposerStaticInit638599fbdf87efb10b922f281acd7dd0
         'Yoast\\WP\\SEO\\Premium\\Routes\\Workouts_Route' => __DIR__ . '/../..' . '/src/routes/workouts-route.php',
         'Yoast\\WP\\SEO\\Premium\\Routes\\Zapier_Route' => __DIR__ . '/../..' . '/src/deprecated/routes/zapier-route.php',
         'Yoast\\WP\\SEO\\Premium\\Surfaces\\Helpers_Surface' => __DIR__ . '/../..' . '/src/surfaces/helpers-surface.php',
+        'Yoast\\WP\\SEO\\Premium\\User_Meta\\Framework\\Additional_Contactmethods\\Mastodon' => __DIR__ . '/../..' . '/src/user-meta/framework/additional-contactmethods/mastodon.php',
+        'Yoast\\WP\\SEO\\Premium\\User_Meta\\User_Interface\\Additional_Contactmethods_Integration' => __DIR__ . '/../..' . '/src/user-meta/user-interface/additional-contactmethods-integration.php',
         'Yoast\\WP\\SEO\\Premium\\WordPress\\Wrapper' => __DIR__ . '/../..' . '/src/wordpress/wrapper.php',
         'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Block_Pattern' => __DIR__ . '/../..' . '/src/deprecated/schema-templates/block-patterns/block-pattern.php',
         'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Block_Pattern_Categories' => __DIR__ . '/../..' . '/src/deprecated/schema-templates/block-patterns/block-pattern-categories.php',
@@ -255,9 +294,9 @@ class ComposerStaticInit638599fbdf87efb10b922f281acd7dd0
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit638599fbdf87efb10b922f281acd7dd0::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit638599fbdf87efb10b922f281acd7dd0::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit638599fbdf87efb10b922f281acd7dd0::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit7886bdb0724000e600613aac1c17bbe7::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit7886bdb0724000e600613aac1c17bbe7::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit7886bdb0724000e600613aac1c17bbe7::$classMap;
 
         }, null, ClassLoader::class);
     }

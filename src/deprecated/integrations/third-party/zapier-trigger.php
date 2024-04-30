@@ -101,8 +101,9 @@ class Zapier_Trigger implements Integration_Interface {
 		if ( ! $this->zapier_helper->is_connected()
 			|| $indexable->object_type !== 'post'
 			|| $indexable->post_status !== 'publish'
-			|| \defined( 'REST_REQUEST' ) && \REST_REQUEST
-			|| $this->meta_helper->get_value( 'zapier_trigger_sent', $indexable->object_id ) === '1' ) {
+			|| ( \defined( 'REST_REQUEST' ) && \REST_REQUEST )
+			|| $this->meta_helper->get_value( 'zapier_trigger_sent', $indexable->object_id ) === '1'
+		) {
 			return;
 		}
 
@@ -111,7 +112,8 @@ class Zapier_Trigger implements Integration_Interface {
 		$published_datetime_gmt        = \strtotime( $post->post_date_gmt . ' +0000' );
 		$half_an_hour_ago_datetime_gmt = ( \time() - ( \MINUTE_IN_SECONDS * 30 ) );
 		if ( ! $this->zapier_helper->is_post_type_supported( $post->post_type )
-			|| $published_datetime_gmt < $half_an_hour_ago_datetime_gmt ) {
+			|| $published_datetime_gmt < $half_an_hour_ago_datetime_gmt
+		) {
 			return;
 		}
 
