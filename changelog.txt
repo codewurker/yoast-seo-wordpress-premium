@@ -1,7 +1,13 @@
 *** Yoast SEO premium Changelog ***
 
 
-2024-04-30 - version 22.6
-* add -  Improves performance on the users’ metadata for data specific to Yoast SEO Premium.
-* update -  Bumps the minimum required version of Yoast SEO to 22.6.
+2024-05-14 - version 22.7
+* add -  Adds more helpful error messages when the _AI title & description generator_ errors, for easier troubleshooting.
+* fix -  Fixes a bug where existing tags would not be saved when adding them to a post.
+* fix -  Fixes a bug where errors while saving a post would not contain the error explanation.
+* fix -  Fixes a bug where the _AI title & description generator_ would not work for variants of locales, like formal German. 
+* fix -  Fixes a bug where a fatal error would be thrown when using the _AI title & description generator_ but the request timed out.
+* update -  Bumps the minimum required version of Yoast SEO to 22.7.
+* update -  Sets the minimum supported WordPress version to 6.4.
+* update -  Bumps the minimum required version of Yoast SEO to 22.7.
 

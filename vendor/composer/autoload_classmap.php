@@ -170,6 +170,7 @@ return array(
     'Yoast\\WP\\SEO\\Premium\\Exceptions\\Remote_Request\\Service_Unavailable_Exception' => $baseDir . '/src/exceptions/remote-request/service-unavailable-exception.php',
     'Yoast\\WP\\SEO\\Premium\\Exceptions\\Remote_Request\\Too_Many_Requests_Exception' => $baseDir . '/src/exceptions/remote-request/too-many-requests-exception.php',
     'Yoast\\WP\\SEO\\Premium\\Exceptions\\Remote_Request\\Unauthorized_Exception' => $baseDir . '/src/exceptions/remote-request/unauthorized-exception.php',
+    'Yoast\\WP\\SEO\\Premium\\Exceptions\\Remote_Request\\WP_Request_Exception' => $baseDir . '/src/exceptions/remote-request/wp-request-exception.php',
     'Yoast\\WP\\SEO\\Premium\\Generated\\Cached_Container' => $baseDir . '/src/generated/container.php',
     'Yoast\\WP\\SEO\\Premium\\Helpers\\AI_Generator_Helper' => $baseDir . '/src/helpers/ai-generator-helper.php',
     'Yoast\\WP\\SEO\\Premium\\Helpers\\Current_Page_Helper' => $baseDir . '/src/helpers/current-page-helper.php',

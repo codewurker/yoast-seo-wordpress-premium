@@ -18,6 +18,7 @@ use Yoast\WP\SEO\Premium\Exceptions\Remote_Request\Request_Timeout_Exception;
 use Yoast\WP\SEO\Premium\Exceptions\Remote_Request\Service_Unavailable_Exception;
 use Yoast\WP\SEO\Premium\Exceptions\Remote_Request\Too_Many_Requests_Exception;
 use Yoast\WP\SEO\Premium\Exceptions\Remote_Request\Unauthorized_Exception;
+use Yoast\WP\SEO\Premium\Exceptions\Remote_Request\WP_Request_Exception;
 
 /**
  * Class AI_Generator_Helper
@@ -151,6 +152,25 @@ class AI_Generator_Helper {
 	}
 
 	/**
+	 * Gets the timeout of the suggestion requests in seconds.
+	 *
+	 * @return int The timeout of the suggestion requests in seconds.
+	 */
+	public function get_request_timeout() {
+		/**
+		 * Filter: 'Yoast\WP\SEO\ai_suggestions_timeout' - Replaces the default timeout with a custom one, for testing purposes.
+		 *
+		 * Note: This is a Premium plugin-only hook.
+		 *
+		 * @since 22.7
+		 * @internal
+		 *
+		 * @param int $timeout The default timeout in seconds.
+		 */
+		return \apply_filters( 'Yoast\WP\SEO\ai_suggestions_timeout', 30 );
+	}
+
+	/**
 	 * Gets the callback URL to be used by the API to send back the access token, refresh token and code challenge.
 	 *
 	 * @return string The callbacks URL.
@@ -186,13 +206,14 @@ class AI_Generator_Helper {
 	 * @throws Service_Unavailable_Exception When the response code is 503.
 	 * @throws Too_Many_Requests_Exception When the response code is 429.
 	 * @throws Unauthorized_Exception When the response code is 401.
+	 * @throws WP_Request_Exception When the wp_remote_post() returns an error.
 	 */
 	public function request( $action_path, $request_body = [], $request_headers = [] ) {
 		// Our API expects JSON.
 		// The request times out after 30 seconds.
 		$request_headers   = \array_merge( $request_headers, [ 'Content-Type' => 'application/json' ] );
 		$request_arguments = [
-			'timeout' => 30,
+			'timeout' => $this->get_request_timeout(),
 			// phpcs:ignore Yoast.Yoast.JsonEncodeAlternative.Found -- Reason: We don't want the debug/pretty possibility.
 			'body'    => \wp_json_encode( $request_body ),
 			'headers' => $request_headers,
@@ -213,7 +234,7 @@ class AI_Generator_Helper {
 
 		if ( \is_wp_error( $response ) ) {
 			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- false positive.
-			throw new Bad_Request_Exception( $response->get_error_message(), $response->get_error_code() );
+			throw new WP_Request_Exception( $response->get_error_message() );
 		}
 
 		[ $response_code, $response_message, $error_code, $missing_licenses ] = $this->parse_response( $response );

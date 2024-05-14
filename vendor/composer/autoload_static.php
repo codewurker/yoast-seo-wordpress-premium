@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit7886bdb0724000e600613aac1c17bbe7
+class ComposerStaticInit876ef0680321a287572b77c3e5dfa334
 {
     public static $files = array (
         '81db02b30f563b92907e271b66bd7559' => __DIR__ . '/..' . '/yoast/whip/src/Facades/wordpress.php',
@@ -197,6 +197,7 @@ class ComposerStaticInit7886bdb0724000e600613aac1c17bbe7
         'Yoast\\WP\\SEO\\Premium\\Exceptions\\Remote_Request\\Service_Unavailable_Exception' => __DIR__ . '/../..' . '/src/exceptions/remote-request/service-unavailable-exception.php',
         'Yoast\\WP\\SEO\\Premium\\Exceptions\\Remote_Request\\Too_Many_Requests_Exception' => __DIR__ . '/../..' . '/src/exceptions/remote-request/too-many-requests-exception.php',
         'Yoast\\WP\\SEO\\Premium\\Exceptions\\Remote_Request\\Unauthorized_Exception' => __DIR__ . '/../..' . '/src/exceptions/remote-request/unauthorized-exception.php',
+        'Yoast\\WP\\SEO\\Premium\\Exceptions\\Remote_Request\\WP_Request_Exception' => __DIR__ . '/../..' . '/src/exceptions/remote-request/wp-request-exception.php',
         'Yoast\\WP\\SEO\\Premium\\Generated\\Cached_Container' => __DIR__ . '/../..' . '/src/generated/container.php',
         'Yoast\\WP\\SEO\\Premium\\Helpers\\AI_Generator_Helper' => __DIR__ . '/../..' . '/src/helpers/ai-generator-helper.php',
         'Yoast\\WP\\SEO\\Premium\\Helpers\\Current_Page_Helper' => __DIR__ . '/../..' . '/src/helpers/current-page-helper.php',
@@ -294,9 +295,9 @@ class ComposerStaticInit7886bdb0724000e600613aac1c17bbe7
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit7886bdb0724000e600613aac1c17bbe7::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit7886bdb0724000e600613aac1c17bbe7::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit7886bdb0724000e600613aac1c17bbe7::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit876ef0680321a287572b77c3e5dfa334::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit876ef0680321a287572b77c3e5dfa334::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit876ef0680321a287572b77c3e5dfa334::$classMap;
 
         }, null, ClassLoader::class);
     }

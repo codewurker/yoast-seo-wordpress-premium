@@ -1,2 +1,2 @@
 === Yoast SEO Premium ===
-Stable tag: 22.6
+Stable tag: 22.7
