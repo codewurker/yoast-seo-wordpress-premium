@@ -73,12 +73,6 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 	protected function get_frontend_scripts( $version ) {
 		return [
 			[
-				'name'         => 'yoast-seo-premium-commons',
-				'path'         => 'assets/js/dist/',
-				'filename'     => 'commons-premium-' . $version . WPSEO_CSSJS_SUFFIX . '.js',
-				'dependencies' => [],
-			],
-			[
 				'name'         => 'yoast-seo-premium-frontend-inspector',
 				'path'         => 'assets/js/dist/',
 				'filename'     => 'frontend-inspector-' . $version . WPSEO_CSSJS_SUFFIX . '.js',
@@ -90,7 +84,6 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 					'wp-dom-ready',
 					'wp-element',
 					'wp-i18n',
-					'yoast-seo-premium-commons',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'frontend-inspector-resources',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'prop-types-package',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'style-guide',
@@ -113,12 +106,6 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 	protected function get_scripts( $version ) {
 		return [
 			[
-				'name'         => 'yoast-seo-premium-commons',
-				'path'         => 'assets/js/dist/',
-				'filename'     => 'commons-premium-' . $version . WPSEO_CSSJS_SUFFIX . '.js',
-				'dependencies' => [],
-			],
-			[
 				'name'         => 'yoast-seo-premium-metabox',
 				'path'         => 'assets/js/dist/',
 				'filename'     => 'wp-seo-premium-metabox-' . $version . WPSEO_CSSJS_SUFFIX . '.js',
@@ -133,7 +120,6 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 					'wp-element',
 					'wp-i18n',
 					'wp-util',
-					'yoast-seo-premium-commons',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'analysis',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'editor-modules',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'help-scout-beacon',
@@ -149,7 +135,6 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 				'filename'     => 'wp-seo-premium-draft-js-plugins-' . $version . WPSEO_CSSJS_SUFFIX . '.js',
 				'in_footer'    => true,
 				'dependencies' => [
-					'yoast-seo-premium-commons',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'search-metadata-previews',
 				],
 			],
@@ -169,7 +154,6 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 					'wp-dom-ready',
 					'wp-element',
 					'wp-i18n',
-					'yoast-seo-premium-commons',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'analysis',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'admin-modules',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'react-select',
@@ -218,7 +202,6 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 				'filename'     => 'wp-seo-premium-custom-fields-plugin-' . $version . WPSEO_CSSJS_SUFFIX . '.js',
 				'dependencies' => [
 					'jquery',
-					'yoast-seo-premium-commons',
 				],
 			],
 			[
@@ -229,7 +212,6 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 					'jquery',
 					'wp-api',
 					'wp-api-fetch',
-					'yoast-seo-premium-commons',
 				],
 			],
 			[
@@ -240,7 +222,6 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 					'jquery',
 					'wp-api',
 					'wp-api-fetch',
-					'yoast-seo-premium-commons',
 				],
 			],
 			[
@@ -292,7 +273,6 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 				'filename'     => 'yoast-premium-prominent-words-indexation-' . $version . WPSEO_CSSJS_SUFFIX . '.js',
 				'dependencies' => [
 					'regenerator-runtime',
-					'yoast-seo-premium-commons',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'analysis',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'editor-modules',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'indexation',
@@ -314,7 +294,6 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 					'wp-hooks',
 					'wp-i18n',
 					'wp-util',
-					'yoast-seo-premium-commons',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'analysis',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'editor-modules',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'help-scout-beacon',
@@ -339,7 +318,6 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 					'wp-element',
 					'wp-hooks',
 					'wp-i18n',
-					'yoast-seo-premium-commons',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'analysis',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'editor-modules',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'ui-library-package',
@@ -360,7 +338,6 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 					'wp-element',
 					'wp-hooks',
 					'wp-i18n',
-					'yoast-seo-premium-commons',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'ui-library-package',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'react-helmet-package',
 				],
@@ -379,7 +356,6 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 					'wp-element',
 					'wp-hooks',
 					'wp-i18n',
-					'yoast-seo-premium-commons',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'introductions',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'ui-library-package',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'react-helmet-package',
