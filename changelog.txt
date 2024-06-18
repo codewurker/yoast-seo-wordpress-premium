@@ -1,8 +1,9 @@
 *** Yoast SEO premium Changelog ***
 
 
-2024-05-28 - version 22.8
-* add -  Enhances the UI for the AI title and meta description generator.
-* fix -  Fixes an incompatibility issue with the Genesis Blocks plugin.
-* update -  Bumps the minimum required version of Yoast SEO to 22.8.
+2024-06-18 - version 22.9
+* add -  Converts the _Siblings_ and _Subpages_ blocks to the V3 API.
+* add -  Converts the _Siblings_ and _Subpages_ blocks to the V3 API.
+* fix -  Fixes a bug where a fatal error would occur when clicking `Click here to remove the redirect` after reverting the trashing of a post.
+* update -  Bumps the minimum required version of Yoast SEO to 22.9.
 
