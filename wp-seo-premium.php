@@ -10,7 +10,7 @@
  *
  * @wordpress-plugin
  * Plugin Name: Yoast SEO Premium
- * Version:     22.9
+ * Version:     23.0
  * Plugin URI:  https://yoa.st/2jc
  * Description: The first true all-in-one SEO solution for WordPress, including on-page content analysis, XML sitemaps and much more.
  * Author:      Team Yoast
@@ -20,10 +20,10 @@
  * License:     GPL v3
  * Requires at least: 6.4
  * Requires PHP: 7.2.5
- * Requires Yoast SEO: 22.9
+ * Requires Yoast SEO: 23.0
  *
  * WC requires at least: 7.1
- * WC tested up to: 8.9
+ * WC tested up to: 9.0
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -57,7 +57,7 @@ if ( ! defined( 'WPSEO_PREMIUM_BASENAME' ) ) {
  * {@internal Nobody should be able to overrule the real version number as this can cause
  *            serious issues with the options, so no if ( ! defined() ).}}
  */
-define( 'WPSEO_PREMIUM_VERSION', '22.9' );
+define( 'WPSEO_PREMIUM_VERSION', '23.0' );
 
 // Initialize Premium autoloader.
 $wpseo_premium_dir               = WPSEO_PREMIUM_PATH;
