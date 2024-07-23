@@ -186,7 +186,6 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 			'wpseoTOCData',
 			[
 				'data' => [
-					'TOCTitle'               => __( 'Table of contents', 'wordpress-seo-premium' ),
 					'disableTableOfContents' => $disable_table_of_content,
 				],
 			]

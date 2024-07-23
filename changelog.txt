@@ -1,8 +1,7 @@
 *** Yoast SEO premium Changelog ***
 
 
-2024-07-02 - version 23.0
-* add -  Converts the _Yoast Estimated reading time block_ to use the Blocks V3 API.
-* add -  Converts the _Yoast Related links_ block to use the Blocks V3 API and refactors it to an editable list of item blocks.
-* update -  Bumps the minimum required version of Yoast SEO to 23.0.
+2024-07-23 - version 23.1
+* add -  Converts the _Yoast Table of Contents_ block to use the Blocks V3 API.
+* update -  Sets the _WordPress tested up to_ version to 6.6.
 
