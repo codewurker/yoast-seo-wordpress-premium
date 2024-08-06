@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitcf6a5cfb3b299b3b786eda45b25aa3d0
+class ComposerStaticInit40ef7295d651b15eb7e51448483c5f89
 {
     public static $files = array (
         '81db02b30f563b92907e271b66bd7559' => __DIR__ . '/..' . '/yoast/whip/src/Facades/wordpress.php',
@@ -52,6 +52,7 @@ class ComposerStaticInitcf6a5cfb3b299b3b786eda45b25aa3d0
         'WPSEO_Export_Keywords_Query' => __DIR__ . '/../..' . '/classes/export/export-keywords-query-interface.php',
         'WPSEO_Export_Keywords_Term_Presenter' => __DIR__ . '/../..' . '/classes/export/export-keywords-term-presenter.php',
         'WPSEO_Export_Keywords_Term_Query' => __DIR__ . '/../..' . '/classes/export/export-keywords-term-query.php',
+        'WPSEO_HTML_Diff_Renderer' => __DIR__ . '/../..' . '/classes/html-diff-renderer.php',
         'WPSEO_Metabox_Link_Suggestions' => __DIR__ . '/../..' . '/classes/metabox-link-suggestions.php',
         'WPSEO_Multi_Keyword' => __DIR__ . '/../..' . '/classes/multi-keyword.php',
         'WPSEO_Post_Watcher' => __DIR__ . '/../..' . '/classes/post-watcher.php',
@@ -165,6 +166,12 @@ class ComposerStaticInitcf6a5cfb3b299b3b786eda45b25aa3d0
         'Yoast\\WP\\SEO\\Integrations\\Third_Party\\TranslationsPress' => __DIR__ . '/../..' . '/src/integrations/third-party/translationspress.php',
         'Yoast\\WP\\SEO\\Integrations\\Third_Party\\Wincher_Keyphrases' => __DIR__ . '/../..' . '/src/integrations/third-party/wincher-keyphrases.php',
         'Yoast\\WP\\SEO\\Models\\Prominent_Words' => __DIR__ . '/../..' . '/src/models/prominent-words.php',
+        'Yoast\\WP\\SEO\\Premium\\AI_Suggestions_Postprocessor\\Application\\AI_Suggestions_Serializer' => __DIR__ . '/../..' . '/src/ai-suggestions-postprocessor/application/ai-suggestions-serializer.php',
+        'Yoast\\WP\\SEO\\Premium\\AI_Suggestions_Postprocessor\\Application\\AI_Suggestions_Unifier' => __DIR__ . '/../..' . '/src/ai-suggestions-postprocessor/application/ai-suggestions-unifier.php',
+        'Yoast\\WP\\SEO\\Premium\\AI_Suggestions_Postprocessor\\Application\\Sentence_Processor' => __DIR__ . '/../..' . '/src/ai-suggestions-postprocessor/application/sentence-processor.php',
+        'Yoast\\WP\\SEO\\Premium\\AI_Suggestions_Postprocessor\\Application\\Suggestion_Processor' => __DIR__ . '/../..' . '/src/ai-suggestions-postprocessor/application/suggestion-processor.php',
+        'Yoast\\WP\\SEO\\Premium\\AI_Suggestions_Postprocessor\\Domain\\Suggestion' => __DIR__ . '/../..' . '/src/ai-suggestions-postprocessor/domain/suggestion.php',
+        'Yoast\\WP\\SEO\\Premium\\AI_Suggestions_Postprocessor\\Domain\\Suggestion_Interface' => __DIR__ . '/../..' . '/src/ai-suggestions-postprocessor/domain/suggestion-interface.php',
         'Yoast\\WP\\SEO\\Premium\\Actions\\AI_Generator_Action' => __DIR__ . '/../..' . '/src/actions/ai-generator-action.php',
         'Yoast\\WP\\SEO\\Premium\\Actions\\Link_Suggestions_Action' => __DIR__ . '/../..' . '/src/actions/link-suggestions-action.php',
         'Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Complete_Action' => __DIR__ . '/../..' . '/src/actions/prominent-words/complete-action.php',
@@ -180,6 +187,8 @@ class ComposerStaticInitcf6a5cfb3b299b3b786eda45b25aa3d0
         'Yoast\\WP\\SEO\\Premium\\Conditionals\\Yoast_Admin_Or_Introductions_Route_Conditional' => __DIR__ . '/../..' . '/src/conditionals/yoast-admin-or-introductions-route-conditional.php',
         'Yoast\\WP\\SEO\\Premium\\Config\\Badge_Group_Names' => __DIR__ . '/../..' . '/src/config/badge-group-names.php',
         'Yoast\\WP\\SEO\\Premium\\Config\\Migrations\\AddIndexOnIndexableIdAndStem' => __DIR__ . '/../..' . '/src/config/migrations/20210827093024_AddIndexOnIndexableIdAndStem.php',
+        'Yoast\\WP\\SEO\\Premium\\DOM_Manager\\Application\\DOM_Parser' => __DIR__ . '/../..' . '/src/dom-manager/application/dom-parser.php',
+        'Yoast\\WP\\SEO\\Premium\\DOM_Manager\\Application\\Node_Processor' => __DIR__ . '/../..' . '/src/dom-manager/application/node-processor.php',
         'Yoast\\WP\\SEO\\Premium\\Database\\Migration_Runner_Premium' => __DIR__ . '/../..' . '/src/database/migration-runner-premium.php',
         'Yoast\\WP\\SEO\\Premium\\Exceptions\\Forbidden_Property_Mutation_Exception' => __DIR__ . '/../..' . '/src/exceptions/forbidden-property-mutation-exception.php',
         'Yoast\\WP\\SEO\\Premium\\Exceptions\\Remote_Request\\Bad_Request_Exception' => __DIR__ . '/../..' . '/src/exceptions/remote-request/bad-request-exception.php',
@@ -206,6 +215,7 @@ class ComposerStaticInitcf6a5cfb3b299b3b786eda45b25aa3d0
         'Yoast\\WP\\SEO\\Premium\\Initializers\\Wp_Cli_Initializer' => __DIR__ . '/../..' . '/src/initializers/wp-cli-initializer.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Abstract_OpenGraph_Integration' => __DIR__ . '/../..' . '/src/integrations/abstract-opengraph-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Ai_Consent_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/ai-consent-integration.php',
+        'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Ai_Fix_Assessments_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/ai-fix-assessments-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Ai_Generator_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/ai-generator-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Cornerstone_Column_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/cornerstone-column-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Cornerstone_Taxonomy_Column_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/cornerstone-taxonomy-column-integration.php',
@@ -250,7 +260,8 @@ class ComposerStaticInitcf6a5cfb3b299b3b786eda45b25aa3d0
         'Yoast\\WP\\SEO\\Premium\\Integrations\\User_Profile_Integration' => __DIR__ . '/../..' . '/src/integrations/user-profile-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Watchers\\Prominent_Words_Watcher' => __DIR__ . '/../..' . '/src/integrations/watchers/prominent-words-watcher.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Watchers\\Stale_Cornerstone_Content_Watcher' => __DIR__ . '/../..' . '/src/integrations/watchers/stale-cornerstone-content-watcher.php',
-        'Yoast\\WP\\SEO\\Premium\\Introductions\\Application\\Ai_Generate_Titles_And_Descriptions_Introduction' => __DIR__ . '/../..' . '/src/introductions/application/ai-generate-titles-and-descriptions-introduction.php',
+        'Yoast\\WP\\SEO\\Premium\\Introductions\\Application\\Ai_Fix_Assessments_Introduction' => __DIR__ . '/../..' . '/src/introductions/application/ai-fix-assessments-introduction.php',
+        'Yoast\\WP\\SEO\\Premium\\Introductions\\Application\\Ai_Generate_Titles_And_Descriptions_Introduction' => __DIR__ . '/../..' . '/src/deprecated/introductions/application/ai-generate-titles-and-descriptions-introduction.php',
         'Yoast\\WP\\SEO\\Premium\\Main' => __DIR__ . '/../..' . '/src/main.php',
         'Yoast\\WP\\SEO\\Premium\\Presenters\\Icons\\Checkmark_Icon_Presenter' => __DIR__ . '/../..' . '/src/presenters/icons/checkmark-icon-presenter.php',
         'Yoast\\WP\\SEO\\Premium\\Presenters\\Icons\\Cross_Icon_Presenter' => __DIR__ . '/../..' . '/src/presenters/icons/cross-icon-presenter.php',
@@ -269,9 +280,9 @@ class ComposerStaticInitcf6a5cfb3b299b3b786eda45b25aa3d0
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitcf6a5cfb3b299b3b786eda45b25aa3d0::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitcf6a5cfb3b299b3b786eda45b25aa3d0::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitcf6a5cfb3b299b3b786eda45b25aa3d0::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit40ef7295d651b15eb7e51448483c5f89::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit40ef7295d651b15eb7e51448483c5f89::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit40ef7295d651b15eb7e51448483c5f89::$classMap;
 
         }, null, ClassLoader::class);
     }

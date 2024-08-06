@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore Yoast.Files.FileName.InvalidClassFileName -- Reason: this is an old premium file.
 /**
  * WPSEO Premium plugin file.
  *
@@ -68,7 +68,7 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 	 *
 	 * @param string $version Current version number.
 	 *
-	 * @return array The scripts.
+	 * @return array<array<string|array>> The scripts.
 	 */
 	protected function get_frontend_scripts( $version ) {
 		return [
@@ -101,7 +101,7 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 	 *
 	 * @param string $version Current version number.
 	 *
-	 * @return array The scripts.
+	 * @return array<array<string|array>> The scripts.
 	 */
 	protected function get_scripts( $version ) {
 		return [
@@ -325,6 +325,26 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 				],
 			],
 			[
+				'name'         => 'wp-seo-premium-ai-fix-assessments',
+				'path'         => 'assets/js/dist/',
+				'filename'     => 'ai-fix-assessments-' . $version . WPSEO_CSSJS_SUFFIX . '.js',
+				'dependencies' => [
+					'lodash',
+					'regenerator-runtime',
+					'wp-api-fetch',
+					'wp-components',
+					'wp-data',
+					'wp-dom-ready',
+					'wp-element',
+					'wp-hooks',
+					'wp-i18n',
+					WPSEO_Admin_Asset_Manager::PREFIX . 'analysis',
+					WPSEO_Admin_Asset_Manager::PREFIX . 'editor-modules',
+					WPSEO_Admin_Asset_Manager::PREFIX . 'ui-library-package',
+					WPSEO_Admin_Asset_Manager::PREFIX . 'react-helmet-package',
+				],
+			],
+			[
 				'name'         => 'wp-seo-premium-manage-ai-consent-button',
 				'path'         => 'assets/js/dist/',
 				'filename'     => 'manage-ai-consent-button-' . $version . WPSEO_CSSJS_SUFFIX . '.js',
@@ -371,7 +391,7 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 	 *
 	 * @param string $version Current version number.
 	 *
-	 * @return array The styles.
+	 * @return array<array<string|array>> The styles.
 	 */
 	protected function get_styles( $version ) {
 		$rtl_suffix = ( is_rtl() ) ? '-rtl' : '';
@@ -429,6 +449,14 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 					WPSEO_Admin_Asset_Manager::PREFIX . 'monorepo',
 				],
 			],
+			[
+				'name'         => WPSEO_Admin_Asset_Manager::PREFIX . 'premium-ai-fix-assessments',
+				'source'       => 'assets/css/dist/premium-ai-fix-assessments-' . $version . $rtl_suffix . '.css',
+				'dependencies' => [
+					WPSEO_Admin_Asset_Manager::PREFIX . 'premium-tailwind',
+					WPSEO_Admin_Asset_Manager::PREFIX . 'monorepo',
+				],
+			],
 		];
 	}
 
@@ -437,7 +465,7 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 	 *
 	 * @codeCoverageIgnore Method calls a WordPress function.
 	 *
-	 * @param array $script The script to register.
+	 * @param array<string|array> $script The script to register.
 	 *
 	 * @return void
 	 */
@@ -464,7 +492,7 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 	 *
 	 * @codeCoverageIgnore Method calls a WordPress function.
 	 *
-	 * @param array $style The style to register.
+	 * @param array<string|array> $style The style to register.
 	 *
 	 * @return void
 	 */

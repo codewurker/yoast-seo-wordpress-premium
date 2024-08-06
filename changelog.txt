@@ -1,7 +1,9 @@
 *** Yoast SEO premium Changelog ***
 
 
-2024-07-23 - version 23.1
-* add -  Converts the _Yoast Table of Contents_ block to use the Blocks V3 API.
-* update -  Sets the _WordPress tested up to_ version to 6.6.
+2024-08-06 - version 23.2
+* add -  Introduces the _AI Optimize_ feature! 
+* add -  Improves the user experience for Yoast AI Generate by checking if the user has an active subscription before asking for consent.
+* update -  Deprecates the `Ai_Generate_Titles_And_Descriptions_Introduction` class.
+* update -  Bumps the minimum required version of Yoast SEO to 23.2.
 

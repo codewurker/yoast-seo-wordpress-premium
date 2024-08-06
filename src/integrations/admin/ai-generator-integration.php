@@ -11,7 +11,7 @@ use Yoast\WP\SEO\Introductions\Infrastructure\Introductions_Seen_Repository;
 use Yoast\WP\SEO\Premium\Conditionals\Ai_Editor_Conditional;
 use Yoast\WP\SEO\Premium\Helpers\AI_Generator_Helper;
 use Yoast\WP\SEO\Premium\Helpers\Current_Page_Helper;
-use Yoast\WP\SEO\Premium\Introductions\Application\Ai_Generate_Titles_And_Descriptions_Introduction;
+use Yoast\WP\SEO\Premium\Introductions\Application\Ai_Fix_Assessments_Introduction;
 
 /**
  * Ai_Generator_Integration class.
@@ -150,7 +150,7 @@ class Ai_Generator_Integration implements Integration_Interface {
 				'adminUrl'             => \admin_url( 'admin.php' ),
 				'hasConsent'           => $this->user_helper->get_meta( $user_id, '_yoast_wpseo_ai_consent', true ),
 				'productSubscriptions' => $this->get_product_subscriptions(),
-				'hasSeenIntroduction'  => $this->introductions_seen_repository->is_introduction_seen( $user_id, Ai_Generate_Titles_And_Descriptions_Introduction::ID ),
+				'hasSeenIntroduction'  => $this->introductions_seen_repository->is_introduction_seen( $user_id, Ai_Fix_Assessments_Introduction::ID ),
 				'pluginUrl'            => \plugins_url( '', \WPSEO_PREMIUM_FILE ),
 				'postType'             => $this->get_post_type(),
 				'contentType'          => $this->get_content_type(),
