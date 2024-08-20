@@ -23,7 +23,7 @@ class Addon_Installer {
 	/**
 	 * The minimum Yoast SEO version required.
 	 */
-	public const MINIMUM_YOAST_SEO_VERSION = '23.2';
+	public const MINIMUM_YOAST_SEO_VERSION = '23.3';
 
 	/**
 	 * The base directory for the installer.

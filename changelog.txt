@@ -1,9 +1,8 @@
 *** Yoast SEO premium Changelog ***
 
 
-2024-08-06 - version 23.2
-* add -  Introduces the _AI Optimize_ feature! 
-* add -  Improves the user experience for Yoast AI Generate by checking if the user has an active subscription before asking for consent.
-* update -  Deprecates the `Ai_Generate_Titles_And_Descriptions_Introduction` class.
-* update -  Bumps the minimum required version of Yoast SEO to 23.2.
+2024-08-20 - version 23.3
+* add -  Adds automatic scroll in AI Optimize when the first suggestion is out of view.
+* add -  Ensures that AI suggestions don't include unnecessary quotes.
+* update -  Bumps the minimum required version of Yoast SEO to 23.3.
 
