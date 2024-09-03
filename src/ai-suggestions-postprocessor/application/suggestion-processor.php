@@ -201,13 +201,15 @@ class Suggestion_Processor {
 	/**
 	 * Get the Yoast diff nodes from the DOM
 	 *
-	 * @param DOMDocument $dom The DOM to get the diff nodes from.
+	 * @param DOMDocument $dom       The DOM to get the diff nodes from.
+	 * @param string|null $node_type The type of node to get.
 	 *
 	 * @return DOMNodeList The diff nodes
 	 */
-	public function get_diff_nodes( DOMDocument $dom ): DOMNodeList {
+	public function get_diff_nodes( DOMDocument $dom, ?string $node_type = null ): DOMNodeList {
 		$xpath            = new DOMXPath( $dom );
-		$diff_nodes_query = \sprintf( "//*[local-name()='ins' or local-name()='del'][contains(concat(' ', normalize-space(@class), ' '), '%s')]", self::YST_DIFF_CLASS );
+		$local_name_query = \is_null( $node_type ) ? '//*[local-name()="ins" or local-name()="del"]' : \sprintf( "//*[local-name()='%s']", $node_type );
+		$diff_nodes_query = \sprintf( "%s[contains(concat(' ', normalize-space(@class), ' '), '%s')]", $local_name_query, self::YST_DIFF_CLASS );
 		return $xpath->query( $diff_nodes_query );
 	}
 
@@ -285,7 +287,7 @@ class Suggestion_Processor {
 	public function unify_suggestion( DOMDocument $dom ): void {
 		$diff_nodes = $this->get_diff_nodes( $dom );
 
-		foreach ( \iterator_to_array( $diff_nodes ) as $diff_node ) {
+		foreach ( $diff_nodes as $diff_node ) {
 			// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 			$next_sibling = $diff_node->nextSibling;
 			if ( \is_null( $next_sibling ) ) {
@@ -296,6 +298,60 @@ class Suggestion_Processor {
 				$text_diff_node          = $dom->createTextNode( $encoded_diff_node_value );
 				$next_sibling->insertBefore( $text_diff_node, $next_sibling->firstChild );
 				( $diff_node->parentNode )->removeChild( $diff_node );
+			}
+			// phpcs:enable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+		}
+	}
+
+	/**
+	 * Takes care of the cases when an ins node starts with a full stop.
+	 *
+	 * @param DOMDocument $dom The DOM to fix the leading full stop in.
+	 *
+	 * @return void
+	 */
+	public function fix_leading_full_stop( DOMDocument $dom ): void {
+		$ins_nodes = $this->get_diff_nodes( $dom, 'ins' );
+
+		foreach ( $ins_nodes as $ins_node ) {
+			// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			// Check if the diff node starts with a dot and a space.
+			if ( \strpos( $ins_node->nodeValue, '. ' ) === 0 ) {
+				// A next sibling needs to exist for the next check.
+				$next_sibling = $ins_node->nextSibling;
+
+				if ( \is_null( $next_sibling ) ) {
+					continue;
+				}
+
+				// The previous sibling should exist because we need to append the full stop to it.
+				$previous_sibling = $ins_node->previousSibling;
+
+				if ( \is_null( $previous_sibling ) ) {
+					continue;
+				}
+
+				// The next sibling should start with a full stop.
+				if ( \strpos( $next_sibling->nodeValue, '.' ) !== 0 ) {
+					continue;
+				}
+
+				// If the next sibling is a single full stop character, we remove the node, remove the full stop
+				// at the beginning of the ins node and append the full stop  to the previous sibling.
+				if ( \strlen( $next_sibling->nodeValue ) === 1 ) {
+					( $next_sibling->parentNode )->removeChild( $next_sibling );
+					$ins_node->nodeValue         = \substr( $ins_node->nodeValue, 2 ) . '.';
+					$previous_sibling->nodeValue = $previous_sibling->nodeValue . '. ';
+					continue;
+				}
+
+				// If the next sibling is a full stop followed by characters, we remove the full stop and space from it,
+				// add it at the beginning of the ins node and append the full stop  to the previous sibling.
+				if ( \strpos( $next_sibling->nodeValue, '. ' ) === 0 ) {
+					$next_sibling->nodeValue     = \substr( $next_sibling->nodeValue, 1 );
+					$ins_node->nodeValue         = \substr( $ins_node->nodeValue, 2 ) . '.';
+					$previous_sibling->nodeValue = $previous_sibling->nodeValue . '. ';
+				}
 			}
 			// phpcs:enable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		}

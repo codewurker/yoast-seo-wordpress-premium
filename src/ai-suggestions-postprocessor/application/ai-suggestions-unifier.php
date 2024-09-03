@@ -142,6 +142,8 @@ class AI_Suggestions_Unifier {
 
 		$this->suggestion_processor->unify_suggestion( $dom );
 
+		$this->suggestion_processor->fix_leading_full_stop( $dom );
+
 		return $this->serializer->serialize( $dom );
 	}
 }
