@@ -1,7 +1,8 @@
 *** Yoast SEO premium Changelog ***
 
 
-2024-10-08 - version 23.6
-* update -  Sets the minimum supported WordPress version to 6.5.
-* update -  Bumps the minimum required version of Yoast SEO to 23.6.
+2024-10-22 - version 23.7
+* add -  Introducing a new feature: AI SEO title and meta description generation for WooCommerce product categories and tags! To unlock this SEO magic, make sure you have both Yoast SEO Premium and Yoast WooCommerce SEO installed.
+* fix -  Fixes a bug where the _Table of Contents_ block title would not be translated when it was added to a page.
+* update -  Bumbs the minimum required version of Yoast SEO to 23.7
 

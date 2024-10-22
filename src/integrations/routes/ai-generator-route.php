@@ -181,6 +181,8 @@ class AI_Generator_Route implements Route_Interface {
 							'meta-description',
 							'product-seo-title',
 							'product-meta-description',
+							'product-taxonomy-seo-title',
+							'product-taxonomy-meta-description',
 							'taxonomy-seo-title',
 							'taxonomy-meta-description',
 						],
