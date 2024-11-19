@@ -127,6 +127,7 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 					WPSEO_Admin_Asset_Manager::PREFIX . 'social-metadata-forms',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'social-metadata-previews-package',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'yoast-components',
+					WPSEO_Admin_Asset_Manager::PREFIX . 'related-keyphrase-suggestions-package',
 				],
 			],
 			[
@@ -301,6 +302,7 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 					WPSEO_Admin_Asset_Manager::PREFIX . 'social-metadata-forms',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'social-metadata-previews-package',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'yoast-components',
+					WPSEO_Admin_Asset_Manager::PREFIX . 'related-keyphrase-suggestions-package',
 				],
 				'footer'       => true,
 			],
