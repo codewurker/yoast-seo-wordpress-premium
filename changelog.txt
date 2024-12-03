@@ -1,10 +1,9 @@
 *** Yoast SEO premium Changelog ***
 
 
-2024-11-19 - version 23.9
-* add -  Improves the compatibility of the Yoast blocks with WordPress 6.7.
-* add -  Implement new design for the button for related keyphrase suggestions.
-* fix -  Fixes a bug where the highlighting marker button would be incorrectly enabled when switching the editor mode from code to visual, while the AI Optimize toast notification was still visible.
-* update -  Stops PHP notices about `_load_textdomain_just_in_time` loading incorrectly, on WP 6.7.
-* update -  Bumps the minimum required version of Yoast SEO to 23.9.
+2024-12-03 - version 24.0
+* fix -  Fixes a bug where the inclusive language filter would be displayed on the WooCommerce orders overview page.
+* fix -  Fixes a bug where AI Optimize suggestions would not be styled correctly in WordPress 6.7. 
+* fix -  Fixes a bug where AI Optimize suggestions would not be styled correctly in tablet or mobile mode.
+* update -  Bumps the minimum required version of Yoast SEO to 24.0.
 

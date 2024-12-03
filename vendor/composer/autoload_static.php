@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit93748c71e9ddf770f116698911bc48a6
+class ComposerStaticInit6a43b6a1ac3f882181ed31681d3f01f4
 {
     public static $files = array (
         '81db02b30f563b92907e271b66bd7559' => __DIR__ . '/..' . '/yoast/whip/src/Facades/wordpress.php',
@@ -183,6 +183,7 @@ class ComposerStaticInit93748c71e9ddf770f116698911bc48a6
         'Yoast\\WP\\SEO\\Premium\\Conditionals\\Cornerstone_Enabled_Conditional' => __DIR__ . '/../..' . '/src/conditionals/cornerstone-enabled-conditional.php',
         'Yoast\\WP\\SEO\\Premium\\Conditionals\\EDD_Conditional' => __DIR__ . '/../..' . '/src/conditionals/edd-conditional.php',
         'Yoast\\WP\\SEO\\Premium\\Conditionals\\Inclusive_Language_Enabled_Conditional' => __DIR__ . '/../..' . '/src/conditionals/inclusive-language-enabled-conditional.php',
+        'Yoast\\WP\\SEO\\Premium\\Conditionals\\Not_Woo_Order_Conditional' => __DIR__ . '/../..' . '/src/conditionals/not-woo-order-conditional.php',
         'Yoast\\WP\\SEO\\Premium\\Conditionals\\Term_Overview_Or_Ajax_Conditional' => __DIR__ . '/../..' . '/src/conditionals/term-overview-or-ajax-conditional.php',
         'Yoast\\WP\\SEO\\Premium\\Conditionals\\Yoast_Admin_Or_Introductions_Route_Conditional' => __DIR__ . '/../..' . '/src/conditionals/yoast-admin-or-introductions-route-conditional.php',
         'Yoast\\WP\\SEO\\Premium\\Config\\Badge_Group_Names' => __DIR__ . '/../..' . '/src/config/badge-group-names.php',
@@ -280,9 +281,9 @@ class ComposerStaticInit93748c71e9ddf770f116698911bc48a6
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit93748c71e9ddf770f116698911bc48a6::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit93748c71e9ddf770f116698911bc48a6::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit93748c71e9ddf770f116698911bc48a6::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit6a43b6a1ac3f882181ed31681d3f01f4::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit6a43b6a1ac3f882181ed31681d3f01f4::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit6a43b6a1ac3f882181ed31681d3f01f4::$classMap;
 
         }, null, ClassLoader::class);
     }

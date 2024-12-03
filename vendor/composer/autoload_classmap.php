@@ -156,6 +156,7 @@ return array(
     'Yoast\\WP\\SEO\\Premium\\Conditionals\\Cornerstone_Enabled_Conditional' => $baseDir . '/src/conditionals/cornerstone-enabled-conditional.php',
     'Yoast\\WP\\SEO\\Premium\\Conditionals\\EDD_Conditional' => $baseDir . '/src/conditionals/edd-conditional.php',
     'Yoast\\WP\\SEO\\Premium\\Conditionals\\Inclusive_Language_Enabled_Conditional' => $baseDir . '/src/conditionals/inclusive-language-enabled-conditional.php',
+    'Yoast\\WP\\SEO\\Premium\\Conditionals\\Not_Woo_Order_Conditional' => $baseDir . '/src/conditionals/not-woo-order-conditional.php',
     'Yoast\\WP\\SEO\\Premium\\Conditionals\\Term_Overview_Or_Ajax_Conditional' => $baseDir . '/src/conditionals/term-overview-or-ajax-conditional.php',
     'Yoast\\WP\\SEO\\Premium\\Conditionals\\Yoast_Admin_Or_Introductions_Route_Conditional' => $baseDir . '/src/conditionals/yoast-admin-or-introductions-route-conditional.php',
     'Yoast\\WP\\SEO\\Premium\\Config\\Badge_Group_Names' => $baseDir . '/src/config/badge-group-names.php',

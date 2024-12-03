@@ -87,6 +87,7 @@ class Cached_Container extends Container
             'yoast\\wp\\seo\\premium\\conditionals\\cornerstone_enabled_conditional' => 'Yoast\\WP\\SEO\\Premium\\Conditionals\\Cornerstone_Enabled_Conditional',
             'yoast\\wp\\seo\\premium\\conditionals\\edd_conditional' => 'Yoast\\WP\\SEO\\Premium\\Conditionals\\EDD_Conditional',
             'yoast\\wp\\seo\\premium\\conditionals\\inclusive_language_enabled_conditional' => 'Yoast\\WP\\SEO\\Premium\\Conditionals\\Inclusive_Language_Enabled_Conditional',
+            'yoast\\wp\\seo\\premium\\conditionals\\not_woo_order_conditional' => 'Yoast\\WP\\SEO\\Premium\\Conditionals\\Not_Woo_Order_Conditional',
             'yoast\\wp\\seo\\premium\\conditionals\\term_overview_or_ajax_conditional' => 'Yoast\\WP\\SEO\\Premium\\Conditionals\\Term_Overview_Or_Ajax_Conditional',
             'yoast\\wp\\seo\\premium\\conditionals\\yoast_admin_or_introductions_route_conditional' => 'Yoast\\WP\\SEO\\Premium\\Conditionals\\Yoast_Admin_Or_Introductions_Route_Conditional',
             'yoast\\wp\\seo\\premium\\config\\badge_group_names' => 'Yoast\\WP\\SEO\\Premium\\Config\\Badge_Group_Names',
@@ -232,6 +233,7 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Premium\\Conditionals\\Cornerstone_Enabled_Conditional' => 'getCornerstoneEnabledConditionalService',
             'Yoast\\WP\\SEO\\Premium\\Conditionals\\EDD_Conditional' => 'getEDDConditionalService',
             'Yoast\\WP\\SEO\\Premium\\Conditionals\\Inclusive_Language_Enabled_Conditional' => 'getInclusiveLanguageEnabledConditionalService',
+            'Yoast\\WP\\SEO\\Premium\\Conditionals\\Not_Woo_Order_Conditional' => 'getNotWooOrderConditionalService',
             'Yoast\\WP\\SEO\\Premium\\Conditionals\\Term_Overview_Or_Ajax_Conditional' => 'getTermOverviewOrAjaxConditionalService',
             'Yoast\\WP\\SEO\\Premium\\Conditionals\\Yoast_Admin_Or_Introductions_Route_Conditional' => 'getYoastAdminOrIntroductionsRouteConditionalService',
             'Yoast\\WP\\SEO\\Premium\\Config\\Badge_Group_Names' => 'getBadgeGroupNamesService',
@@ -1025,6 +1027,16 @@ class Cached_Container extends Container
     protected function getInclusiveLanguageEnabledConditionalService()
     {
         return $this->services['Yoast\\WP\\SEO\\Premium\\Conditionals\\Inclusive_Language_Enabled_Conditional'] = new \Yoast\WP\SEO\Premium\Conditionals\Inclusive_Language_Enabled_Conditional();
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Conditionals\Not_Woo_Order_Conditional' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Conditionals\Not_Woo_Order_Conditional
+     */
+    protected function getNotWooOrderConditionalService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Conditionals\\Not_Woo_Order_Conditional'] = new \Yoast\WP\SEO\Premium\Conditionals\Not_Woo_Order_Conditional();
     }
 
     /**
