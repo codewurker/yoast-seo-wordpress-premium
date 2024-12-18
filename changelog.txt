@@ -1,9 +1,7 @@
 *** Yoast SEO premium Changelog ***
 
 
-2024-12-03 - version 24.0
-* fix -  Fixes a bug where the inclusive language filter would be displayed on the WooCommerce orders overview page.
-* fix -  Fixes a bug where AI Optimize suggestions would not be styled correctly in WordPress 6.7. 
-* fix -  Fixes a bug where AI Optimize suggestions would not be styled correctly in tablet or mobile mode.
-* update -  Bumps the minimum required version of Yoast SEO to 24.0.
+2024-12-18 - version 24.1
+* fix -  Fixes a bug where the Yoast AI usage counter would only be displayed after a delay.
+* update -  Bumps the minimum required version of Yoast SEO to 24.1.
 
