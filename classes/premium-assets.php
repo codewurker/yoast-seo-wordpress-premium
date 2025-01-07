@@ -459,6 +459,11 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 					WPSEO_Admin_Asset_Manager::PREFIX . 'monorepo',
 				],
 			],
+			[
+				'name'         => WPSEO_Admin_Asset_Manager::PREFIX . 'premium-block-editor',
+				'source'       => 'assets/css/dist/premium-block-editor-' . $version . $rtl_suffix . '.css',
+				'dependencies' => [],
+			],
 		];
 	}
 

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitf82072f1f0ebcd1562caedb68be83ef3
+class ComposerStaticInita9521e4618fd35e950c62bccb4a9f8ba
 {
     public static $files = array (
         '81db02b30f563b92907e271b66bd7559' => __DIR__ . '/..' . '/yoast/whip/src/Facades/wordpress.php',
@@ -236,6 +236,7 @@ class ComposerStaticInitf82072f1f0ebcd1562caedb68be83ef3
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\User_Profile_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/user-profile-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Workouts_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/workouts-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Alerts\\Ai_Generator_Tip_Notification' => __DIR__ . '/../..' . '/src/integrations/alerts/ai-generator-tip-notification.php',
+        'Yoast\\WP\\SEO\\Premium\\Integrations\\Blocks\\Block_Editor_Integration' => __DIR__ . '/../..' . '/src/integrations/blocks/block-editor-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Blocks\\Estimated_Reading_Time_Block' => __DIR__ . '/../..' . '/src/integrations/blocks/estimated-reading-time-block.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Blocks\\Related_Links_Block' => __DIR__ . '/../..' . '/src/integrations/blocks/related-links-block.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Cleanup_Integration' => __DIR__ . '/../..' . '/src/integrations/cleanup-integration.php',
@@ -281,9 +282,9 @@ class ComposerStaticInitf82072f1f0ebcd1562caedb68be83ef3
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitf82072f1f0ebcd1562caedb68be83ef3::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitf82072f1f0ebcd1562caedb68be83ef3::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitf82072f1f0ebcd1562caedb68be83ef3::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInita9521e4618fd35e950c62bccb4a9f8ba::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInita9521e4618fd35e950c62bccb4a9f8ba::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInita9521e4618fd35e950c62bccb4a9f8ba::$classMap;
 
         }, null, ClassLoader::class);
     }

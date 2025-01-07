@@ -1,7 +1,9 @@
 *** Yoast SEO premium Changelog ***
 
 
-2024-12-18 - version 24.1
-* fix -  Fixes a bug where the Yoast AI usage counter would only be displayed after a delay.
+2025-01-07 - version 24.2
+* fix -  Fixes a bug where translations would break for the internal linking unindexed notice when in other languages.
+* fix -  Fixes a bug where an error modal requesting a Yoast WooCommerce SEO subscription was shown when clicking the 'Use AI' button for Custom Post Type (CPT) products and taxonomies.
 * update -  Bumps the minimum required version of Yoast SEO to 24.1.
+* update -  Bumps the minimum required version of Yoast SEO to 24.2.
 

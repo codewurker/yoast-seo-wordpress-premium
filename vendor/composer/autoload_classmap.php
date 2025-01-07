@@ -209,6 +209,7 @@ return array(
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\User_Profile_Integration' => $baseDir . '/src/integrations/admin/user-profile-integration.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Workouts_Integration' => $baseDir . '/src/integrations/admin/workouts-integration.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Alerts\\Ai_Generator_Tip_Notification' => $baseDir . '/src/integrations/alerts/ai-generator-tip-notification.php',
+    'Yoast\\WP\\SEO\\Premium\\Integrations\\Blocks\\Block_Editor_Integration' => $baseDir . '/src/integrations/blocks/block-editor-integration.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Blocks\\Estimated_Reading_Time_Block' => $baseDir . '/src/integrations/blocks/estimated-reading-time-block.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Blocks\\Related_Links_Block' => $baseDir . '/src/integrations/blocks/related-links-block.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Cleanup_Integration' => $baseDir . '/src/integrations/cleanup-integration.php',
