@@ -440,7 +440,11 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 			],
 			[
 				'name'         => WPSEO_Admin_Asset_Manager::PREFIX . 'premium-tailwind',
-				'source'       => 'assets/css/dist/premium-tailwind-' . $version . $rtl_suffix . '.css',
+				// Note: The RTL suffix is not added here.
+				// Tailwind and our UI library provide styling that should be standalone compatible with RTL.
+				// To make it easier we should use the logical properties and values when possible.
+				// If there are exceptions, we can use the Tailwind modifier, e.g. `rtl:yst-space-x-reverse`.
+				'source'       => 'assets/css/dist/premium-tailwind-' . $version . '.css',
 				'dependencies' => [],
 			],
 			[
