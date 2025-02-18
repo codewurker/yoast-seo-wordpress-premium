@@ -1,7 +1,8 @@
 *** Yoast SEO premium Changelog ***
 
 
-2025-02-04 - version 24.4
-* add -  Improves keyphrase recognition for German plural noun forms with an umlaut.
-* update -  Bumps the minimum required version of Yoast SEO to 24.4.
+2025-02-18 - version 24.5
+* fix -  Fixes a bug where the overall score for the Related keyphrase analysis would still be orange when all the individual assessment results were green. 
+* fix -  Fixes a bug where tooltips would exceed the width of the sidebar.
+* update -  Bumps the minimum required version of Yoast SEO to 24.5.
 
