@@ -1,8 +1,9 @@
 *** Yoast SEO premium Changelog ***
 
 
-2025-02-18 - version 24.5
-* fix -  Fixes a bug where the overall score for the Related keyphrase analysis would still be orange when all the individual assessment results were green. 
-* fix -  Fixes a bug where tooltips would exceed the width of the sidebar.
-* update -  Bumps the minimum required version of Yoast SEO to 24.5.
+2025-03-04 - version 24.6
+* add -  Provides support for the Optimized Markup feature in Elementor.
+* update -  Uses approximation when counting tokens to be sent as Yoast AI Optimize prompt.
+* update -  Sets the minimum supported WordPress version to 6.6.
+* update -  Bumps the minimum required version of Yoast SEO to 24.6.
 
