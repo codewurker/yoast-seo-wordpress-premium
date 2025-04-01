@@ -1,6 +1,8 @@
 *** Yoast SEO premium Changelog ***
 
 
-2025-03-18 - version 24.7
-* fix -  Fixes a bug where the help beacon would be displayed over table pagination on Yoast admin pages.
+2025-04-01 - version 24.8
+* add -  Improves error messages related to AI features by updating the link directing to Yoast Support.
+* update -  Bumps the minimum required version of Yoast SEO to 24.8.
+* update -  Removes the beta label from the front-end SEO inspector.
 
