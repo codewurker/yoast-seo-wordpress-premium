@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit84803c6f0542b8aa2b392a7c329d3b4d
+class ComposerStaticInit2f64ec29d6bb84a788d930b2920c3a2b
 {
     public static $prefixLengthsPsr4 = array (
         'C' => 
@@ -187,6 +187,13 @@ class ComposerStaticInit84803c6f0542b8aa2b392a7c329d3b4d
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Ai_Generator_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/ai-generator-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Cornerstone_Column_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/cornerstone-column-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Cornerstone_Taxonomy_Column_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/cornerstone-taxonomy-column-integration.php',
+        'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Extension_Importer\\Content_Processor' => __DIR__ . '/../..' . '/src/integrations/admin/extension-importer/content-processor.php',
+        'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Extension_Importer\\DOM_Processor' => __DIR__ . '/../..' . '/src/integrations/admin/extension-importer/dom-processor.php',
+        'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Extension_Importer\\Footnote_Processor' => __DIR__ . '/../..' . '/src/integrations/admin/extension-importer/footnote-processor.php',
+        'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Extension_Importer\\Gutenberg_Converter' => __DIR__ . '/../..' . '/src/integrations/admin/extension-importer/gutenberg-converter.php',
+        'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Extension_Importer\\Importer' => __DIR__ . '/../..' . '/src/integrations/admin/extension-importer/importer.php',
+        'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Extension_Importer\\Media_Manager' => __DIR__ . '/../..' . '/src/integrations/admin/extension-importer/media-manager.php',
+        'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Extension_Importer\\Nested_List_Creator' => __DIR__ . '/../..' . '/src/integrations/admin/extension-importer/nested-list-creator.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Inclusive_Language_Column_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/inclusive-language-column-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Inclusive_Language_Filter_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/inclusive-language-filter-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Inclusive_Language_Taxonomy_Column_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/inclusive-language-taxonomy-column-integration.php',
@@ -251,9 +258,9 @@ class ComposerStaticInit84803c6f0542b8aa2b392a7c329d3b4d
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit84803c6f0542b8aa2b392a7c329d3b4d::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit84803c6f0542b8aa2b392a7c329d3b4d::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit84803c6f0542b8aa2b392a7c329d3b4d::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit2f64ec29d6bb84a788d930b2920c3a2b::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit2f64ec29d6bb84a788d930b2920c3a2b::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit2f64ec29d6bb84a788d930b2920c3a2b::$classMap;
 
         }, null, ClassLoader::class);
     }
