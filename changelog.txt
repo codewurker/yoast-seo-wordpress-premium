@@ -1,6 +1,8 @@
 *** Yoast SEO premium Changelog ***
 
 
-2025-05-13 - version 25.1
-* update -  Bumps the minimum required version of Yoast SEO to 25.1.
+2025-05-27 - version 25.2
+* add -  Adds support for Yoast AI Optimize in the Classic editor. 
+* fix -  Fixes a bug where the AI grant/revoke consent on the profile page was not translated.
+* update -  Bumps the minimum required version of Yoast SEO to 25.2.
 

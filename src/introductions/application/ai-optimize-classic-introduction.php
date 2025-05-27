@@ -2,21 +2,24 @@
 
 namespace Yoast\WP\SEO\Premium\Introductions\Application;
 
+use WP_Screen;
+use Yoast\WP\SEO\Conditionals\Admin\Post_Conditional;
+use Yoast\WP\SEO\Conditionals\Third_Party\Elementor_Edit_Conditional;
 use Yoast\WP\SEO\Helpers\Options_Helper;
 use Yoast\WP\SEO\Helpers\User_Helper;
 use Yoast\WP\SEO\Introductions\Application\User_Allowed_Trait;
 use Yoast\WP\SEO\Introductions\Domain\Introduction_Interface;
 
 /**
- * Represents the introduction for the AI fix assessments feature.
+ * Represents the introduction for the AI Optimize feature in Classic Editor.
  *
  * @phpcs:disable Yoast.NamingConventions.ObjectNameDepth.MaxExceeded
  */
-class Ai_Fix_Assessments_Introduction implements Introduction_Interface {
+class AI_Optimize_Classic_Introduction implements Introduction_Interface {
 
 	use User_Allowed_Trait;
 
-	public const ID = 'ai-fix-assessments';
+	public const ID = 'ai-optimize-classic';
 
 	/**
 	 * Holds the options helper.
@@ -53,7 +56,7 @@ class Ai_Fix_Assessments_Introduction implements Introduction_Interface {
 	}
 
 	/**
-	 * Returns the name of the introdyction.
+	 * Returns the name of the introduction.
 	 *
 	 * @return string The name.
 	 */
@@ -74,11 +77,38 @@ class Ai_Fix_Assessments_Introduction implements Introduction_Interface {
 
 	/**
 	 * Returns whether this introduction should show.
-	 * We no longer show this introduction, so we always return false.
 	 *
 	 * @return bool Whether this introduction should show.
 	 */
 	public function should_show() {
-		return false;
+		// Get the current user ID, if no user is logged in, we bail as this is needed for the next check.
+		$current_user_id = $this->user_helper->get_current_user_id();
+		if ( $current_user_id === 0 ) {
+			return false;
+		}
+
+		// Check if the user is allowed to edit posts.
+		if ( ! $this->is_user_allowed( [ 'edit_posts' ] ) ) {
+			return false;
+		}
+
+		// Check if we are editing a post.
+		$post_conditional = new Post_Conditional();
+		if ( ! $post_conditional->is_met() ) {
+			return false;
+		}
+
+		// Check if the block editor is NOT active.
+		if ( WP_Screen::get()->is_block_editor() ) {
+			return false;
+		}
+
+		// Check if Elementor is NOT active.
+		$elementor_conditional = new Elementor_Edit_Conditional();
+		if ( $elementor_conditional->is_met() ) {
+			return false;
+		}
+
+		return true;
 	}
 }
