@@ -154,6 +154,15 @@ class Gutenberg_Converter {
 		$list_groups      = $nested_list_data['list_groups'];
 		$nodes_to_skip    = $nested_list_data['nodes_to_skip'];
 
+		// Determine Google Document TOC nodes to be skipped and considered as paragraph elements.
+		$toc_sections = $this->content_processor->get_toc_nodes( $element );
+
+		// Combine the TOC nodes into the nodes to skip.
+		foreach ( $toc_sections as $toc_section ) {
+			$toc_nodes     = \array_column( $toc_section, 'node' );
+			$nodes_to_skip = \array_merge( $nodes_to_skip, $toc_nodes );
+		}
+
 		// PHASE 2: Process all content and create positioned blocks.
 		// This array allows us to maintain correct ordering of mixed content types.
 		$positioned_blocks = [];
@@ -179,6 +188,17 @@ class Gutenberg_Converter {
 						// Remove this group so we don't process it again.
 						unset( $list_groups[ $group_index ] );
 						break;
+					}
+				}
+
+				// Add the TOC block if it exists and is at the current position.
+				foreach ( $toc_sections as $toc_section ) {
+					// Only check if the first position of the section is encountered.
+					if ( $toc_section[0]['position'] === $current_position ) {
+						$positioned_blocks[] = [
+							'content'  => $this->content_processor->create_toc_block( $element ),
+							'position' => $current_position,
+						];
 					}
 				}
 

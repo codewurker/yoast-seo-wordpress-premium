@@ -129,6 +129,216 @@ class Content_Processor {
 	}
 
 	/**
+	 * Determine if the anchor element is a TOC node by checking if the href start with #h-.
+	 *
+	 * @param DOMElement|null $anchor The anchor element to check.
+	 *
+	 * @return bool True if the anchor element is a TOC node, false otherwise.
+	 */
+	private function is_toc_node( ?DOMElement $anchor ): bool {
+		if ( $anchor === null ) {
+			return false;
+		}
+
+		$href = $anchor->getAttribute( 'href' );
+
+		return \strpos( $href, '#h-' ) === 0;
+	}
+
+	/**
+	 * Get the TOC nodes from the element.
+	 *
+	 * @param DOMElement|null $element The element to get the TOC nodes from.
+	 *
+	 * @return array<array{node: DOMElement, position: int}> The TOC nodes.
+	 */
+	public function get_toc_nodes( ?DOMElement $element ): array {
+		if ( $element === null ) {
+			return [];
+		}
+
+		// Used for storing TOC sections.
+		$toc_sections = [];
+
+		// Used for creating TOC sections in case of multiple TOC blocks.
+		$toc_index = 0;
+
+		// Only increment the toc_index if we encounter the first TOC node.
+		$has_encountered_toc_node = false;
+
+		// Used for tracking the position of the TOC nodes which is later used to skip the node.
+		$current_position = 0;
+
+		if ( $element->childNodes->length !== 0 ) {
+			foreach ( $element->childNodes as $node_index => $node ) {
+				// Skip non-element nodes for list detection.
+				if ( $node->nodeType !== \XML_ELEMENT_NODE ) {
+					continue;
+				}
+
+				if ( $node->nodeName === 'p' ) {
+					$anchor = $node->getElementsByTagName( 'a' );
+
+					if ( $anchor->length > 0 ) {
+						if ( $this->is_toc_node( $anchor->item( 0 ) ) ) {
+							// Flip the flag to indicate that we have encountered a TOC node and can safely increment the toc_index.
+							$has_encountered_toc_node = true;
+
+							$toc_sections[ $toc_index ][] = [
+								'node'     => $node,
+								'position' => $current_position,
+							];
+						}
+
+						// If next element is not a TOC node, end current TOC section and start a new one.
+						if (
+							$element->childNodes[ ( $node_index + 1 ) ] !== null
+							&& $has_encountered_toc_node
+							&& ! $this->is_toc_node( $element->childNodes[ ( $node_index + 1 ) ]->getElementsByTagName( 'a' )->item( 0 ) )
+						) {
+							++$toc_index;
+						}
+					}
+				}
+
+				++$current_position;
+			}
+		}
+
+		return $toc_sections;
+	}
+
+	/**
+	 * Generates the list structure for the TOC block items similar to the TOC block functionality.
+	 *
+	 * @param array<string, string|int> $headings Array of heading elements with content, href, and level properties.
+	 *
+	 * @return string The HTML structure for the table of contents.
+	 */
+	private function create_toc_heading_structure( array $headings ): string {
+		// Return empty string if no headings provided.
+		if ( empty( $headings ) ) {
+			return '';
+		}
+
+		// Initialize the HTML structure with the opening ul tag.
+		$heading_structure = '<ul>';
+
+		// Create a tracking array to mark which headings have been processed.
+		$processed_headings = \array_fill( 0, \count( $headings ), false );
+
+		// Store the total number of headings for easier reference.
+		$total_headings = \count( $headings );
+
+		foreach ( $headings as $heading_index => $current_heading ) {
+			// Skip headings that have already been processed (as children of other headings).
+			if ( $processed_headings[ $heading_index ] ) {
+				continue;
+			}
+
+			// Mark current heading as processed.
+			$processed_headings[ $heading_index ] = true;
+
+			// Start building this heading's list item with proper attributes.
+			$heading_structure .= '<li><a href="' . \esc_url( $current_heading['href'] ) . '" data-level="' . \esc_attr( $current_heading['level'] ) . '">'
+					. \wp_strip_all_tags( $current_heading['content'] )
+				. '</a>';
+
+			// Find all child headings (those with deeper nesting levels).
+			$child_headings = [];
+			$child_index    = ( $heading_index + 1 );
+
+			// Collect all consecutive child headings that have deeper levels.
+			while ( $child_index < $total_headings ) {
+				// If we encounter a heading with same or higher hierarchy, stop collecting children.
+				if ( $headings[ $child_index ]['level'] <= $current_heading['level'] ) {
+					break;
+				}
+
+				// Add this heading to our child collection and mark it as processed.
+				$child_headings[]                   = $headings[ $child_index ];
+				$processed_headings[ $child_index ] = true;
+				++$child_index;
+			}
+
+			// If we found child headings, create a nested list for them.
+			if ( ! empty( $child_headings ) ) {
+				$heading_structure .= '<ul>';
+				foreach ( $child_headings as $child_heading ) {
+					$heading_structure .= '<li><a href="' . \esc_url( $child_heading['href'] )
+						. '" data-level="' . \esc_attr( $child_heading['level'] ) . '">'
+						. \wp_strip_all_tags( $child_heading['content'] )
+						. '</a></li>';
+				}
+				$heading_structure .= '</ul>';
+			}
+
+			// Close this heading's list item.
+			$heading_structure .= '</li>';
+		}
+
+		// Close the main unordered list.
+		$heading_structure .= '</ul>';
+
+		return $heading_structure;
+	}
+
+	/**
+	 * Creates a TOC block.
+	 *
+	 * @param DOMElement|null $element The element to attach the TOC block to.
+	 *
+	 * @return string The TOC block.
+	 */
+	public function create_toc_block( ?DOMElement $element ): string {
+		// Early bail if the content is empty or the TOC block placeholder is not found.
+		if ( $element === null ) {
+			return '';
+		}
+
+		// Get the headings from the element.
+		$headings = [];
+
+		foreach ( $element->childNodes as $node ) {
+			if ( $node->nodeType !== \XML_ELEMENT_NODE ) {
+				continue;
+			}
+
+			$tag = $node->nodeName;
+
+			/**
+			 * During export on React app, we convert H1 to H2 and hence we can safely ignore the H1 headings.
+			 * We only consider H2 and H3 headings since the TOC block has maxHeadingLevel attribute set to 3.
+			 * We construct the TOC list items as it would be generated by the block's renderTableOfContents() function.
+			 * This ensures that the TOC block is rendered correctly in the editor and on the post preview generated.
+			 */
+			if ( $tag === 'h2' || $tag === 'h3' ) {
+				// Accept only headings that are present at the top level within the body element.
+				if ( $node->parentNode->nodeName !== 'body' ) {
+					continue;
+				}
+
+				$headings[] = [
+					'content' => $node->textContent,
+					'href'    => '#' . $node->getAttribute( 'id' ),
+					'level'   => \intval( \substr( $tag, 1 ) ),
+				];
+			}
+		}
+
+		// Generate the heading structure expected by the Table of Contents block.
+		$heading_structure = $this->create_toc_heading_structure( $headings );
+
+		$block = $this->create_block_comments( 'yoast-seo/table-of-contents' );
+
+		return $block['open']
+				. '<div class="wp-block-yoast-seo-table-of-contents yoast-table-of-contents">' . \PHP_EOL
+					. '<h2>' . \esc_html__( 'Table of contents', 'wordpress-seo-premium' ) . '</h2>' . \wp_kses_post( $heading_structure )
+				. '</div>' . \PHP_EOL
+		. $block['close'];
+	}
+
+	/**
 	 * Determines the elements to skip from the code blocks.
 	 *
 	 * @param array<array{elements: array<DOMElement>}> $code_blocks The code blocks.
