@@ -28,7 +28,7 @@ class WPSEO_Premium {
 	 *
 	 * @var string
 	 */
-	public const PLUGIN_VERSION_NAME = '25.3.1';
+	public const PLUGIN_VERSION_NAME = '25.4';
 
 	/**
 	 * Machine readable version for determining whether an upgrade is needed.

@@ -145,7 +145,7 @@ class WPSEO_Upgrade_Manager {
 	 */
 	public function upgrade_25_3_1() {
 
-		if ( is_plugin_active( 'classic-editor/classic-editor.php' ) || \class_exists( 'WooCommerce' ) ) {
+		if ( is_plugin_active( 'classic-editor/classic-editor.php' ) || class_exists( 'WooCommerce' ) ) {
 			$posts = get_posts(
 				[
 					'last_updated' => '2025-05-26',
