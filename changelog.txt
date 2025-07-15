@@ -1,8 +1,6 @@
 *** Yoast SEO premium Changelog ***
 
 
-2025-07-01 - version 25.4
-* add -  Improves handling the AI Optimize suggestions containing split paragraphs for _paragraph length_ assessment in Classic editor.
-* fix -  Fixes a bug where the AI Optimize Introduction notification would display behind the WordPress admin menu in some screen resolutions.
+2025-07-15 - version 25.5
 * update -  Bumps the minimum required version of Yoast SEO to 25.4.
 
