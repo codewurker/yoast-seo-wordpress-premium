@@ -1,6 +1,18 @@
 *** Yoast SEO premium Changelog ***
 
 
-2025-07-29 - version 25.6
-* update -  Bumps the minimum required version of Yoast SEO to 25.6.
+2025-08-12 - version 25.7
+* add -  Re-introduces the improved AI Optimize feature in Classic editor.
+* add -  Improves the implementation of AI Optimize in Classic editor.
+* add -  The Redirects page has been completely redesigned.
+* fix -  Fixes a bug where the texts in the Apply, Dismiss and Learn more buttons of the AI Optimize notification were missing in some RTL languages such as Arabic.
+* fix -  Fixes a bug where the user is prompting to create a redirect for private terms.
+* fix -  Fixes a bug where the wrong error message would be shown for the AI Optimize in case of unreachable site or subscription not found.
+* fix -  Fixes a bug where the AI Optimize introduction component would not be shown when the AI buttons were only available inside SEO analysis.
+* fix -  Fixes a bug where the check icon of the Apply button inside AI Optimize notification was displayed upside down in RTL languages.
+* update -  Adds accessibility attributes to the popover component in the AI Optimize introduction for the Classic Editor.
+* update -  Sets the minimum supported WordPress version to 6.7.
+* update -  Disables the AI Optimize button for _keyphrase density_ and _keyphrase distribution_ assessments in Classic editor when their prompt content contains only subheadings.
+* update -  Bumps the minimum required version of Yoast SEO to 25.7.
+* update -  Adds a PHP fallback to remove data attribute of AI Optimize in Classic editor.
 

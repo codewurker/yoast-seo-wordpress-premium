@@ -5,6 +5,8 @@
  * @package WPSEO\Premium\Classes
  */
 
+use Yoast\WP\SEO\Helpers\Short_Link_Helper;
+
 /**
  * Class WPSEO_Redirect_Page.
  */
@@ -30,10 +32,7 @@ class WPSEO_Redirect_Page {
 	 * @return void
 	 */
 	public function display() {
-		$display_args = [ 'current_tab' => $this->get_current_tab() ];
-
-		$redirect_presenter = new WPSEO_Redirect_Page_Presenter();
-		$redirect_presenter->display( $display_args );
+		echo '<div id="yoast-seo-redirects"></div>';
 	}
 
 	/**
@@ -118,38 +117,23 @@ class WPSEO_Redirect_Page {
 	 */
 	public function enqueue_assets() {
 		$asset_manager = new WPSEO_Admin_Asset_Manager();
-		$version       = $asset_manager->flatten_version( WPSEO_PREMIUM_VERSION );
 
-		$dependencies = [
-			'jquery',
-			'jquery-ui-dialog',
-			'wp-util',
-			'underscore',
-			'wp-api',
-			'wp-api-fetch',
-		];
-
-		wp_enqueue_script(
-			'wp-seo-premium-admin-redirects',
-			plugin_dir_url( WPSEO_PREMIUM_FILE )
-			. 'assets/js/dist/wp-seo-premium-admin-redirects-' . $version . WPSEO_CSSJS_SUFFIX . '.js',
-			$dependencies,
-			WPSEO_PREMIUM_VERSION,
-			true
-		);
+		wp_enqueue_script( 'wp-seo-premium-admin-redirects' );
 		wp_localize_script( 'wp-seo-premium-admin-redirects', 'wpseoPremiumStrings', WPSEO_Premium_Javascript_Strings::strings() );
 		wp_localize_script( 'wp-seo-premium-admin-redirects', 'wpseoUserLocale', [ 'code' => substr( get_user_locale(), 0, 2 ) ] );
-		wp_localize_script( 'wp-seo-premium-admin-redirects', 'wpseoAdminRedirect', [ 'homeUrl' => home_url( '/' ) ] );
-		wp_enqueue_style( 'wpseo-premium-redirects', plugin_dir_url( WPSEO_PREMIUM_FILE ) . 'assets/css/dist/premium-redirects-' . $version . '.css', [], WPSEO_PREMIUM_VERSION );
-
-		wp_enqueue_style( 'wp-jquery-ui-dialog' );
-
-		$screen_option_args = [
-			'label'   => __( 'Redirects per page', 'wordpress-seo-premium' ),
-			'default' => 25,
-			'option'  => 'redirects_per_page',
-		];
-		add_screen_option( 'per_page', $screen_option_args );
+		wp_localize_script(
+			'wp-seo-premium-admin-redirects',
+			'wpseoScriptData',
+			[
+				'linkParams'  => YoastSEO()->classes->get( Short_Link_Helper::class )->get_query_params(),
+				'preferences' => [
+					'homeUrl' => home_url( '/' ),
+					'isRtl'   => is_rtl(),
+				],
+			]
+		);
+		wp_enqueue_style( WPSEO_Admin_Asset_Manager::PREFIX . 'premium-tailwind' );
+		$asset_manager->enqueue_style( 'redirects' );
 	}
 
 	/**
@@ -258,6 +242,7 @@ class WPSEO_Redirect_Page {
 
 			add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_assets' ] );
 			add_filter( 'set-screen-option', [ $this, 'set_screen_option' ], 11, 3 );
+			add_action( 'in_admin_header', [ $this, 'remove_notices' ], PHP_INT_MAX );
 		}
 	}
 
@@ -296,6 +281,18 @@ class WPSEO_Redirect_Page {
 		}
 
 		return $current_tab;
+	}
+
+	/**
+	 * Removes all current WP notices.
+	 *
+	 * @return void
+	 */
+	public function remove_notices() {
+		remove_all_actions( 'admin_notices' );
+		remove_all_actions( 'user_admin_notices' );
+		remove_all_actions( 'network_admin_notices' );
+		remove_all_actions( 'all_admin_notices' );
 	}
 
 	/**

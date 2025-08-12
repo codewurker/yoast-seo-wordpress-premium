@@ -362,6 +362,17 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 					'jquery',
 				],
 			],
+			[
+				'name'         => 'wp-seo-premium-admin-redirects',
+				'path'         => 'assets/js/dist/',
+				'filename'     => 'redirects-' . $version . WPSEO_CSSJS_SUFFIX . '.js',
+				'dependencies' => [
+					'wp-api',
+					'wp-api-fetch',
+					'wp-polyfill',
+					WPSEO_Admin_Asset_Manager::PREFIX . 'editor-modules',
+				],
+			],
 		];
 	}
 

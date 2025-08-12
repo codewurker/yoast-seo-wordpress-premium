@@ -10,7 +10,7 @@ use Yoast\WP\SEO\Helpers\Home_Url_Helper;
 /**
  * Represents a single redirect
  */
-class WPSEO_Redirect implements ArrayAccess {
+class WPSEO_Redirect implements ArrayAccess, JsonSerializable {
 
 	/**
 	 * Redirect origin.
@@ -200,6 +200,20 @@ class WPSEO_Redirect implements ArrayAccess {
 		}
 
 		return (string) $this->origin === (string) $url;
+	}
+
+	/**
+	 * This method is called automatically when an instance of the class is passed to json_encode().
+	 *
+	 * @return array<string, int> An associative array containing redirect data.
+	 */
+	public function jsonSerialize() {
+		return [
+			'origin'             => $this->get_origin(),
+			'target'             => $this->get_target(),
+			'type'               => $this->get_type(),
+			'format'             => $this->get_format(),
+		];
 	}
 
 	/**

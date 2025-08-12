@@ -10,9 +10,12 @@
  */
 class WPSEO_Premium_Redirect_EndPoint implements WPSEO_WordPress_Integration {
 
-	public const REST_NAMESPACE = 'yoast/v1';
-	public const ENDPOINT_QUERY = 'redirects';
-	public const ENDPOINT_UNDO  = 'redirects/delete';
+	public const REST_NAMESPACE    = 'yoast/v1';
+	public const ENDPOINT_QUERY    = 'redirects';
+	public const ENDPOINT_UNDO     = 'redirects/delete';
+	public const ENDPOINT_LIST     = 'redirects/list';
+	public const ENDPOINT_UPDATE   = 'redirects/update';
+	public const ENDPOINT_SETTINGS = 'redirects/settings';
 
 	public const CAPABILITY_STORE = 'wpseo_manage_redirects';
 
@@ -63,6 +66,22 @@ class WPSEO_Premium_Redirect_EndPoint implements WPSEO_WordPress_Integration {
 				'type'        => 'integer',
 				'description' => 'The redirect type',
 			],
+			'ignore_warning' => [
+				'required'    => false,
+				'type'        => 'boolean',
+				'description' => 'Whether to ignore warnings',
+				'default'     => false,
+			],
+			'format' => [
+				'description' => __( 'The format of the redirect to create.', 'wordpress-seo-premium' ),
+				'type'        => 'string',
+				'required'    => false,
+				'enum'        => [
+					WPSEO_Redirect_Formats::PLAIN,
+					WPSEO_Redirect_Formats::REGEX,
+				],
+				'default'     => WPSEO_Redirect_Formats::PLAIN,
+			],
 		];
 
 		register_rest_route(
@@ -100,6 +119,144 @@ class WPSEO_Premium_Redirect_EndPoint implements WPSEO_WordPress_Integration {
 				'callback'            => [
 					$this->service,
 					'delete',
+				],
+				'permission_callback' => [
+					$this,
+					'can_save_data',
+				],
+			]
+		);
+
+		register_rest_route(
+			self::REST_NAMESPACE,
+			self::ENDPOINT_LIST,
+			[
+				'methods'             => 'GET',
+				'args'                => [
+					'format' => [
+						'description'       => __( 'The format of the redirects to retrieve.', 'wordpress-seo-premium' ),
+						'type'              => 'string',
+						'required'          => false,
+						'enum'              => [
+							WPSEO_Redirect_Formats::PLAIN,
+							WPSEO_Redirect_Formats::REGEX,
+						],
+						'default'           => WPSEO_Redirect_Formats::PLAIN,
+					],
+				],
+				'callback'            => [
+					$this->service,
+					'list',
+				],
+				'permission_callback' => [
+					$this,
+					'can_save_data',
+				],
+			]
+		);
+
+		register_rest_route(
+			self::REST_NAMESPACE,
+			self::ENDPOINT_UPDATE,
+			[
+				'methods'             => 'PUT',
+				'args'                => [
+					'old_origin' => [
+						'required'    => true,
+						'type'        => 'string',
+						'description' => 'The origin to redirect (old)',
+					],
+					'old_target' => [
+						'required'    => false,
+						'type'        => 'string',
+						'description' => 'The redirect target (old)',
+					],
+					'old_type' => [
+						'required'    => true,
+						'type'        => 'integer',
+						'description' => 'The redirect type (old)',
+					],
+					'new_origin' => [
+						'required'    => true,
+						'type'        => 'string',
+						'description' => 'The origin to redirect (new)',
+					],
+					'new_target' => [
+						'required'    => false,
+						'type'        => 'string',
+						'description' => 'The redirect target (new)',
+					],
+					'new_type' => [
+						'required'    => true,
+						'type'        => 'integer',
+						'description' => 'The redirect type (new)',
+					],
+					'ignore_warning' => [
+						'required'    => false,
+						'type'        => 'boolean',
+						'description' => 'Whether to ignore warnings',
+						'default'     => false,
+					],
+					'format' => [
+						'description' => __( 'The format of the redirects to retrieve.', 'wordpress-seo-premium' ),
+						'type'        => 'string',
+						'required'    => false,
+						'enum'        => [
+							WPSEO_Redirect_Formats::PLAIN,
+							WPSEO_Redirect_Formats::REGEX,
+						],
+						'default'     => WPSEO_Redirect_Formats::PLAIN,
+					],
+				],
+				'callback'            => [
+					$this->service,
+					'update',
+				],
+				'permission_callback' => [
+					$this,
+					'can_save_data',
+				],
+			]
+		);
+
+		register_rest_route(
+			self::REST_NAMESPACE,
+			self::ENDPOINT_SETTINGS,
+			[
+				'methods'             => 'GET',
+				'callback'            => [
+					$this->service,
+					'settings',
+				],
+				'permission_callback' => [
+					$this,
+					'can_save_data',
+				],
+			]
+		);
+
+		register_rest_route(
+			self::REST_NAMESPACE,
+			self::ENDPOINT_SETTINGS,
+			[
+				'methods'             => 'PUT',
+				'args'                => [
+					'disable_php_redirect' => [
+						'description'       => __( 'Whether to disable PHP-based redirects and use .htaccess instead.', 'wordpress-seo-premium' ),
+						'type'              => 'string',
+						'required'          => true,
+						'enum'              => [ 'on', 'off' ],
+					],
+					'separate_file' => [
+						'description'       => __( 'Whether to write redirects into a separate file instead of .htaccess.', 'wordpress-seo-premium' ),
+						'type'              => 'string',
+						'required'          => true,
+						'enum'              => [ 'on', 'off' ],
+					],
+				],
+				'callback'            => [
+					$this->service,
+					'update_settings',
 				],
 				'permission_callback' => [
 					$this,

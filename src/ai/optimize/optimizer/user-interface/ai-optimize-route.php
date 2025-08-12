@@ -6,11 +6,11 @@ namespace Yoast\WP\SEO\Premium\AI\Optimize\Optimizer\User_Interface;
 use RuntimeException;
 use WP_REST_Request;
 use WP_REST_Response;
+use Yoast\WP\SEO\AI_HTTP_Request\Domain\Exceptions\Payment_Required_Exception;
+use Yoast\WP\SEO\AI_HTTP_Request\Domain\Exceptions\Remote_Request_Exception;
 use Yoast\WP\SEO\Conditionals\AI_Conditional;
 use Yoast\WP\SEO\Main;
 use Yoast\WP\SEO\Premium\AI\Optimize\Optimizer\Application\Optimizer;
-use Yoast\WP\SEO\Premium\Exceptions\Remote_Request\Payment_Required_Exception;
-use Yoast\WP\SEO\Premium\Exceptions\Remote_Request\Remote_Request_Exception;
 use Yoast\WP\SEO\Routes\Route_Interface;
 
 /**
@@ -102,6 +102,12 @@ class AI_Optimize_Route implements Route_Interface {
 						'type'        => 'string',
 						'description' => 'The synonyms for the focus keyphrase.',
 					],
+					'editor' => [
+						'required'    => true,
+						'type'        => 'string',
+						'enum'        => [ 'Classic', 'Gutenberg' ],
+						'description' => 'The editor type, either Classic or Gutenberg.',
+					],
 				],
 				'callback'            => [ $this, 'optimize' ],
 				'permission_callback' => [ $this, 'check_permissions' ],
@@ -119,7 +125,7 @@ class AI_Optimize_Route implements Route_Interface {
 	public function optimize( WP_REST_Request $request ): WP_REST_Response {
 		try {
 			$user = \wp_get_current_user();
-			$data = $this->optimizer->optimize( $user, $request['assessment'], $request['language'], $request['prompt_content'], $request['focus_keyphrase'], $request['synonyms'] );
+			$data = $this->optimizer->optimize( $user, $request['assessment'], $request['language'], $request['prompt_content'], $request['focus_keyphrase'], $request['synonyms'], $request['editor'] );
 		} catch ( Remote_Request_Exception $e ) {
 			$message = [
 				'message'         => $e->getMessage(),

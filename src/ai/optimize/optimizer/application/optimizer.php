@@ -106,6 +106,7 @@ class Optimizer {
 	 * @param string  $prompt_content        The excerpt taken from the post.
 	 * @param string  $focus_keyphrase       The focus keyphrase associated to the post.
 	 * @param string  $synonyms              Synonyms for the focus keyphrase.
+	 * @param string  $editor                WordPress editor type, either Gutenberg or Classic.
 	 * @param bool    $retry_on_unauthorized Whether to retry when unauthorized (mechanism to retry once).
 	 *
 	 * @throws Bad_Request_Exception Bad_Request_Exception.
@@ -128,6 +129,7 @@ class Optimizer {
 		string $prompt_content,
 		string $focus_keyphrase,
 		string $synonyms,
+		string $editor,
 		bool $retry_on_unauthorized = true
 	): string {
 		$token = $this->token_manager->get_or_request_access_token( $user );
@@ -135,6 +137,7 @@ class Optimizer {
 		$subject = [
 			'language'        => $language,
 			'content'         => $prompt_content,
+			'editor'          => $editor,
 		];
 		// We are not sending the synonyms for now, as these are not used in the current prompts.
 		if ( $focus_keyphrase !== '' ) {
@@ -162,7 +165,7 @@ class Optimizer {
 			}
 
 			// Try again once more by fetching a new set of tokens and trying the endpoint again.
-			return $this->optimize( $user, $assessment, $language, $prompt_content, $focus_keyphrase, $synonyms, false );
+			return $this->optimize( $user, $assessment, $language, $prompt_content, $focus_keyphrase, $synonyms, $editor, false );
 		} catch ( Forbidden_Exception $exception ) {
 			// Follow the API in the consent being revoked (Use case: user sent an e-mail to revoke?).
 			$this->consent_handler->revoke_consent( $user->ID );

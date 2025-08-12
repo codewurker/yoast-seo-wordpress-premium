@@ -6,6 +6,9 @@ use Exception;
 
 /**
  * Class Remote_Request_Exception
+ *
+ * @deprecated 25.6
+ * @codeCoverageIgnore
  */
 abstract class Remote_Request_Exception extends Exception {
 

@@ -6,6 +6,9 @@ use Throwable;
 
 /**
  * Class to manage a 402 - payment required response.
+ *
+ * @deprecated 25.6
+ * @codeCoverageIgnore
  */
 class Payment_Required_Exception extends Remote_Request_Exception {
 

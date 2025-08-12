@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInite388ee31f31ea4140a64a4a9a0bd1549
+class ComposerStaticInit9bb689af56ad06331848fe3dfcc1b507
 {
     public static $prefixLengthsPsr4 = array (
         'C' => 
@@ -94,7 +94,7 @@ class ComposerStaticInite388ee31f31ea4140a64a4a9a0bd1549
         'WPSEO_Redirect_Option' => __DIR__ . '/../..' . '/classes/redirect/redirect-option.php',
         'WPSEO_Redirect_Option_Exporter' => __DIR__ . '/../..' . '/classes/redirect/exporters/redirect-option-exporter.php',
         'WPSEO_Redirect_Page' => __DIR__ . '/../..' . '/classes/redirect/redirect-page.php',
-        'WPSEO_Redirect_Page_Presenter' => __DIR__ . '/../..' . '/classes/redirect/presenters/redirect-page-presenter.php',
+        'WPSEO_Redirect_Page_Presenter' => __DIR__ . '/../..' . '/src/deprecated/classes/redirect/presenters/redirect-page-presenter.php',
         'WPSEO_Redirect_Presence_Validation' => __DIR__ . '/../..' . '/classes/redirect/validation/redirect-presence-validation.php',
         'WPSEO_Redirect_Presenter' => __DIR__ . '/../..' . '/classes/redirect/presenters/redirect-presenter-interface.php',
         'WPSEO_Redirect_Quick_Edit_Presenter' => __DIR__ . '/../..' . '/classes/redirect/presenters/redirect-quick-edit-presenter.php',
@@ -167,17 +167,17 @@ class ComposerStaticInite388ee31f31ea4140a64a4a9a0bd1549
         'Yoast\\WP\\SEO\\Premium\\DOM_Manager\\Application\\Node_Processor' => __DIR__ . '/../..' . '/src/dom-manager/application/node-processor.php',
         'Yoast\\WP\\SEO\\Premium\\Database\\Migration_Runner_Premium' => __DIR__ . '/../..' . '/src/database/migration-runner-premium.php',
         'Yoast\\WP\\SEO\\Premium\\Exceptions\\Forbidden_Property_Mutation_Exception' => __DIR__ . '/../..' . '/src/exceptions/forbidden-property-mutation-exception.php',
-        'Yoast\\WP\\SEO\\Premium\\Exceptions\\Remote_Request\\Bad_Request_Exception' => __DIR__ . '/../..' . '/src/exceptions/remote-request/bad-request-exception.php',
-        'Yoast\\WP\\SEO\\Premium\\Exceptions\\Remote_Request\\Forbidden_Exception' => __DIR__ . '/../..' . '/src/exceptions/remote-request/forbidden-exception.php',
-        'Yoast\\WP\\SEO\\Premium\\Exceptions\\Remote_Request\\Internal_Server_Error_Exception' => __DIR__ . '/../..' . '/src/exceptions/remote-request/internal-server-error-exception.php',
-        'Yoast\\WP\\SEO\\Premium\\Exceptions\\Remote_Request\\Not_Found_Exception' => __DIR__ . '/../..' . '/src/exceptions/remote-request/not-found-exception.php',
-        'Yoast\\WP\\SEO\\Premium\\Exceptions\\Remote_Request\\Payment_Required_Exception' => __DIR__ . '/../..' . '/src/exceptions/remote-request/payment-required-exception.php',
-        'Yoast\\WP\\SEO\\Premium\\Exceptions\\Remote_Request\\Remote_Request_Exception' => __DIR__ . '/../..' . '/src/exceptions/remote-request/remote-request-exception.php',
-        'Yoast\\WP\\SEO\\Premium\\Exceptions\\Remote_Request\\Request_Timeout_Exception' => __DIR__ . '/../..' . '/src/exceptions/remote-request/request-timeout-exception.php',
-        'Yoast\\WP\\SEO\\Premium\\Exceptions\\Remote_Request\\Service_Unavailable_Exception' => __DIR__ . '/../..' . '/src/exceptions/remote-request/service-unavailable-exception.php',
-        'Yoast\\WP\\SEO\\Premium\\Exceptions\\Remote_Request\\Too_Many_Requests_Exception' => __DIR__ . '/../..' . '/src/exceptions/remote-request/too-many-requests-exception.php',
-        'Yoast\\WP\\SEO\\Premium\\Exceptions\\Remote_Request\\Unauthorized_Exception' => __DIR__ . '/../..' . '/src/exceptions/remote-request/unauthorized-exception.php',
-        'Yoast\\WP\\SEO\\Premium\\Exceptions\\Remote_Request\\WP_Request_Exception' => __DIR__ . '/../..' . '/src/exceptions/remote-request/wp-request-exception.php',
+        'Yoast\\WP\\SEO\\Premium\\Exceptions\\Remote_Request\\Bad_Request_Exception' => __DIR__ . '/../..' . '/src/deprecated/exceptions/remote-request/bad-request-exception.php',
+        'Yoast\\WP\\SEO\\Premium\\Exceptions\\Remote_Request\\Forbidden_Exception' => __DIR__ . '/../..' . '/src/deprecated/exceptions/remote-request/forbidden-exception.php',
+        'Yoast\\WP\\SEO\\Premium\\Exceptions\\Remote_Request\\Internal_Server_Error_Exception' => __DIR__ . '/../..' . '/src/deprecated/exceptions/remote-request/internal-server-error-exception.php',
+        'Yoast\\WP\\SEO\\Premium\\Exceptions\\Remote_Request\\Not_Found_Exception' => __DIR__ . '/../..' . '/src/deprecated/exceptions/remote-request/not-found-exception.php',
+        'Yoast\\WP\\SEO\\Premium\\Exceptions\\Remote_Request\\Payment_Required_Exception' => __DIR__ . '/../..' . '/src/deprecated/exceptions/remote-request/payment-required-exception.php',
+        'Yoast\\WP\\SEO\\Premium\\Exceptions\\Remote_Request\\Remote_Request_Exception' => __DIR__ . '/../..' . '/src/deprecated/exceptions/remote-request/remote-request-exception.php',
+        'Yoast\\WP\\SEO\\Premium\\Exceptions\\Remote_Request\\Request_Timeout_Exception' => __DIR__ . '/../..' . '/src/deprecated/exceptions/remote-request/request-timeout-exception.php',
+        'Yoast\\WP\\SEO\\Premium\\Exceptions\\Remote_Request\\Service_Unavailable_Exception' => __DIR__ . '/../..' . '/src/deprecated/exceptions/remote-request/service-unavailable-exception.php',
+        'Yoast\\WP\\SEO\\Premium\\Exceptions\\Remote_Request\\Too_Many_Requests_Exception' => __DIR__ . '/../..' . '/src/deprecated/exceptions/remote-request/too-many-requests-exception.php',
+        'Yoast\\WP\\SEO\\Premium\\Exceptions\\Remote_Request\\Unauthorized_Exception' => __DIR__ . '/../..' . '/src/deprecated/exceptions/remote-request/unauthorized-exception.php',
+        'Yoast\\WP\\SEO\\Premium\\Exceptions\\Remote_Request\\WP_Request_Exception' => __DIR__ . '/../..' . '/src/deprecated/exceptions/remote-request/wp-request-exception.php',
         'Yoast\\WP\\SEO\\Premium\\Generated\\Cached_Container' => __DIR__ . '/../..' . '/src/generated/container.php',
         'Yoast\\WP\\SEO\\Premium\\Helpers\\AI_Generator_Helper' => __DIR__ . '/../..' . '/src/deprecated/helpers/ai-generator-helper.php',
         'Yoast\\WP\\SEO\\Premium\\Helpers\\AI_Optimizer_Helper' => __DIR__ . '/../..' . '/src/deprecated/helpers/ai-optimizer-helper.php',
@@ -193,6 +193,7 @@ class ComposerStaticInite388ee31f31ea4140a64a4a9a0bd1549
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Abstract_OpenGraph_Integration' => __DIR__ . '/../..' . '/src/integrations/abstract-opengraph-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Ai_Consent_Integration' => __DIR__ . '/../..' . '/src/deprecated/integrations/admin/ai-consent-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Ai_Generator_Integration' => __DIR__ . '/../..' . '/src/deprecated/integrations/admin/ai-generator-integration.php',
+        'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Ai_Optimize_Fallback_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/ai-optimize-fallback-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Ai_Optimize_Integration' => __DIR__ . '/../..' . '/src/deprecated/integrations/admin/ai-optimize-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Cornerstone_Column_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/cornerstone-column-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Cornerstone_Taxonomy_Column_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/cornerstone-taxonomy-column-integration.php',
@@ -268,9 +269,9 @@ class ComposerStaticInite388ee31f31ea4140a64a4a9a0bd1549
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInite388ee31f31ea4140a64a4a9a0bd1549::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInite388ee31f31ea4140a64a4a9a0bd1549::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInite388ee31f31ea4140a64a4a9a0bd1549::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit9bb689af56ad06331848fe3dfcc1b507::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit9bb689af56ad06331848fe3dfcc1b507::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit9bb689af56ad06331848fe3dfcc1b507::$classMap;
 
         }, null, ClassLoader::class);
     }

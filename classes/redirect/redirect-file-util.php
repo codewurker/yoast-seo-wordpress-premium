@@ -119,4 +119,28 @@ class WPSEO_Redirect_File_Util {
 
 		return null;
 	}
+
+	/**
+	 * Checks if a file is writable.
+	 *
+	 * @param string $file The file path to check.
+	 *
+	 * @return bool If the file is writable.
+	 */
+	public static function is_writable( string $file ): ?bool {
+		if ( ! function_exists( 'WP_Filesystem' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+		}
+
+		if ( ! WP_Filesystem() ) {
+			return false;
+		}
+
+		global $wp_filesystem;
+		if ( ! $wp_filesystem->is_writable( $file ) ) {
+			return false;
+		}
+
+		return true;
+	}
 }

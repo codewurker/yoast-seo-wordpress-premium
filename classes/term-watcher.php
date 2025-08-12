@@ -203,7 +203,7 @@ class WPSEO_Term_Watcher extends WPSEO_Watcher implements WPSEO_WordPress_Integr
 	protected function is_redirect_needed( $term, $url ) {
 		$redirect_manager = new WPSEO_Redirect_Manager( 'plain' );
 		$redirect         = $redirect_manager->get_redirect( $url );
-		return ! $redirect || ( ! is_nav_menu( $term->term_id ) && is_taxonomy_viewable( $term->taxonomy ) );
+		return ! $redirect && ! is_nav_menu( $term->term_id ) && is_taxonomy_viewable( $term->taxonomy );
 	}
 
 	/**
