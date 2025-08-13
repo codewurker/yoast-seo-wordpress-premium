@@ -5,7 +5,7 @@
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'c2bd8984732a73d3a2d168b1390192b6ca5eddc7',
+        'reference' => 'b95afc93118b6e3e067e036580412d606317a31a',
         'name' => 'yoast/wordpress-seo-premium',
         'dev' => true,
     ),
@@ -571,7 +571,7 @@
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'c2bd8984732a73d3a2d168b1390192b6ca5eddc7',
+            'reference' => 'b95afc93118b6e3e067e036580412d606317a31a',
             'dev_requirement' => false,
         ),
         'yoast/wp-test-utils' => array(

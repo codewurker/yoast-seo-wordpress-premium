@@ -207,6 +207,7 @@ class WPSEO_Redirect implements ArrayAccess, JsonSerializable {
 	 *
 	 * @return array<string, int> An associative array containing redirect data.
 	 */
+	#[ReturnTypeWillChange]
 	public function jsonSerialize() {
 		return [
 			'origin'             => $this->get_origin(),
