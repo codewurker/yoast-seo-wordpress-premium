@@ -1,6 +1,10 @@
 *** Yoast SEO premium Changelog ***
 
 
-2025-08-13 - version 25.7.1
-* fix -  Fixes a bug where deprecation warning would be thrown when `WP_DEBUG` is enabled and a site is on PHP 8.1 or newer.
+2025-08-26 - version 25.8
+* fix -  Fixes a bug where redirect notification would be created when changing the slug on a non public term.
+* fix -  Fixes a bug where redirect notification would not be created when changing the slug on a public term with url arguments in the permalink.
+* fix -  Fixes a bug where redirect notification would be created when changing the slug on a non public term.
+* fix -  Fixes a bug where redirect notification would not be created when changing the slug on a public term with url arguments in the permalink.
+* update -  Bumps the minimum required version of Yoast SEO to 25.8.
 
