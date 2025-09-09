@@ -91,12 +91,17 @@ class Cached_Container extends Container
             'yoast\\wp\\seo\\premium\\ai\\optimize\\suggestions_postprocessor\\application\\suggestion_processor' => 'Yoast\\WP\\SEO\\Premium\\AI\\Optimize\\Suggestions_Postprocessor\\Application\\Suggestion_Processor',
             'yoast\\wp\\seo\\premium\\ai\\optimize\\suggestions_postprocessor\\application\\suggestions_serializer' => 'Yoast\\WP\\SEO\\Premium\\AI\\Optimize\\Suggestions_Postprocessor\\Application\\Suggestions_Serializer',
             'yoast\\wp\\seo\\premium\\ai\\optimize\\suggestions_postprocessor\\application\\suggestions_unifier' => 'Yoast\\WP\\SEO\\Premium\\AI\\Optimize\\Suggestions_Postprocessor\\Application\\Suggestions_Unifier',
+            'yoast\\wp\\seo\\premium\\ai\\summarize\\application\\summarizer' => 'Yoast\\WP\\SEO\\Premium\\AI\\Summarize\\Application\\Summarizer',
+            'yoast\\wp\\seo\\premium\\ai\\summarize\\user_interface\\ai_summarize_integration' => 'Yoast\\WP\\SEO\\Premium\\AI\\Summarize\\User_Interface\\AI_Summarize_Integration',
+            'yoast\\wp\\seo\\premium\\ai\\summarize\\user_interface\\ai_summarize_route' => 'Yoast\\WP\\SEO\\Premium\\AI\\Summarize\\User_Interface\\AI_Summarize_Route',
             'yoast\\wp\\seo\\premium\\ai_suggestions_postprocessor\\application\\ai_suggestions_serializer' => 'Yoast\\WP\\SEO\\Premium\\AI_Suggestions_Postprocessor\\Application\\AI_Suggestions_Serializer',
             'yoast\\wp\\seo\\premium\\ai_suggestions_postprocessor\\application\\ai_suggestions_unifier' => 'Yoast\\WP\\SEO\\Premium\\AI_Suggestions_Postprocessor\\Application\\AI_Suggestions_Unifier',
             'yoast\\wp\\seo\\premium\\ai_suggestions_postprocessor\\application\\sentence_processor' => 'Yoast\\WP\\SEO\\Premium\\AI_Suggestions_Postprocessor\\Application\\Sentence_Processor',
             'yoast\\wp\\seo\\premium\\ai_suggestions_postprocessor\\application\\suggestion_processor' => 'Yoast\\WP\\SEO\\Premium\\AI_Suggestions_Postprocessor\\Application\\Suggestion_Processor',
             'yoast\\wp\\seo\\premium\\conditionals\\admin_or_introductions_route_conditional' => 'Yoast\\WP\\SEO\\Premium\\Conditionals\\Admin_Or_Introductions_Route_Conditional',
             'yoast\\wp\\seo\\premium\\conditionals\\ai_editor_conditional' => 'Yoast\\WP\\SEO\\Premium\\Conditionals\\Ai_Editor_Conditional',
+            'yoast\\wp\\seo\\premium\\conditionals\\ai_summarize_disable_conditional' => 'Yoast\\WP\\SEO\\Premium\\Conditionals\\AI_Summarize_Disable_Conditional',
+            'yoast\\wp\\seo\\premium\\conditionals\\ai_summarize_support_conditional' => 'Yoast\\WP\\SEO\\Premium\\Conditionals\\AI_Summarize_Support_Conditional',
             'yoast\\wp\\seo\\premium\\conditionals\\algolia_enabled_conditional' => 'Yoast\\WP\\SEO\\Premium\\Conditionals\\Algolia_Enabled_Conditional',
             'yoast\\wp\\seo\\premium\\conditionals\\cornerstone_enabled_conditional' => 'Yoast\\WP\\SEO\\Premium\\Conditionals\\Cornerstone_Enabled_Conditional',
             'yoast\\wp\\seo\\premium\\conditionals\\edd_conditional' => 'Yoast\\WP\\SEO\\Premium\\Conditionals\\EDD_Conditional',
@@ -259,6 +264,9 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Premium\\AI\\Optimize\\Suggestions_Postprocessor\\Application\\Suggestion_Processor' => 'getSuggestionProcessorService',
             'Yoast\\WP\\SEO\\Premium\\AI\\Optimize\\Suggestions_Postprocessor\\Application\\Suggestions_Serializer' => 'getSuggestionsSerializerService',
             'Yoast\\WP\\SEO\\Premium\\AI\\Optimize\\Suggestions_Postprocessor\\Application\\Suggestions_Unifier' => 'getSuggestionsUnifierService',
+            'Yoast\\WP\\SEO\\Premium\\AI\\Summarize\\Application\\Summarizer' => 'getSummarizerService',
+            'Yoast\\WP\\SEO\\Premium\\AI\\Summarize\\User_Interface\\AI_Summarize_Integration' => 'getAISummarizeIntegrationService',
+            'Yoast\\WP\\SEO\\Premium\\AI\\Summarize\\User_Interface\\AI_Summarize_Route' => 'getAISummarizeRouteService',
             'Yoast\\WP\\SEO\\Premium\\AI_Suggestions_Postprocessor\\Application\\AI_Suggestions_Serializer' => 'getAISuggestionsSerializerService',
             'Yoast\\WP\\SEO\\Premium\\AI_Suggestions_Postprocessor\\Application\\AI_Suggestions_Unifier' => 'getAISuggestionsUnifierService',
             'Yoast\\WP\\SEO\\Premium\\AI_Suggestions_Postprocessor\\Application\\Sentence_Processor' => 'getSentenceProcessor2Service',
@@ -270,6 +278,8 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Complete_Action' => 'getCompleteActionService',
             'Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Content_Action' => 'getContentActionService',
             'Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Save_Action' => 'getSaveActionService',
+            'Yoast\\WP\\SEO\\Premium\\Conditionals\\AI_Summarize_Disable_Conditional' => 'getAISummarizeDisableConditionalService',
+            'Yoast\\WP\\SEO\\Premium\\Conditionals\\AI_Summarize_Support_Conditional' => 'getAISummarizeSupportConditionalService',
             'Yoast\\WP\\SEO\\Premium\\Conditionals\\Admin_Or_Introductions_Route_Conditional' => 'getAdminOrIntroductionsRouteConditionalService',
             'Yoast\\WP\\SEO\\Premium\\Conditionals\\Ai_Editor_Conditional' => 'getAiEditorConditionalService',
             'Yoast\\WP\\SEO\\Premium\\Conditionals\\Algolia_Enabled_Conditional' => 'getAlgoliaEnabledConditionalService',
@@ -910,6 +920,8 @@ class Cached_Container extends Container
 
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\AI\\Optimize\\Optimizer\\User_Interface\\AI_Optimize_Integration');
         $instance->register_route('Yoast\\WP\\SEO\\Premium\\AI\\Optimize\\Optimizer\\User_Interface\\AI_Optimize_Route');
+        $instance->register_integration('Yoast\\WP\\SEO\\Premium\\AI\\Summarize\\User_Interface\\AI_Summarize_Integration');
+        $instance->register_route('Yoast\\WP\\SEO\\Premium\\AI\\Summarize\\User_Interface\\AI_Summarize_Route');
         $instance->register_migration('premium', '20190715101200', 'Yoast\\WP\\SEO\\Config\\Migrations\\WpYoastPremiumImprovedInternalLinking');
         $instance->register_migration('premium', '20210827093024', 'Yoast\\WP\\SEO\\Premium\\Config\\Migrations\\AddIndexOnIndexableIdAndStem');
         $instance->register_initializer('Yoast\\WP\\SEO\\Premium\\Database\\Migration_Runner_Premium');
@@ -1066,6 +1078,36 @@ class Cached_Container extends Container
     }
 
     /**
+     * Gets the public 'Yoast\WP\SEO\Premium\AI\Summarize\Application\Summarizer' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\AI\Summarize\Application\Summarizer
+     */
+    protected function getSummarizerService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\AI\\Summarize\\Application\\Summarizer'] = new \Yoast\WP\SEO\Premium\AI\Summarize\Application\Summarizer(${($_ = isset($this->services['Yoast\\WP\\SEO\\AI_Consent\\Application\\Consent_Handler']) ? $this->services['Yoast\\WP\\SEO\\AI_Consent\\Application\\Consent_Handler'] : $this->getConsentHandlerService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\AI_HTTP_Request\\Application\\Request_Handler']) ? $this->services['Yoast\\WP\\SEO\\AI_HTTP_Request\\Application\\Request_Handler'] : $this->getRequestHandlerService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\AI_Authorization\\Application\\Token_Manager']) ? $this->services['Yoast\\WP\\SEO\\AI_Authorization\\Application\\Token_Manager'] : $this->getTokenManagerService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\User_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\User_Helper'] : $this->getUserHelperService()) && false ?: '_'});
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\AI\Summarize\User_Interface\AI_Summarize_Integration' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\AI\Summarize\User_Interface\AI_Summarize_Integration
+     */
+    protected function getAISummarizeIntegrationService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\AI\\Summarize\\User_Interface\\AI_Summarize_Integration'] = new \Yoast\WP\SEO\Premium\AI\Summarize\User_Interface\AI_Summarize_Integration(${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] : $this->getOptionsHelperService()) && false ?: '_'});
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\AI\Summarize\User_Interface\AI_Summarize_Route' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\AI\Summarize\User_Interface\AI_Summarize_Route
+     */
+    protected function getAISummarizeRouteService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\AI\\Summarize\\User_Interface\\AI_Summarize_Route'] = new \Yoast\WP\SEO\Premium\AI\Summarize\User_Interface\AI_Summarize_Route(${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\AI\\Summarize\\Application\\Summarizer']) ? $this->services['Yoast\\WP\\SEO\\Premium\\AI\\Summarize\\Application\\Summarizer'] : $this->getSummarizerService()) && false ?: '_'});
+    }
+
+    /**
      * Gets the public 'Yoast\WP\SEO\Premium\AI_Suggestions_Postprocessor\Application\AI_Suggestions_Serializer' shared autowired service.
      *
      * @return \Yoast\WP\SEO\Premium\AI_Suggestions_Postprocessor\Application\AI_Suggestions_Serializer
@@ -1201,6 +1243,26 @@ class Cached_Container extends Container
     protected function getSaveActionService()
     {
         return $this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Save_Action'] = new \Yoast\WP\SEO\Premium\Actions\Prominent_Words\Save_Action(${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Repositories\\Prominent_Words_Repository']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Repositories\\Prominent_Words_Repository'] : ($this->services['Yoast\\WP\\SEO\\Premium\\Repositories\\Prominent_Words_Repository'] = new \Yoast\WP\SEO\Premium\Repositories\Prominent_Words_Repository())) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository']) ? $this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository'] : $this->getIndexableRepositoryService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Indexable_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Indexable_Helper'] : $this->getIndexableHelperService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper'] : $this->getProminentWordsHelperService()) && false ?: '_'});
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Conditionals\AI_Summarize_Disable_Conditional' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Conditionals\AI_Summarize_Disable_Conditional
+     */
+    protected function getAISummarizeDisableConditionalService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Conditionals\\AI_Summarize_Disable_Conditional'] = new \Yoast\WP\SEO\Premium\Conditionals\AI_Summarize_Disable_Conditional();
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Conditionals\AI_Summarize_Support_Conditional' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Conditionals\AI_Summarize_Support_Conditional
+     */
+    protected function getAISummarizeSupportConditionalService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Conditionals\\AI_Summarize_Support_Conditional'] = new \Yoast\WP\SEO\Premium\Conditionals\AI_Summarize_Support_Conditional(${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Conditionals\\AI_Summarize_Disable_Conditional']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Conditionals\\AI_Summarize_Disable_Conditional'] : ($this->services['Yoast\\WP\\SEO\\Premium\\Conditionals\\AI_Summarize_Disable_Conditional'] = new \Yoast\WP\SEO\Premium\Conditionals\AI_Summarize_Disable_Conditional())) && false ?: '_'});
     }
 
     /**

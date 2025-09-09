@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit6b72f0b35fc3f381feb26024c441e5f6
+class ComposerStaticInitd484ae9ed61e510984f45c57ed12f682
 {
     public static $prefixLengthsPsr4 = array (
         'C' => 
@@ -138,6 +138,9 @@ class ComposerStaticInit6b72f0b35fc3f381feb26024c441e5f6
         'Yoast\\WP\\SEO\\Premium\\AI\\Optimize\\Suggestions_Postprocessor\\Application\\Suggestion_Processor' => __DIR__ . '/../..' . '/src/ai/optimize/suggestions-postprocessor/application/suggestion-processor.php',
         'Yoast\\WP\\SEO\\Premium\\AI\\Optimize\\Suggestions_Postprocessor\\Application\\Suggestions_Serializer' => __DIR__ . '/../..' . '/src/ai/optimize/suggestions-postprocessor/application/suggestions-serializer.php',
         'Yoast\\WP\\SEO\\Premium\\AI\\Optimize\\Suggestions_Postprocessor\\Application\\Suggestions_Unifier' => __DIR__ . '/../..' . '/src/ai/optimize/suggestions-postprocessor/application/suggestions-unifier.php',
+        'Yoast\\WP\\SEO\\Premium\\AI\\Summarize\\Application\\Summarizer' => __DIR__ . '/../..' . '/src/ai/summarize/application/summarizer.php',
+        'Yoast\\WP\\SEO\\Premium\\AI\\Summarize\\User_Interface\\AI_Summarize_Integration' => __DIR__ . '/../..' . '/src/ai/summarize/user-interface/ai-summarize-integration.php',
+        'Yoast\\WP\\SEO\\Premium\\AI\\Summarize\\User_Interface\\AI_Summarize_Route' => __DIR__ . '/../..' . '/src/ai/summarize/user-interface/ai-summarize-route.php',
         'Yoast\\WP\\SEO\\Premium\\AI_Suggestions_Postprocessor\\Application\\AI_Suggestions_Serializer' => __DIR__ . '/../..' . '/src/deprecated/ai-suggestions-postprocessor/application/ai-suggestions-serializer.php',
         'Yoast\\WP\\SEO\\Premium\\AI_Suggestions_Postprocessor\\Application\\AI_Suggestions_Unifier' => __DIR__ . '/../..' . '/src/deprecated/ai-suggestions-postprocessor/application/ai-suggestions-unifier.php',
         'Yoast\\WP\\SEO\\Premium\\AI_Suggestions_Postprocessor\\Application\\Sentence_Processor' => __DIR__ . '/../..' . '/src/deprecated/ai-suggestions-postprocessor/application/sentence-processor.php',
@@ -152,6 +155,8 @@ class ComposerStaticInit6b72f0b35fc3f381feb26024c441e5f6
         'Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Content_Action' => __DIR__ . '/../..' . '/src/actions/prominent-words/content-action.php',
         'Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Save_Action' => __DIR__ . '/../..' . '/src/actions/prominent-words/save-action.php',
         'Yoast\\WP\\SEO\\Premium\\Addon_Installer' => __DIR__ . '/../..' . '/src/addon-installer.php',
+        'Yoast\\WP\\SEO\\Premium\\Conditionals\\AI_Summarize_Disable_Conditional' => __DIR__ . '/../..' . '/src/conditionals/ai-summarize-disable-conditional.php',
+        'Yoast\\WP\\SEO\\Premium\\Conditionals\\AI_Summarize_Support_Conditional' => __DIR__ . '/../..' . '/src/conditionals/ai-summarize-support-conditional.php',
         'Yoast\\WP\\SEO\\Premium\\Conditionals\\Admin_Or_Introductions_Route_Conditional' => __DIR__ . '/../..' . '/src/conditionals/admin-or-introductions-route-conditional.php',
         'Yoast\\WP\\SEO\\Premium\\Conditionals\\Ai_Editor_Conditional' => __DIR__ . '/../..' . '/src/conditionals/ai-editor-conditional.php',
         'Yoast\\WP\\SEO\\Premium\\Conditionals\\Algolia_Enabled_Conditional' => __DIR__ . '/../..' . '/src/conditionals/algolia-enabled-conditional.php',
@@ -269,9 +274,9 @@ class ComposerStaticInit6b72f0b35fc3f381feb26024c441e5f6
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit6b72f0b35fc3f381feb26024c441e5f6::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit6b72f0b35fc3f381feb26024c441e5f6::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit6b72f0b35fc3f381feb26024c441e5f6::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitd484ae9ed61e510984f45c57ed12f682::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitd484ae9ed61e510984f45c57ed12f682::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitd484ae9ed61e510984f45c57ed12f682::$classMap;
 
         }, null, ClassLoader::class);
     }

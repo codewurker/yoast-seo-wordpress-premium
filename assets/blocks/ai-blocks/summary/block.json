@@ -1,0 +1,72 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "version": "23.0",
+  "name": "yoast-seo/ai-summarize",
+  "title": "Yoast AI Summarize",
+  "description": "Adds a short AI summary of your content.",
+  "category": "yoast-ai-blocks",
+  "icon": "editor-ul",
+  "keywords": [
+    "summary",
+    "tldr",
+    "key takeaways"
+  ],
+  "textdomain": "wordpress-seo-premium",
+  "attributes": {
+    "title": {
+      "type": "string",
+      "source": "html",
+      "selector": "h1,h2,h3,h4,h5,h6",
+      "default": "Key Takeaways"
+    },
+    "level": {
+      "type": "number",
+      "default": 2
+    },
+    "status": {
+      "type": "string",
+      "default": "idle"
+    }
+  },
+  "allowedBlocks": [
+    "core/list",
+    "core/list-item"
+  ],
+  "supports": {
+    "html": true,
+    "multiple": false
+  },
+  "example": {
+    "attributes": {
+      "title": "Key Takeaways",
+      "level": 2,
+      "status": "loaded"
+    },
+    "innerBlocks": [
+      {
+        "name": "core/list",
+        "innerBlocks": [
+          {
+            "name": "core/list-item",
+            "attributes": {
+              "content": "First key takeaway from the content"
+            }
+          },
+          {
+            "name": "core/list-item",
+            "attributes": {
+              "content": "Second important point to remember"
+            }
+          },
+          {
+            "name": "core/list-item",
+            "attributes": {
+              "content": "Third summary point for quick reference"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

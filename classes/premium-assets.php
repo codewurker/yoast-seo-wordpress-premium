@@ -157,7 +157,6 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 					'wp-i18n',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'analysis',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'admin-modules',
-					WPSEO_Admin_Asset_Manager::PREFIX . 'react-select',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'yoast-components',
 				],
 			],
@@ -266,6 +265,7 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 					'yoast-seo-premium-metabox',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'editor-modules',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'yoast-components',
+					WPSEO_Admin_Asset_Manager::PREFIX . 'ai-frontend-package',
 				],
 			],
 			[
@@ -373,6 +373,30 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 					WPSEO_Admin_Asset_Manager::PREFIX . 'editor-modules',
 				],
 			],
+			[
+				'name'         => 'wp-seo-premium-ai-blocks',
+				'path'         => 'assets/js/dist/',
+				'filename'     => 'ai-blocks-' . $version . WPSEO_CSSJS_SUFFIX . '.js',
+				'dependencies' => [
+					'lodash',
+					'react',
+					'react-jsx-runtime',
+					'wp-block-editor',
+					'wp-blocks',
+					'wp-components',
+					'wp-data',
+					'wp-dom-ready',
+					'wp-element',
+					'wp-i18n',
+					'wp-polyfill',
+					WPSEO_Admin_Asset_Manager::PREFIX . 'ai-frontend-package',
+					WPSEO_Admin_Asset_Manager::PREFIX . 'analysis',
+					WPSEO_Admin_Asset_Manager::PREFIX . 'editor-modules',
+					WPSEO_Admin_Asset_Manager::PREFIX . 'prop-types-package',
+					WPSEO_Admin_Asset_Manager::PREFIX . 'redux-js-toolkit-package',
+					WPSEO_Admin_Asset_Manager::PREFIX . 'ui-library-package',
+				],
+			],
 		];
 	}
 
@@ -441,6 +465,7 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 				'name'         => WPSEO_Admin_Asset_Manager::PREFIX . 'premium-ai-fix-assessments',
 				'source'       => 'assets/css/dist/premium-ai-fix-assessments-' . $version . $rtl_suffix . '.css',
 				'dependencies' => [
+					WPSEO_Admin_Asset_Manager::PREFIX . 'ai-frontend',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'premium-tailwind',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'monorepo',
 				],
@@ -448,7 +473,18 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 			[
 				'name'         => WPSEO_Admin_Asset_Manager::PREFIX . 'premium-block-editor',
 				'source'       => 'assets/css/dist/premium-block-editor-' . $version . $rtl_suffix . '.css',
-				'dependencies' => [],
+				'dependencies' => [
+					WPSEO_Admin_Asset_Manager::PREFIX . 'ai-frontend',
+				],
+			],
+			[
+				'name'         => WPSEO_Admin_Asset_Manager::PREFIX . 'premium-ai-summarize',
+				'source'       => 'assets/css/dist/premium-ai-summarize-' . $version . $rtl_suffix . '.css',
+				'dependencies' => [
+					WPSEO_Admin_Asset_Manager::PREFIX . 'ai-frontend',
+					WPSEO_Admin_Asset_Manager::PREFIX . 'premium-tailwind',
+					WPSEO_Admin_Asset_Manager::PREFIX . 'monorepo',
+				],
 			],
 		];
 	}
