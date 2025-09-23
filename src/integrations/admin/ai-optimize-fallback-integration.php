@@ -2,6 +2,7 @@
 
 namespace Yoast\WP\SEO\Premium\Integrations\Admin;
 
+use WP_HTML_Tag_Processor;
 use Yoast\WP\SEO\Conditionals\Conditional;
 use Yoast\WP\SEO\Helpers\Options_Helper;
 use Yoast\WP\SEO\Integrations\Integration_Interface;
@@ -82,12 +83,34 @@ class Ai_Optimize_Fallback_Integration implements Integration_Interface {
 			return $data;
 		}
 
-		// Remove unescaped attributes.
-		$data['post_content'] = \preg_replace( '/\sdata-yst-optimize=(["\'])(.*?)\1/', '', $data['post_content'] );
+		// We want an early return if there's no attribute to remove.
+		if ( \strpos( $data['post_content'], 'data-yst-optimize' ) === false ) {
+			return $data;
+		}
 
-		// Remove escaped attributes.
-		$data['post_content'] = \preg_replace( '/\sdata-yst-optimize=\\\\(["\'])(.*?)\\\\\1/', '', $data['post_content'] );
+		// If the class is not there we just leave the data attributes since it does not hurt anyone, it just might look weird in the html source.
+		if ( \class_exists( WP_HTML_Tag_Processor::class ) ) {
+			$data['post_content'] = $this->strip_attribute_with_tag_processor( $data['post_content'] );
+		}
 
 		return $data;
+	}
+
+	/**
+	 * This strips all data-yst-optimize attributes from the content using WP_HTML_Tag_Processor.
+	 *
+	 * @param string $content The post content.
+	 *
+	 * @return string
+	 */
+	private function strip_attribute_with_tag_processor( $content ) {
+
+		$tag_processor = new WP_HTML_Tag_Processor( $content );
+		$attribute     = 'data-yst-optimize';
+		while ( $tag_processor->next_tag() ) {
+			$tag_processor->remove_attribute( $attribute );
+		}
+
+		return $tag_processor->get_updated_html();
 	}
 }

@@ -11,6 +11,7 @@ use Yoast\WP\SEO\Actions\Indexing\Indexation_Action_Interface;
 use Yoast\WP\SEO\Conditionals\Admin_Conditional;
 use Yoast\WP\SEO\Conditionals\Migrations_Conditional;
 use Yoast\WP\SEO\Helpers\Language_Helper;
+use Yoast\WP\SEO\Helpers\Options_Helper;
 use Yoast\WP\SEO\Helpers\Url_Helper;
 use Yoast\WP\SEO\Integrations\Integration_Interface;
 use Yoast\WP\SEO\Premium\Actions\Prominent_Words\Content_Action;
@@ -60,6 +61,13 @@ class Indexing_Integration implements Integration_Interface {
 	protected $url_helper;
 
 	/**
+	 * Represents the options helper.
+	 *
+	 * @var Options_Helper
+	 */
+	protected $options_helper;
+
+	/**
 	 * Represents the prominent words helper.
 	 *
 	 * @var Prominent_Words_Helper
@@ -84,6 +92,7 @@ class Indexing_Integration implements Integration_Interface {
 	 * @param Language_Helper                               $language_helper                     The language helper.
 	 * @param Url_Helper                                    $url_helper                          The url helper.
 	 * @param Prominent_Words_Helper                        $prominent_words_helper              The prominent words helper.
+	 * @param Options_Helper                                $options_helper                      The options helper.
 	 */
 	public function __construct(
 		Content_Action $content_indexation_action,
@@ -93,11 +102,13 @@ class Indexing_Integration implements Integration_Interface {
 		Indexable_Post_Type_Archive_Indexation_Action $post_type_archive_indexation_action,
 		Language_Helper $language_helper,
 		Url_Helper $url_helper,
-		Prominent_Words_Helper $prominent_words_helper
+		Prominent_Words_Helper $prominent_words_helper,
+		Options_Helper $options_helper
 	) {
 		$this->language_helper        = $language_helper;
 		$this->url_helper             = $url_helper;
 		$this->prominent_words_helper = $prominent_words_helper;
+		$this->options_helper         = $options_helper;
 
 		// Indexation actions are used to calculate the number of unindexed objects.
 		$this->indexing_actions = [
@@ -122,8 +133,9 @@ class Indexing_Integration implements Integration_Interface {
 	 * @return void
 	 */
 	public function register_hooks() {
-		\add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
-
+		if ( $this->options_helper->get( 'enable_link_suggestions', false ) ) {
+			\add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+		}
 		\add_filter( 'wpseo_indexing_data', [ $this, 'adapt_indexing_data' ] );
 		\add_filter( 'wpseo_indexing_get_unindexed_count', [ $this, 'get_unindexed_count' ] );
 		\add_filter( 'wpseo_indexing_get_limited_unindexed_count', [ $this, 'get_limited_unindexed_count' ], 10, 2 );

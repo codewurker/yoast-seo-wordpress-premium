@@ -119,8 +119,10 @@ class Elementor_Premium implements Integration_Interface {
 		 * Re-enqueue the integrations as `admin_enqueue_scripts` is undone.
 		 * Note the register_hooks were not even called (because it doesn't work anyway).
 		 */
-		$social_previews = new WPSEO_Social_Previews();
-		$social_previews->enqueue_assets();
+		if ( \YoastSEO()->helpers->options->get( 'opengraph', false ) || \YoastSEO()->helpers->options->get( 'twitter', false ) ) {
+			$social_previews = new WPSEO_Social_Previews();
+			$social_previews->enqueue_assets();
+		}
 		$custom_fields = new WPSEO_Custom_Fields_Plugin();
 		$custom_fields->enqueue();
 

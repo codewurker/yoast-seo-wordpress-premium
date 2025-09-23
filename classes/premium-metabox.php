@@ -309,12 +309,12 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 	 * @return WPSEO_WordPress_Integration[] The metabox integrations.
 	 */
 	protected function get_metabox_integrations() {
-		return [
-			'social-previews'       => new WPSEO_Social_Previews(),
-
-			// Add custom fields plugin to post and page edit pages.
-			'premium-custom-fields' => new WPSEO_Custom_Fields_Plugin(),
-		];
+		// Add custom fields plugin to post and page edit pages.
+		$integrations = [ 'premium-custom-fields' => new WPSEO_Custom_Fields_Plugin() ];
+		if ( YoastSEO()->helpers->options->get( 'opengraph', false ) || YoastSEO()->helpers->options->get( 'twitter', false ) ) {
+			$integrations['social-previews'] = new WPSEO_Social_Previews();
+		}
+		return $integrations;
 	}
 
 	/**
