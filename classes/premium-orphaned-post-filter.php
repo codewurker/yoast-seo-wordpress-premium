@@ -6,6 +6,7 @@
  */
 
 use Yoast\WP\SEO\Config\Migration_Status;
+use Yoast\WP\SEO\Repositories\Indexable_Repository;
 
 /**
  * Registers the filter for filtering posts by orphaned content.
@@ -22,6 +23,24 @@ class WPSEO_Premium_Orphaned_Post_Filter extends WPSEO_Abstract_Post_Filter {
 	}
 
 	/**
+	 * Checks if the orphaned count cache is enabled via filter.
+	 *
+	 * @return bool
+	 */
+	private function is_orphaned_count_cache_enabled(): bool {
+		/**
+		 * Filter: 'wpseo_premium_orphaned_count_cache' - Allows the control the orphaned count cache.
+		 *
+		 * Note: This is a Premium plugin-only hook.
+		 *
+		 * @since 26.1
+		 *
+		 * @param bool $load Whether to have cache for orphaned counts enabled. Default: true.
+		*/
+		return apply_filters( 'wpseo_premium_orphaned_count_cache', true );
+	}
+
+	/**
 	 * Registers the hooks when the link feature is enabled.
 	 *
 	 * @return void
@@ -35,7 +54,7 @@ class WPSEO_Premium_Orphaned_Post_Filter extends WPSEO_Abstract_Post_Filter {
 			parent::register_hooks();
 		}
 
-		add_action( 'wpseo_related_indexables_incoming_links_updated', [ $this, 'flush_cache_orphaned_counts' ] );
+		add_action( 'wpseo_related_indexables_incoming_links_updated', [ $this, 'flush_cache_orphaned_counts' ], 10, 1 );
 	}
 
 	/**
@@ -157,12 +176,15 @@ class WPSEO_Premium_Orphaned_Post_Filter extends WPSEO_Abstract_Post_Filter {
 		global $wpdb;
 		$post_type = $this->get_current_post_type();
 		$cache_key = 'orphaned_count_' . $post_type;
-		$count     = wp_cache_get( $cache_key, 'orphaned_counts' );
+		$count     = false;
+
+		if ( $this->is_orphaned_count_cache_enabled() ) {
+			$count = wp_cache_get( $cache_key, 'orphaned_counts' );
+		}
 
 		if ( WPSEO_Premium_Orphaned_Content_Utils::has_unprocessed_content() ) {
 			return '?';
 		}
-
 		// phpcs:disable WordPress.DB.PreparedSQLPlaceholders.UnsupportedPlaceholder -- Reason: Will be supported in the next WPcs version.
 		if ( $count === false ) {
 			$subquery = WPSEO_Premium_Orphaned_Post_Query::get_orphaned_content_query();
@@ -184,8 +206,10 @@ class WPSEO_Premium_Orphaned_Post_Filter extends WPSEO_Abstract_Post_Filter {
 
 			$count = (int) $count;
 
-			$expiry = ( wp_using_ext_object_cache() && wp_cache_supports( 'flush_group' ) ) ? DAY_IN_SECONDS : MINUTE_IN_SECONDS;
-			wp_cache_set( $cache_key, $count, 'orphaned_counts', $expiry );
+			if ( $this->is_orphaned_count_cache_enabled() ) {
+				$expiry = ( wp_using_ext_object_cache() && wp_cache_supports( 'flush_group' ) ) ? DAY_IN_SECONDS : MINUTE_IN_SECONDS;
+				wp_cache_set( $cache_key, $count, 'orphaned_counts', $expiry );
+			}
 		}
 
 		// phpcs:enable
@@ -207,11 +231,51 @@ class WPSEO_Premium_Orphaned_Post_Filter extends WPSEO_Abstract_Post_Filter {
 	/**
 	 * Flushes the orphaned_counts cache group.
 	 *
+	 * @param int[] $related_indexable_ids The related indexable Ids to this link change.
+	 *
 	 * @return void
 	 */
-	public function flush_cache_orphaned_counts() {
-		if ( wp_cache_supports( 'flush_group' ) ) {
-			wp_cache_flush_group( 'orphaned_counts' );
+	public function flush_cache_orphaned_counts( $related_indexable_ids ) {
+		if ( ! $this->is_orphaned_count_cache_enabled() ) {
+			return;
+		}
+
+		/**
+		 * Filter: 'wpseo_premium_orphaned_count_cache_invalidation_method' - Allows the ability to choose the way to invalidate the current cache.
+		 *
+		 * Note: This is a Premium plugin-only hook.
+		 *
+		 * @since 26.1
+		 *
+		 * @param string $method The method to invalidate the current cache, either 'flush' or 'delete'. Default: 'flush'.
+		 */
+		$method = apply_filters( 'wpseo_premium_orphaned_count_cache_invalidation_method', 'flush' );
+
+		switch ( $method ) {
+			case 'flush':
+				if ( wp_cache_supports( 'flush_group' ) ) {
+					wp_cache_flush_group( 'orphaned_counts' );
+				}
+				break;
+			case 'delete':
+				if ( ! is_array( $related_indexable_ids ) || empty( $related_indexable_ids ) ) {
+					break;
+				}
+
+				$indexables = YoastSEO()->classes->get( Indexable_Repository::class )
+					->find_by_ids( $related_indexable_ids );
+				$post_types = [];
+				foreach ( $indexables as $indexable ) {
+					$post_types[ $indexable->object_sub_type ] = $indexable->object_sub_type;
+				}
+				foreach ( $post_types as $post_type ) {
+					wp_cache_delete( 'orphaned_count_' . $post_type, 'orphaned_counts' );
+				}
+
+				break;
+			default:
+				// Do nothing.
+				break;
 		}
 	}
 }

@@ -1,9 +1,12 @@
 *** Yoast SEO premium Changelog ***
 
 
-2025-09-23 - version 26.0
-* fix -  Fixes a bug where the filter and search values would be persistent when switching tabs in the redirects page.
-* fix -  Fixes a bug where a string from the usage counter tooltip for AI features was missing in RTL language.
-* fix -  Fixes a bug where a redirect could not be remove if it included our own redirect routes in the redirect.
-* update -  Bumps the minimum required version of Yoast SEO to 26.0.
+2025-10-07 - version 26.1
+* add -  Adds tooltips to the AI Summarize `Generate summary` and `Regenerate summary` buttons when they are disabled.
+* add -  Prevents AI Optimize from suggesting improvements to the content of the AI Summarize block.
+* add -  Excludes the content of the AI Summarize block from the content that should be summarized when re-generating a summary.
+* fix -  Fixes a bug where the modals would be rendered every time on hovering over the transform options in the AI summarize menu.
+* update -  Bumps the minimum required version of Yoast SEO to 26.1.
+* update -  Adds the `wpseo_premium_orphaned_count_cache_invalidation_method` filter to allow the ability to swap the way to invalidate the `orphaned_count` object cache.
+* update -  Adds the `wpseo_premium_orphaned_count_cache` filter to allow the ability to completely disable the `orphaned_count` object cache.
 
