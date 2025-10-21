@@ -5,7 +5,7 @@
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'b24f95cb8b3ee7267a64fce079f2beeff9d29e24',
+        'reference' => 'bf8879625c65f5c9289f4c5df0f49c0a055c6e6c',
         'name' => 'yoast/wordpress-seo-premium',
         'dev' => true,
     ),
@@ -557,12 +557,12 @@
             'dev_requirement' => true,
         ),
         'yoast/wordpress-seo' => array(
-            'pretty_version' => '26.1',
-            'version' => '26.1.0.0',
+            'pretty_version' => '26.2',
+            'version' => '26.2.0.0',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../yoast/wordpress-seo',
             'aliases' => array(),
-            'reference' => 'f4d53c6fc12ad6934af50ad9f19f70169bc2c3e0',
+            'reference' => '837c7f3095c4b83930e0d4902f3dfce93612ceaa',
             'dev_requirement' => false,
         ),
         'yoast/wordpress-seo-premium' => array(
@@ -571,7 +571,7 @@
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'b24f95cb8b3ee7267a64fce079f2beeff9d29e24',
+            'reference' => 'bf8879625c65f5c9289f4c5df0f49c0a055c6e6c',
             'dev_requirement' => false,
         ),
         'yoast/wp-test-utils' => array(
