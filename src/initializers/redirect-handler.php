@@ -633,6 +633,7 @@ class Redirect_Handler implements Initializer_Interface {
 			require_once \ABSPATH . 'wp-includes/pluggable.php';
 		}
 
+		// phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect -- Location is validated by redirect logic before calling this method.
 		\wp_redirect( $location, $status, 'Yoast SEO Premium' );
 		exit;
 	}

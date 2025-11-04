@@ -23,7 +23,7 @@ class Addon_Installer {
 	/**
 	 * The minimum Yoast SEO version required.
 	 */
-	public const MINIMUM_YOAST_SEO_VERSION = '26.2';
+	public const MINIMUM_YOAST_SEO_VERSION = '26.3';
 
 	/**
 	 * The base directory for the installer.
@@ -347,7 +347,7 @@ class Addon_Installer {
 				$url = 'https://downloads.wordpress.org/plugin/wordpress-seo.zip';
 			}
 
-			$upgrader  = new Plugin_Upgrader( $skin );
+			$upgrader  = new Plugin_Upgrader( $skin ); // nosemgrep audit.php.wp.security.arbitrary-plugin-install -- Used to pull and install Yoast SEO from the WordPress repository.
 			$installed = $upgrader->install( $url );
 			if ( \is_wp_error( $installed ) || ! $installed ) {
 				throw new Exception( 'Could not automatically install Yoast SEO' );

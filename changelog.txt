@@ -1,7 +1,7 @@
 *** Yoast SEO premium Changelog ***
 
 
-2025-10-21 - version 26.2
-* add -  Makes the HelpScout Beacon in the `Support` page accessible to all users with any valid plan regardless of the add-ons they have installed/activated.
-* update -  Bumps the minimum required version of Yoast SEO to 26.2.
+2025-11-04 - version 26.3
+* fix -  Fixes a bug where users could activate the web server redirection method in multisite installations.
+* update -  Bumps the minimum required version of Yoast SEO to 26.3.
 

@@ -27,7 +27,7 @@ $yoast_seo_values             = $display_vars['values'];
 		if ( count( $yoast_seo_redirect_types ) > 0 ) {
 			foreach ( $yoast_seo_redirect_types as $yoast_seo_redirect_type => $yoast_seo_redirect_desc ) {
 				echo '<option value="' . esc_attr( $yoast_seo_redirect_type ) . '"'
-					. sprintf( $yoast_seo_values['type'], $yoast_seo_redirect_type ) . '>'
+					. sprintf( $yoast_seo_values['type'], $yoast_seo_redirect_type ) . '>' // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $yoast_seo_values['type'] contains safe HTML attributes and $yoast_seo_redirect_type is safe redirect type key.
 					. esc_html( $yoast_seo_redirect_desc ) . '</option>' . "\n";
 			}
 		}
@@ -40,7 +40,7 @@ $yoast_seo_values             = $display_vars['values'];
 	printf(
 		/* translators: 1: opens a link to a related help center article. 2: closes the link. */
 		esc_html__( 'The redirect type is the HTTP response code sent to the browser telling the browser what type of redirect is served. %1$sLearn more about redirect types%2$s.', 'wordpress-seo-premium' ),
-		'<a href="' . WPSEO_Shortlinker::get( 'https://yoa.st/2jb' ) . '" target="_blank">',
+		'<a href="' . WPSEO_Shortlinker::get( 'https://yoa.st/2jb' ) . '" target="_blank">', // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- WPSEO_Shortlinker::get() returns a safe URL.
 		'</a>'
 	);
 	?>

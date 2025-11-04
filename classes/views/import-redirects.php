@@ -32,7 +32,7 @@ $yoast_seo_plugins = [
 	<div>
 		<?php if ( ! empty( $import->msg ) ) : ?>
 			<div class="yoast-alert notice <?php echo ( $import->success ) ? 'notice-success' : 'notice-error'; ?>">
-				<p><?php echo $import->msg; ?></p>
+				<p><?php echo $import->msg; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Message is escaped by the import object. ?></p>
 			</div>
 		<?php endif; ?>
 		<h2><?php esc_html_e( 'Import from other redirect plugins', 'wordpress-seo-premium' ); ?></h2>

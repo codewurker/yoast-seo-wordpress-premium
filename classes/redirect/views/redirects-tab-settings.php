@@ -106,16 +106,16 @@ if ( $yoast_seo_disable_toggles ) {
 
 		if ( WPSEO_Utils::is_apache() ) {
 			/* translators: 1: '.htaccess' file name */
-			echo $yoast_seo_opening_p . sprintf( esc_html__( 'Write redirects to the %1$s file. Make sure the %1$s file is writable.', 'wordpress-seo-premium' ), '<code>.htaccess</code>' ) . '</p>';
+			echo $yoast_seo_opening_p . sprintf( esc_html__( 'Write redirects to the %1$s file. Make sure the %1$s file is writable.', 'wordpress-seo-premium' ), '<code>.htaccess</code>' ) . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $yoast_seo_opening_p contains safe HTML paragraph tag.
 
 			$yoast_seo_form->light_switch( 'separate_file', __( 'Generate a separate redirect file', 'wordpress-seo-premium' ), [], true, '', false, [ 'disabled' => $yoast_seo_disable_toggles ] );
 
 			/* translators: %s: '.htaccess' file name */
-			echo $yoast_seo_opening_p . sprintf( esc_html__( 'By default we write the redirects to your %s file, check this if you want the redirects written to a separate file. Only check this option if you know what you are doing!', 'wordpress-seo-premium' ), '<code>.htaccess</code>' ) . '</p>';
+			echo $yoast_seo_opening_p . sprintf( esc_html__( 'By default we write the redirects to your %s file, check this if you want the redirects written to a separate file. Only check this option if you know what you are doing!', 'wordpress-seo-premium' ), '<code>.htaccess</code>' ) . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $yoast_seo_opening_p contains safe HTML paragraph tag.
 		}
 		else {
 			/* translators: %s: 'Yoast SEO Premium' */
-			echo $yoast_seo_opening_p . sprintf( esc_html__( '%s can generate redirect files that can be included in your website web server configuration. If you choose this option the PHP redirects will be disabled. Only check this option if you know what you are doing!', 'wordpress-seo-premium' ), 'Yoast SEO Premium' ) . '</p>';
+			echo $yoast_seo_opening_p . sprintf( esc_html__( '%s can generate redirect files that can be included in your website web server configuration. If you choose this option the PHP redirects will be disabled. Only check this option if you know what you are doing!', 'wordpress-seo-premium' ), 'Yoast SEO Premium' ) . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $yoast_seo_opening_p contains safe HTML paragraph tag.
 		}
 		?>
 		<p class="submit">

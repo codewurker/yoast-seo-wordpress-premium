@@ -56,6 +56,7 @@ class WPSEO_Export_Keywords_CSV {
 	 * @return void
 	 */
 	public function print_row( $row ) {
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Output is CSV data formatted by internal method.
 		echo $this->format( $row );
 	}
 

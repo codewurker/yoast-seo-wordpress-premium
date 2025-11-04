@@ -127,8 +127,9 @@ class WPSEO_Redirect_Page {
 			[
 				'linkParams'  => YoastSEO()->classes->get( Short_Link_Helper::class )->get_query_params(),
 				'preferences' => [
-					'homeUrl' => home_url( '/' ),
-					'isRtl'   => is_rtl(),
+					'homeUrl'     => home_url( '/' ),
+					'isRtl'       => is_rtl(),
+					'isMultisite' => is_multisite(),
 				],
 			]
 		);

@@ -66,6 +66,7 @@ class WPSEO_Premium_Redirect_Export_Manager implements WPSEO_WordPress_Integrati
 
 			// Set CSV headers and content.
 			$this->set_csv_headers();
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Output is CSV data from internal method.
 			echo $this->get_csv_contents();
 
 			// And exit so we don't start appending HTML to our CSV file.

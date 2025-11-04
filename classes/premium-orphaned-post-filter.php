@@ -185,7 +185,7 @@ class WPSEO_Premium_Orphaned_Post_Filter extends WPSEO_Abstract_Post_Filter {
 		if ( WPSEO_Premium_Orphaned_Content_Utils::has_unprocessed_content() ) {
 			return '?';
 		}
-		// phpcs:disable WordPress.DB.PreparedSQLPlaceholders.UnsupportedPlaceholder -- Reason: Will be supported in the next WPcs version.
+		// phpcs:disable WordPress.DB.PreparedSQLPlaceholders.UnsupportedPlaceholder,WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Reason: Will be supported in the next WPcs version. $subquery is a prepared subquery from get_orphaned_content_query().
 		if ( $count === false ) {
 			$subquery = WPSEO_Premium_Orphaned_Post_Query::get_orphaned_content_query();
 			$count    = $wpdb->get_var(
