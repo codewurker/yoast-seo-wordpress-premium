@@ -87,6 +87,7 @@ return array(
     'WPSEO_Redirect_Relative_Origin_Validation' => $baseDir . '/classes/redirect/validation/redirect-relative-origin-validation.php',
     'WPSEO_Redirect_Safe_Redirect_Loader' => $baseDir . '/classes/redirect/loaders/redirect-safe-redirect-loader.php',
     'WPSEO_Redirect_Self_Redirect_Validation' => $baseDir . '/classes/redirect/validation/redirect-self-redirect-validation.php',
+    'WPSEO_Redirect_Self_Wp_Json_Redirect_Validation' => $baseDir . '/classes/redirect/validation/redirect-self-wp-json-redirect-validation.php',
     'WPSEO_Redirect_Settings_Presenter' => $baseDir . '/classes/redirect/presenters/redirect-settings-presenter.php',
     'WPSEO_Redirect_Simple_301_Redirect_Loader' => $baseDir . '/classes/redirect/loaders/redirect-simple-301-redirect-loader.php',
     'WPSEO_Redirect_Sitemap_Filter' => $baseDir . '/classes/redirect/redirect-sitemap-filter.php',

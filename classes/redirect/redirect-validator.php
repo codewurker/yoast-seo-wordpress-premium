@@ -41,6 +41,11 @@ class WPSEO_Redirect_Validator {
 			'exclude_types'    => [],
 			'exclude_format'   => [],
 		],
+		'wp-json' => [
+			'validation_class' => 'WPSEO_Redirect_Self_Wp_Json_Redirect_Validation',
+			'exclude_types'    => [ WPSEO_Redirect_Types::DELETED, WPSEO_Redirect_Types::UNAVAILABLE ],
+			'exclude_format'   => [ WPSEO_Redirect_Formats::REGEX ],
+		],
 		'accessible' => [
 			'validation_class' => 'WPSEO_Redirect_Accessible_Validation',
 			'exclude_types'    => [ WPSEO_Redirect_Types::DELETED, WPSEO_Redirect_Types::UNAVAILABLE ],

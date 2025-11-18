@@ -1,7 +1,7 @@
 *** Yoast SEO premium Changelog ***
 
 
-2025-11-04 - version 26.3
-* fix -  Fixes a bug where users could activate the web server redirection method in multisite installations.
-* update -  Bumps the minimum required version of Yoast SEO to 26.3.
+2025-11-18 - version 26.4
+* add -  Adds a warning when a user redirects a URL that includes `wp-json/`.
+* update -  Bumps the minimum required version of Yoast SEO to 26.4.
 

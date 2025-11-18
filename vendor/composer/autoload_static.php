@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit126761a57c77dd38c2bab71770bb98c1
+class ComposerStaticInitfb7ad3d8f16537c5e1e7f537971209ce
 {
     public static $prefixLengthsPsr4 = array (
         'C' => 
@@ -102,6 +102,7 @@ class ComposerStaticInit126761a57c77dd38c2bab71770bb98c1
         'WPSEO_Redirect_Relative_Origin_Validation' => __DIR__ . '/../..' . '/classes/redirect/validation/redirect-relative-origin-validation.php',
         'WPSEO_Redirect_Safe_Redirect_Loader' => __DIR__ . '/../..' . '/classes/redirect/loaders/redirect-safe-redirect-loader.php',
         'WPSEO_Redirect_Self_Redirect_Validation' => __DIR__ . '/../..' . '/classes/redirect/validation/redirect-self-redirect-validation.php',
+        'WPSEO_Redirect_Self_Wp_Json_Redirect_Validation' => __DIR__ . '/../..' . '/classes/redirect/validation/redirect-self-wp-json-redirect-validation.php',
         'WPSEO_Redirect_Settings_Presenter' => __DIR__ . '/../..' . '/classes/redirect/presenters/redirect-settings-presenter.php',
         'WPSEO_Redirect_Simple_301_Redirect_Loader' => __DIR__ . '/../..' . '/classes/redirect/loaders/redirect-simple-301-redirect-loader.php',
         'WPSEO_Redirect_Sitemap_Filter' => __DIR__ . '/../..' . '/classes/redirect/redirect-sitemap-filter.php',
@@ -274,9 +275,9 @@ class ComposerStaticInit126761a57c77dd38c2bab71770bb98c1
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit126761a57c77dd38c2bab71770bb98c1::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit126761a57c77dd38c2bab71770bb98c1::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit126761a57c77dd38c2bab71770bb98c1::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitfb7ad3d8f16537c5e1e7f537971209ce::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitfb7ad3d8f16537c5e1e7f537971209ce::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitfb7ad3d8f16537c5e1e7f537971209ce::$classMap;
 
         }, null, ClassLoader::class);
     }

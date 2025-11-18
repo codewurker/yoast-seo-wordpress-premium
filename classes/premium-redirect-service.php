@@ -160,7 +160,7 @@ class WPSEO_Premium_Redirect_Service {
 		return new WP_REST_Response(
 			[
 				'title'   => __( 'Redirect not updated.', 'wordpress-seo-premium' ),
-				'message' => __( 'Something went wrong when updated this redirect.', 'wordpress-seo-premium' ),
+				'message' => __( 'Something went wrong while updating this redirect.', 'wordpress-seo-premium' ),
 				'success' => false,
 			],
 			400
@@ -327,7 +327,7 @@ class WPSEO_Premium_Redirect_Service {
 		foreach ( [ 'old_redirect', 'new_redirect' ] as $key ) {
 			if ( empty( $redirects[ $key ] ) || ! $redirects[ $key ] instanceof WPSEO_Redirect ) {
 				return [
-					'message' => __( 'Something went wrong when updated this redirect.', 'wordpress-seo-premium' ),
+					'message' => __( 'Something went wrong while updating this redirect.', 'wordpress-seo-premium' ),
 					'type'    => 'error',
 				];
 			}
