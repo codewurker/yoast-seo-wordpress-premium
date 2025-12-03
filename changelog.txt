@@ -1,7 +1,11 @@
 *** Yoast SEO premium Changelog ***
 
 
-2025-11-18 - version 26.4
-* add -  Adds a warning when a user redirects a URL that includes `wp-json/`.
-* update -  Bumps the minimum required version of Yoast SEO to 26.4.
+2025-12-02 - version 26.5
+* add -  Removes H1 from the AI Summarize block heading options.
+* add -  Makes the _keyphrase distribution_ assessment available when no content or keyphrase has been added.
+* add -  Enables the Yoast Dashboard integration with Site Kit by Google for all Yoast SEO Premium users.
+* fix -  Fixes a bug where the location shortcodes blocks would not be excluded from the AI Optimize analyses assessments. 
+* update -  Sets the _WordPress tested up to_ version to 6.9.
+* update -  Bumps the minimum required version of Yoast SEO to 26.5.
 

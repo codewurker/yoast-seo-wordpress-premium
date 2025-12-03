@@ -136,6 +136,21 @@ class WPSEO_Upgrade_Manager {
 		if ( version_compare( $version_number, '25.3.1-RC0', '<' ) ) {
 			add_action( 'init', [ $this, 'upgrade_25_3_1' ], 12 );
 		}
+
+		if ( version_compare( $version_number, '26.5-RC0', '<' ) ) {
+			add_action( 'init', [ $this, 'upgrade_26_5' ], 12 );
+		}
+	}
+
+	/**
+	 * Enables the feature flag for the Site Kit integration.
+	 *
+	 * @return void
+	 */
+	public function upgrade_26_5() {
+		if ( ! WPSEO_Options::get( 'google_site_kit_feature_enabled', false ) ) {
+			WPSEO_Options::set( 'google_site_kit_feature_enabled', true );
+		}
 	}
 
 	/**
