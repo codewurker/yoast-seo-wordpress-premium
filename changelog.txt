@@ -1,11 +1,8 @@
 *** Yoast SEO premium Changelog ***
 
 
-2025-12-02 - version 26.5
-* add -  Removes H1 from the AI Summarize block heading options.
-* add -  Makes the _keyphrase distribution_ assessment available when no content or keyphrase has been added.
-* add -  Enables the Yoast Dashboard integration with Site Kit by Google for all Yoast SEO Premium users.
-* fix -  Fixes a bug where the location shortcodes blocks would not be excluded from the AI Optimize analyses assessments. 
-* update -  Sets the _WordPress tested up to_ version to 6.9.
-* update -  Bumps the minimum required version of Yoast SEO to 26.5.
+2025-12-15 - version 26.6
+* add -  Adds Premium tasks to the newly-released task list.
+* fix -  Fixes a bug where empty AI Summarize block markers would remain in the content when users delete the summary in Classic Editor's visual mode.
+* update -  Bumps the minimum required version of Yoast SEO to 26.6.
 

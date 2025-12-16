@@ -61,6 +61,7 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Helpers\\Options_Helper' => 'getOptionsHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Post_Type_Helper' => 'getPostTypeHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Robots_Helper' => 'getRobotsHelperService',
+            'Yoast\\WP\\SEO\\Helpers\\Route_Helper' => 'getRouteHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Score_Icon_Helper' => 'getScoreIconHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Social_Profiles_Helper' => 'getSocialProfilesHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Url_Helper' => 'getUrlHelperService',
@@ -187,6 +188,12 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Premium\\Routes\\Prominent_Words_Route' => 'getProminentWordsRouteService',
             'Yoast\\WP\\SEO\\Premium\\Routes\\Workouts_Route' => 'getWorkoutsRouteService',
             'Yoast\\WP\\SEO\\Premium\\Surfaces\\Helpers_Surface' => 'getHelpersSurfaceService',
+            'Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks\\Cornerstone_Workout' => 'getCornerstoneWorkoutService',
+            'Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks\\Organization_Schema' => 'getOrganizationSchemaService',
+            'Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks\\Orphaned_Workout' => 'getOrphanedWorkoutService',
+            'Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks\\Set_Social_Appearance_Templates' => 'getSetSocialAppearanceTemplatesService',
+            'Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks_Collector' => 'getTasksCollectorService',
+            'Yoast\\WP\\SEO\\Premium\\Task_List\\User_Interface\\Register_Premium_Tasks_Integration' => 'getRegisterPremiumTasksIntegrationService',
             'Yoast\\WP\\SEO\\Premium\\User_Meta\\Framework\\Additional_Contactmethods\\Mastodon' => 'getMastodon2Service',
             'Yoast\\WP\\SEO\\Premium\\User_Meta\\User_Interface\\Additional_Contactmethods_Integration' => 'getAdditionalContactmethodsIntegrationService',
             'Yoast\\WP\\SEO\\Repositories\\Indexable_Cleanup_Repository' => 'getIndexableCleanupRepositoryService',
@@ -615,6 +622,16 @@ class Cached_Container extends Container
     }
 
     /**
+     * Gets the public 'Yoast\WP\SEO\Helpers\Route_Helper' shared service.
+     *
+     * @return \Yoast\WP\SEO\Helpers\Route_Helper
+     */
+    protected function getRouteHelperService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Helpers\\Route_Helper'] = \Yoast\WP\Lib\Dependency_Injection\Container_Registry::get('yoast-seo', 'Yoast\\WP\\SEO\\Helpers\\Route_Helper');
+    }
+
+    /**
      * Gets the public 'Yoast\WP\SEO\Helpers\Score_Icon_Helper' shared service.
      *
      * @return \Yoast\WP\SEO\Helpers\Score_Icon_Helper
@@ -777,6 +794,7 @@ class Cached_Container extends Container
         $instance->register_route('Yoast\\WP\\SEO\\Premium\\Routes\\Link_Suggestions_Route');
         $instance->register_route('Yoast\\WP\\SEO\\Premium\\Routes\\Prominent_Words_Route');
         $instance->register_route('Yoast\\WP\\SEO\\Premium\\Routes\\Workouts_Route');
+        $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Task_List\\User_Interface\\Register_Premium_Tasks_Integration');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\User_Meta\\User_Interface\\Additional_Contactmethods_Integration');
 
         return $instance;
@@ -2000,6 +2018,66 @@ class Cached_Container extends Container
     protected function getHelpersSurfaceService()
     {
         return $this->services['Yoast\\WP\\SEO\\Premium\\Surfaces\\Helpers_Surface'] = new \Yoast\WP\SEO\Premium\Surfaces\Helpers_Surface($this);
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Task_List\Application\Tasks\Cornerstone_Workout' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Task_List\Application\Tasks\Cornerstone_Workout
+     */
+    protected function getCornerstoneWorkoutService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks\\Cornerstone_Workout'] = new \Yoast\WP\SEO\Premium\Task_List\Application\Tasks\Cornerstone_Workout(($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] ?? $this->getOptionsHelperService()));
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Task_List\Application\Tasks\Organization_Schema' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Task_List\Application\Tasks\Organization_Schema
+     */
+    protected function getOrganizationSchemaService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks\\Organization_Schema'] = new \Yoast\WP\SEO\Premium\Task_List\Application\Tasks\Organization_Schema(($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] ?? $this->getOptionsHelperService()));
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Task_List\Application\Tasks\Orphaned_Workout' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Task_List\Application\Tasks\Orphaned_Workout
+     */
+    protected function getOrphanedWorkoutService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks\\Orphaned_Workout'] = new \Yoast\WP\SEO\Premium\Task_List\Application\Tasks\Orphaned_Workout(($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] ?? $this->getOptionsHelperService()));
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Task_List\Application\Tasks\Set_Social_Appearance_Templates' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Task_List\Application\Tasks\Set_Social_Appearance_Templates
+     */
+    protected function getSetSocialAppearanceTemplatesService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks\\Set_Social_Appearance_Templates'] = new \Yoast\WP\SEO\Premium\Task_List\Application\Tasks\Set_Social_Appearance_Templates(($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] ?? $this->getOptionsHelperService()), ($this->services['Yoast\\WP\\SEO\\Helpers\\Route_Helper'] ?? $this->getRouteHelperService()));
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Task_List\Application\Tasks_Collector' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Task_List\Application\Tasks_Collector
+     */
+    protected function getTasksCollectorService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks_Collector'] = new \Yoast\WP\SEO\Premium\Task_List\Application\Tasks_Collector(($this->services['Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks\\Cornerstone_Workout'] ?? $this->getCornerstoneWorkoutService()), ($this->services['Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks\\Organization_Schema'] ?? $this->getOrganizationSchemaService()), ($this->services['Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks\\Orphaned_Workout'] ?? $this->getOrphanedWorkoutService()), ($this->services['Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks\\Set_Social_Appearance_Templates'] ?? $this->getSetSocialAppearanceTemplatesService()));
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Task_List\User_Interface\Register_Premium_Tasks_Integration' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Task_List\User_Interface\Register_Premium_Tasks_Integration
+     */
+    protected function getRegisterPremiumTasksIntegrationService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Task_List\\User_Interface\\Register_Premium_Tasks_Integration'] = new \Yoast\WP\SEO\Premium\Task_List\User_Interface\Register_Premium_Tasks_Integration(($this->services['Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks_Collector'] ?? $this->getTasksCollectorService()), ($this->services['Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks\\Set_Social_Appearance_Templates'] ?? $this->getSetSocialAppearanceTemplatesService()));
     }
 
     /**

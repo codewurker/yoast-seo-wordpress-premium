@@ -58,6 +58,10 @@ class AI_Summarize_Integration implements Integration_Interface {
 
 		\add_filter( 'block_categories_all', [ $this, 'add_block_categories' ] );
 
+		// Add the assets to the editor, for the default and the classic editor.
+		\add_action( 'enqueue_block_assets', [ $this, 'enqueue_assets' ] );
+		\add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_assets' ] );
+
 		// Register the block.
 		$base_path = \WPSEO_PREMIUM_PATH . 'assets/blocks/ai-blocks/';
 		\register_block_type(
@@ -67,6 +71,18 @@ class AI_Summarize_Integration implements Integration_Interface {
 				'editor_style_handles'  => [ WPSEO_Admin_Asset_Manager::PREFIX . 'premium-ai-summarize' ],
 			]
 		);
+	}
+
+	/**
+	 * Enqueues the AI blocks script.
+	 *
+	 * This ensures the script is loaded in both Gutenberg and Classic Editor,
+	 * which is necessary for the Classic Editor cleanup functionality.
+	 *
+	 * @return void
+	 */
+	public function enqueue_assets() {
+		\wp_enqueue_script( 'wp-seo-premium-ai-blocks' );
 	}
 
 	/**
