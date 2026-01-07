@@ -165,18 +165,6 @@ class AI_Optimize_Integration implements Integration_Interface {
 	}
 
 	/**
-	 * Gets the subscription status for Yoast SEO Premium and Yoast WooCommerce SEO.
-	 *
-	 * @return array<string, bool>
-	 */
-	public function get_product_subscriptions(): array {
-		return [
-			'premiumSubscription'     => $this->addon_manager->has_valid_subscription( WPSEO_Addon_Manager::PREMIUM_SLUG ),
-			'wooCommerceSubscription' => $this->addon_manager->has_valid_subscription( WPSEO_Addon_Manager::WOOCOMMERCE_SLUG ),
-		];
-	}
-
-	/**
 	 * Enqueues the required assets.
 	 *
 	 * @return void
@@ -191,7 +179,6 @@ class AI_Optimize_Integration implements Integration_Interface {
 			[
 				'adminUrl'             => \admin_url( 'admin.php' ),
 				'hasConsent'           => $this->user_helper->get_meta( $user_id, '_yoast_wpseo_ai_consent', true ),
-				'productSubscriptions' => $this->get_product_subscriptions(),
 				'hasSeenIntroduction'  => $this->introductions_seen_repository->is_introduction_seen( $user_id, Ai_Fix_Assessments_Introduction::ID ),
 				'pluginUrl'            => \plugins_url( '', \WPSEO_PREMIUM_FILE ),
 				'requestTimeout'       => $this->api_client->get_request_timeout(),

@@ -43,9 +43,11 @@ class WPSEO_Redirect_Ajax {
 	 */
 	public function ajax_add_redirect() {
 		$this->valid_ajax_check();
+		$redirect = $this->get_redirect_from_post( 'redirect' );
+
+		$this->permission_check_add( $redirect );
 
 		// Save the redirect.
-		$redirect = $this->get_redirect_from_post( 'redirect' );
 		$this->validate( $redirect );
 
 		// The method always returns the added redirect.
@@ -83,6 +85,7 @@ class WPSEO_Redirect_Ajax {
 	public function ajax_update_redirect() {
 
 		$this->valid_ajax_check();
+		$this->permission_check_update();
 
 		$current_redirect = $this->get_redirect_from_post( 'old_redirect' );
 		$new_redirect     = $this->get_redirect_from_post( 'new_redirect' );
@@ -169,18 +172,64 @@ class WPSEO_Redirect_Ajax {
 	private function valid_ajax_check() {
 		// Check nonce.
 		check_ajax_referer( 'wpseo-redirects-ajax-security', 'ajax_nonce' );
-
-		$this->permission_check();
 	}
 
 	/**
-	 * Checks whether the current user is allowed to do what he's doing.
+	 * Checks whether the current user is allowed to add a redirect.
+	 *
+	 * User with 'wpseo_manage_redirects' can add any redirect.
+	 * Users with 'edit_posts' can only add 301 and 410 redirects to internal URLs.
+	 *
+	 * @param WPSEO_Redirect $redirect The redirect that will be added.
 	 *
 	 * @return void
 	 */
-	private function permission_check() {
-		if ( ! current_user_can( 'edit_posts' ) ) {
-			wp_die( '0' );
+	private function permission_check_add( WPSEO_Redirect $redirect ) {
+		// phpcs:ignore WordPress.WP.Capabilities.Unknown -- 'wpseo_manage_redirects' is a custom capability added by Yoast SEO.
+		if ( current_user_can( 'wpseo_manage_redirects' ) ) {
+			return;
+		}
+
+		$allowed_types = [ 301, 410 ];
+		$type          = ( $redirect->get_type() ?? '' );
+		$target        = ( $redirect->get_target() ?? '' );
+
+		if ( current_user_can( 'edit_posts' )
+			&& in_array( $type, $allowed_types, true )
+			&& WPSEO_Redirect_Util::is_internal_url( $target ) ) {
+			return;
+		}
+
+		// Set the value error.
+		$error = [
+			'type'    => 'error',
+			'message' => __( 'You don\'t have permission to add the redirect.', 'wordpress-seo-premium' ),
+		];
+
+		$response = [ 'error' => $error ];
+		// Response.
+		// phpcs:ignore WordPress.Security.EscapeOutput -- WPCS bug/methods can't be whitelisted yet.
+		wp_die( WPSEO_Utils::format_json_encode( $response ) );
+	}
+
+	/**
+	 * Checks whether the current user is allowed to update a redirect.
+	 *
+	 * @return void
+	 */
+	private function permission_check_update() {
+		// phpcs:ignore WordPress.WP.Capabilities.Unknown -- 'wpseo_manage_redirects' is a custom capability added by Yoast SEO.
+		if ( ! current_user_can( 'wpseo_manage_redirects' ) ) {
+			// Set the value error.
+			$error = [
+				'type'    => 'error',
+				'message' => __( 'You don\'t have permission to update the redirect.', 'wordpress-seo-premium' ),
+			];
+
+			$response = [ 'error' => $error ];
+			// Response.
+			// phpcs:ignore WordPress.Security.EscapeOutput -- WPCS bug/methods can't be whitelisted yet.
+			wp_die( WPSEO_Utils::format_json_encode( $response ) );
 		}
 	}
 

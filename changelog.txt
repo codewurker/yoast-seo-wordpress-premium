@@ -1,8 +1,9 @@
 *** Yoast SEO premium Changelog ***
 
 
-2025-12-15 - version 26.6
-* add -  Adds Premium tasks to the newly-released task list.
-* fix -  Fixes a bug where empty AI Summarize block markers would remain in the content when users delete the summary in Classic Editor's visual mode.
-* update -  Bumps the minimum required version of Yoast SEO to 26.6.
+2026-01-07 - version 26.7
+* fix -  Fixes a bug where the thank you page redirect would interrupt Bluehost authentication flows when the first wp-admin visit was an AJAX request.
+* fix -  Fixes a bug where workouts would be disabled when internal link suggestions would be disabled.
+* update -  Bumps the minimum required version of Yoast SEO to 26.7.
+* update -  Improves redirect security by restricting non-privileged users to only create 301 and 410 redirects with relative URLs.
 

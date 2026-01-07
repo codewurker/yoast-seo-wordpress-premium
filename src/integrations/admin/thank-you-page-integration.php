@@ -53,6 +53,10 @@ class Thank_You_Page_Integration implements Integration_Interface {
 	 * @return void
 	 */
 	public function maybe_redirect() {
+		if ( \wp_doing_ajax() || \wp_doing_cron() || \wp_is_serving_rest_request() || \wp_is_json_request() ) {
+			return;
+		}
+
 		if ( ! $this->options_helper->get( 'should_redirect_after_install' ) ) {
 			return;
 		}
