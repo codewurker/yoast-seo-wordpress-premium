@@ -9,6 +9,9 @@ use Yoast\WP\SEO\Integrations\Integration_Interface;
 
 /**
  * Class Settings_Integration.
+ *
+ * @deprecated 26.8
+ * @codeCoverageIgnore
  */
 class Settings_Integration implements Integration_Interface {
 
@@ -29,10 +32,14 @@ class Settings_Integration implements Integration_Interface {
 	/**
 	 * Constructs Settings_Integration.
 	 *
+	 * @deprecated 26.8
+	 * @codeCoverageIgnore
+	 *
 	 * @param WPSEO_Admin_Asset_Manager $asset_manager       The WPSEO_Admin_Asset_Manager.
 	 * @param Current_Page_Helper       $current_page_helper The Current_Page_Helper.
 	 */
 	public function __construct( WPSEO_Admin_Asset_Manager $asset_manager, Current_Page_Helper $current_page_helper ) {
+		\_deprecated_function( __METHOD__, 'Yoast SEO 26.8' );
 		$this->asset_manager       = $asset_manager;
 		$this->current_page_helper = $current_page_helper;
 	}
@@ -40,9 +47,12 @@ class Settings_Integration implements Integration_Interface {
 	/**
 	 * Returns the conditionals based on which this loadable should be active.
 	 *
+	 * @deprecated 26.8
+	 * @codeCoverageIgnore
 	 * @return array
 	 */
 	public static function get_conditionals() {
+		\_deprecated_function( __METHOD__, 'Yoast SEO 26.8' );
 		return [ Settings_Conditional::class ];
 	}
 
@@ -51,21 +61,22 @@ class Settings_Integration implements Integration_Interface {
 	 *
 	 * This is the place to register hooks and filters.
 	 *
+	 * @deprecated 26.8
+	 * @codeCoverageIgnore
 	 * @return void
 	 */
 	public function register_hooks() {
-		// Are we on the settings page?
-		if ( $this->current_page_helper->get_current_yoast_seo_page() === 'wpseo_page_settings' ) {
-			\add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_assets' ] );
-		}
+		\_deprecated_function( __METHOD__, 'Yoast SEO 26.8' );
 	}
 
 	/**
 	 * Enqueues the assets.
 	 *
+	 * @deprecated 26.8
+	 * @codeCoverageIgnore
 	 * @return void
 	 */
 	public function enqueue_assets() {
-		$this->asset_manager->enqueue_style( 'premium-settings' );
+		\_deprecated_function( __METHOD__, 'Yoast SEO 26.8' );
 	}
 }

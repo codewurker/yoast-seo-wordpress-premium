@@ -220,7 +220,7 @@ class ComposerStaticInit3bde59d4a5f193e74f6bcea4b0c7180c
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Prominent_Words\\Metabox_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/prominent-words/metabox-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Related_Keyphrase_Filter_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/related-keyphrase-filter-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Replacement_Variables_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/replacement-variables-integration.php',
-        'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Settings_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/settings-integration.php',
+        'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Settings_Integration' => __DIR__ . '/../..' . '/src/deprecated/integrations/admin/settings-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Thank_You_Page_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/thank-you-page-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Update_Plugins_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/update-plugins-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Update_Premium_Notification' => __DIR__ . '/../..' . '/src/integrations/admin/update-premium-notification.php',

@@ -443,11 +443,6 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 				'dependencies' => [],
 			],
 			[
-				'name'         => WPSEO_Admin_Asset_Manager::PREFIX . 'premium-settings',
-				'source'       => 'assets/css/dist/premium-settings-' . $version . '.css',
-				'dependencies' => [],
-			],
-			[
 				'name'         => WPSEO_Admin_Asset_Manager::PREFIX . 'premium-post-overview',
 				'source'       => 'assets/css/dist/premium-post-overview-' . $version . '.css',
 				'dependencies' => [],

@@ -145,9 +145,8 @@ class Set_Social_Appearance_Templates extends Abstract_Post_Type_Task {
 
 		return new Copy_Set(
 			/* translators: %1$s expands to the post type label this task is about */
-			\sprintf( \__( 'Set social media appearance templates for your %1$s', 'wordpress-seo-premium' ), \strtolower( $post_type->label ) ),
-			/* translators: %1$s expands to the post type name this task is about */
-			\sprintf( \__( 'Unstyled previews and general descriptions can lower engagement when shared on social media. Templates keep every %1$s on brand and share-ready automatically.', 'wordpress-seo-premium' ), $post_type->name ),
+			\sprintf( \__( 'Set social media appearance templates for your content type: %1$s', 'wordpress-seo-premium' ), $post_type->label ),
+			\__( 'Unstyled previews and general descriptions can lower engagement when shared on social media. Templates keep content on brand and share-ready automatically.', 'wordpress-seo-premium' ),
 			/* translators: %1$s expands to the post type label this task is about */
 			\sprintf( \__( 'Go to Settings and choose %1$s under Content types. Then use the Social media appearance section to set your default image, title, and description.', 'wordpress-seo-premium' ), $post_type->label )
 		);

@@ -45,7 +45,6 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Conditionals\\Migrations_Conditional' => 'getMigrationsConditionalService',
             'Yoast\\WP\\SEO\\Conditionals\\Open_Graph_Conditional' => 'getOpenGraphConditionalService',
             'Yoast\\WP\\SEO\\Conditionals\\Robots_Txt_Conditional' => 'getRobotsTxtConditionalService',
-            'Yoast\\WP\\SEO\\Conditionals\\Settings_Conditional' => 'getSettingsConditionalService',
             'Yoast\\WP\\SEO\\Conditionals\\Third_Party\\Elementor_Activated_Conditional' => 'getElementorActivatedConditionalService',
             'Yoast\\WP\\SEO\\Conditionals\\Third_Party\\Elementor_Edit_Conditional' => 'getElementorEditConditionalService',
             'Yoast\\WP\\SEO\\Conditionals\\Wincher_Enabled_Conditional' => 'getWincherEnabledConditionalService',
@@ -145,7 +144,6 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Prominent_Words\\Metabox_Integration' => 'getMetaboxIntegrationService',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Related_Keyphrase_Filter_Integration' => 'getRelatedKeyphraseFilterIntegrationService',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Replacement_Variables_Integration' => 'getReplacementVariablesIntegrationService',
-            'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Settings_Integration' => 'getSettingsIntegrationService',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Thank_You_Page_Integration' => 'getThankYouPageIntegrationService',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Update_Plugins_Integration' => 'getUpdatePluginsIntegrationService',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Update_Premium_Notification' => 'getUpdatePremiumNotificationService',
@@ -199,6 +197,7 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Repositories\\Indexable_Cleanup_Repository' => 'getIndexableCleanupRepositoryService',
             'Yoast\\WP\\SEO\\Repositories\\Indexable_Repository' => 'getIndexableRepositoryService',
             'Yoast\\WP\\SEO\\Repositories\\SEO_Links_Repository' => 'getSEOLinksRepositoryService',
+            'Yoast\\WP\\SEO\\Schema\\Application\\Configuration\\Schema_Configuration' => 'getSchemaConfigurationService',
             'Yoast\\WP\\SEO\\Surfaces\\Classes_Surface' => 'getClassesSurfaceService',
             'Yoast\\WP\\SEO\\Surfaces\\Helpers_Surface' => 'getHelpersSurface2Service',
             'Yoast\\WP\\SEO\\Surfaces\\Meta_Surface' => 'getMetaSurfaceService',
@@ -459,16 +458,6 @@ class Cached_Container extends Container
     protected function getRobotsTxtConditionalService()
     {
         return $this->services['Yoast\\WP\\SEO\\Conditionals\\Robots_Txt_Conditional'] = \Yoast\WP\Lib\Dependency_Injection\Container_Registry::get('yoast-seo', 'Yoast\\WP\\SEO\\Conditionals\\Robots_Txt_Conditional');
-    }
-
-    /**
-     * Gets the public 'Yoast\WP\SEO\Conditionals\Settings_Conditional' shared service.
-     *
-     * @return \Yoast\WP\SEO\Conditionals\Settings_Conditional
-     */
-    protected function getSettingsConditionalService()
-    {
-        return $this->services['Yoast\\WP\\SEO\\Conditionals\\Settings_Conditional'] = \Yoast\WP\Lib\Dependency_Injection\Container_Registry::get('yoast-seo', 'Yoast\\WP\\SEO\\Conditionals\\Settings_Conditional');
     }
 
     /**
@@ -757,7 +746,6 @@ class Cached_Container extends Container
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Prominent_Words\\Metabox_Integration');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Related_Keyphrase_Filter_Integration');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Replacement_Variables_Integration');
-        $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Settings_Integration');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Thank_You_Page_Integration');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Update_Plugins_Integration');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Update_Premium_Notification');
@@ -1579,16 +1567,6 @@ class Cached_Container extends Container
     }
 
     /**
-     * Gets the public 'Yoast\WP\SEO\Premium\Integrations\Admin\Settings_Integration' shared autowired service.
-     *
-     * @return \Yoast\WP\SEO\Premium\Integrations\Admin\Settings_Integration
-     */
-    protected function getSettingsIntegrationService()
-    {
-        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Settings_Integration'] = new \Yoast\WP\SEO\Premium\Integrations\Admin\Settings_Integration(($this->services['WPSEO_Admin_Asset_Manager'] ?? $this->getWPSEOAdminAssetManagerService()), ($this->services['Yoast\\WP\\SEO\\Helpers\\Current_Page_Helper'] ?? $this->getCurrentPageHelperService()));
-    }
-
-    /**
      * Gets the public 'Yoast\WP\SEO\Premium\Integrations\Admin\Thank_You_Page_Integration' shared autowired service.
      *
      * @return \Yoast\WP\SEO\Premium\Integrations\Admin\Thank_You_Page_Integration
@@ -1705,7 +1683,7 @@ class Cached_Container extends Container
      */
     protected function getFrontendInspectorService()
     {
-        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Frontend_Inspector'] = new \Yoast\WP\SEO\Premium\Integrations\Frontend_Inspector(($this->services['Yoast\\WP\\SEO\\Helpers\\Robots_Helper'] ?? $this->getRobotsHelperService()));
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Frontend_Inspector'] = new \Yoast\WP\SEO\Premium\Integrations\Frontend_Inspector(($this->services['Yoast\\WP\\SEO\\Helpers\\Robots_Helper'] ?? $this->getRobotsHelperService()), ($this->services['Yoast\\WP\\SEO\\Schema\\Application\\Configuration\\Schema_Configuration'] ?? $this->getSchemaConfigurationService()));
     }
 
     /**
@@ -2128,6 +2106,16 @@ class Cached_Container extends Container
     protected function getSEOLinksRepositoryService()
     {
         return $this->services['Yoast\\WP\\SEO\\Repositories\\SEO_Links_Repository'] = \Yoast\WP\Lib\Dependency_Injection\Container_Registry::get('yoast-seo', 'Yoast\\WP\\SEO\\Repositories\\SEO_Links_Repository');
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Schema\Application\Configuration\Schema_Configuration' shared service.
+     *
+     * @return \Yoast\WP\SEO\Schema\Application\Configuration\Schema_Configuration
+     */
+    protected function getSchemaConfigurationService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Schema\\Application\\Configuration\\Schema_Configuration'] = \Yoast\WP\Lib\Dependency_Injection\Container_Registry::get('yoast-seo', 'Yoast\\WP\\SEO\\Schema\\Application\\Configuration\\Schema_Configuration');
     }
 
     /**

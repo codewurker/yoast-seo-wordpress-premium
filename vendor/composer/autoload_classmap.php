@@ -205,7 +205,7 @@ return array(
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Prominent_Words\\Metabox_Integration' => $baseDir . '/src/integrations/admin/prominent-words/metabox-integration.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Related_Keyphrase_Filter_Integration' => $baseDir . '/src/integrations/admin/related-keyphrase-filter-integration.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Replacement_Variables_Integration' => $baseDir . '/src/integrations/admin/replacement-variables-integration.php',
-    'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Settings_Integration' => $baseDir . '/src/integrations/admin/settings-integration.php',
+    'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Settings_Integration' => $baseDir . '/src/deprecated/integrations/admin/settings-integration.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Thank_You_Page_Integration' => $baseDir . '/src/integrations/admin/thank-you-page-integration.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Update_Plugins_Integration' => $baseDir . '/src/integrations/admin/update-plugins-integration.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Update_Premium_Notification' => $baseDir . '/src/integrations/admin/update-premium-notification.php',

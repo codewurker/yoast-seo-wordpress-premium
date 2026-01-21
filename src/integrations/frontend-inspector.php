@@ -9,6 +9,7 @@ use WPSEO_Options;
 use Yoast\WP\SEO\Conditionals\Front_End_Conditional;
 use Yoast\WP\SEO\Helpers\Robots_Helper;
 use Yoast\WP\SEO\Integrations\Integration_Interface;
+use Yoast\WP\SEO\Schema\Application\Configuration\Schema_Configuration;
 
 /**
  * Frontend_Inspector class
@@ -30,12 +31,24 @@ class Frontend_Inspector implements Integration_Interface {
 	protected $robots_helper;
 
 	/**
+	 * The schema configuration.
+	 *
+	 * @var Schema_Configuration
+	 */
+	protected $schema_configuration;
+
+	/**
 	 * Constructs a Frontend_Inspector.
 	 *
-	 * @param Robots_Helper $robots_helper The Robots_Helper.
+	 * @param Robots_Helper        $robots_helper        The Robots_Helper.
+	 * @param Schema_Configuration $schema_configuration The schema configuration.
 	 */
-	public function __construct( Robots_Helper $robots_helper ) {
-		$this->robots_helper = $robots_helper;
+	public function __construct(
+		Robots_Helper $robots_helper,
+		Schema_Configuration $schema_configuration
+	) {
+		$this->robots_helper        = $robots_helper;
+		$this->schema_configuration = $schema_configuration;
 	}
 
 	/**
@@ -133,6 +146,7 @@ class Frontend_Inspector implements Integration_Interface {
 			'wpseoScriptData',
 			[
 				'frontendInspector' => [
+					'isSchemaEnabled'       => ! $this->schema_configuration->is_schema_disabled_programmatically(), // Even if schema is disabled via the settings, it's technically disabled programmatically.
 					'isIndexable'           => $this->robots_helper->is_indexable( $indexable ),
 					'indexable'             => [
 						'is_robots_noindex'           => $indexable->is_robots_noindex,

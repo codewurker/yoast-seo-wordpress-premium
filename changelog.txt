@@ -1,9 +1,10 @@
 *** Yoast SEO premium Changelog ***
 
 
-2026-01-07 - version 26.7
-* fix -  Fixes a bug where the thank you page redirect would interrupt Bluehost authentication flows when the first wp-admin visit was an AJAX request.
-* fix -  Fixes a bug where workouts would be disabled when internal link suggestions would be disabled.
-* update -  Bumps the minimum required version of Yoast SEO to 26.7.
-* update -  Improves redirect security by restricting non-privileged users to only create 301 and 410 redirects with relative URLs.
+2026-01-20 - version 26.8
+* add -  Updates the design of the emoji picker button.
+* fix -  Fixes a bug where Table of Contents block would not be not generated correctly when it's added in `template-locked` mode in Block editor.
+* fix -  Fixes a bug where AI Summarize block's "Generate summary" button would be disabled when it's added in `template-locked` mode in Block editor regardless of content presence.
+* update -  Bumps the minimum required version of Yoast SEO to 26.8.
+* update -  Improves the translatability of some tasks' title and content in the task list.
 
