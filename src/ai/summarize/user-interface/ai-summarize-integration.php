@@ -44,6 +44,39 @@ class AI_Summarize_Integration implements Integration_Interface {
 	}
 
 	/**
+	 * Checks if we should load the AI Summarize block based on the current screen.
+	 *
+	 * @return bool True if we should load, false otherwise.
+	 */
+	private function should_load_on_current_screen(): bool {
+		$screen = \get_current_screen();
+
+		if ( ! $screen ) {
+			return false;
+		}
+
+		// Don't load in the widgets editor (legacy).
+		if ( $screen->base === 'widgets' || $screen->id === 'widgets' ) {
+			return false;
+		}
+
+		// Don't load in customizer (block-based widgets in Twenty Twenty-One).
+		if ( $screen->base === 'customize' ) {
+			return false;
+		}
+
+		// Load on post-editing screens (both block editor and classic editor).
+		// This includes posts, pages, and custom post types.
+		// We need to support the classic editor for the cleanup functionality.
+		// This is necessary so that the script is not loaded unnecessarily, e.g., on plugin.php or on admin pages.
+		if ( $screen->base === 'post' ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
 	 * Initializes the integration.
 	 *
 	 * This is the place to register hooks and filters.
@@ -53,6 +86,21 @@ class AI_Summarize_Integration implements Integration_Interface {
 	public function register_hooks() {
 		// Ensure the AI generator feature is enabled before proceeding.
 		if ( ! $this->options_helper->get( 'enable_ai_generator', false ) ) {
+			return;
+		}
+
+		// Use current_screen action to conditionally register block and enqueue assets.
+		\add_action( 'current_screen', [ $this, 'conditionally_register_block' ], 10 );
+	}
+
+	/**
+	 * Conditionally registers the block and enqueues assets based on current screen.
+	 *
+	 * @return void
+	 */
+	public function conditionally_register_block() {
+		// Don't load in widgets/customizer screens.
+		if ( ! $this->should_load_on_current_screen() ) {
 			return;
 		}
 

@@ -4,6 +4,7 @@ namespace Yoast\WP\SEO\Premium\Integrations\Third_Party;
 
 use WPSEO_Schema_Context;
 use Yoast\WP\SEO\Conditionals\Front_End_Conditional;
+use Yoast\WP\SEO\Helpers\Schema\ID_Helper;
 use Yoast\WP\SEO\Integrations\Integration_Interface;
 use Yoast\WP\SEO\Premium\Conditionals\EDD_Conditional;
 use Yoast\WP\SEO\Surfaces\Meta_Surface;
@@ -21,9 +22,16 @@ class EDD implements Integration_Interface {
 	private $meta;
 
 	/**
+	 * The schema id helpers surface.
+	 *
+	 * @var ID_Helper
+	 */
+	private $schema_id;
+
+	/**
 	 * Returns the conditionals based on which this loadable should be active.
 	 *
-	 * @return array
+	 * @return list<class-string>
 	 */
 	public static function get_conditionals() {
 		return [ Front_End_Conditional::class, EDD_Conditional::class ];
@@ -34,10 +42,12 @@ class EDD implements Integration_Interface {
 	 *
 	 * @codeCoverageIgnore It only sets dependencies.
 	 *
-	 * @param Meta_Surface $meta The meta surface.
+	 * @param Meta_Surface $meta      The meta surface.
+	 * @param ID_Helper    $schema_id The schema id helpers surface.
 	 */
-	public function __construct( Meta_Surface $meta ) {
-		$this->meta = $meta;
+	public function __construct( Meta_Surface $meta, ID_Helper $schema_id ) {
+		$this->meta      = $meta;
+		$this->schema_id = $schema_id;
 	}
 
 	/**
@@ -56,13 +66,20 @@ class EDD implements Integration_Interface {
 	/**
 	 * Make sure the Organization is classified as a Brand too.
 	 *
-	 * @param array $data The organization schema.
+	 * @param array<string, string|array> $data The organization schema.
 	 *
-	 * @return array
+	 * @return array<string, string|array>
 	 */
 	public function filter_organization_schema( $data ) {
-		if ( \is_singular( 'download' ) ) {
-			$data['@type'] = [ 'Organization', 'Brand' ];
+		if ( ! \is_singular( 'download' ) ) {
+			return $data;
+		}
+
+		// This will always become an array. Cast early to allow easier comparison.
+		$data['@type'] = (array) $data['@type'];
+		$missing_types = \array_diff( [ 'Organization', 'Brand' ], $data['@type'] );
+		if ( ! empty( $missing_types ) ) {
+			\array_push( $data['@type'], ...$missing_types );
 		}
 
 		return $data;
@@ -71,10 +88,10 @@ class EDD implements Integration_Interface {
 	/**
 	 * Make sure the WebPage schema contains reference to the product.
 	 *
-	 * @param array                $data    The schema Webpage data.
-	 * @param WPSEO_Schema_Context $context Context object.
+	 * @param array<string, string|array> $data    The schema Webpage data.
+	 * @param WPSEO_Schema_Context        $context Context object.
 	 *
-	 * @return array
+	 * @return array<string, string|array>
 	 */
 	public function filter_webpage_schema( $data, $context ) {
 		if ( \is_singular( [ 'download' ] ) ) {
@@ -88,9 +105,9 @@ class EDD implements Integration_Interface {
 	/**
 	 * Filter the structured data output for a download to tie into Yoast SEO's output.
 	 *
-	 * @param array $data Structured data for a download.
+	 * @param array<string, string|array> $data Structured data for a download.
 	 *
-	 * @return array
+	 * @return array<string, string|array>
 	 */
 	public function filter_download_schema( $data ) {
 
@@ -109,9 +126,9 @@ class EDD implements Integration_Interface {
 	/**
 	 * Cleans up EDD generated Offers.
 	 *
-	 * @param array $offer The schema array.
+	 * @param array<array-key, string|array> $offer The schema array.
 	 *
-	 * @return array
+	 * @return array<array-key, string|array>
 	 */
 	private function clean_up_offer( $offer ) {
 		// Checking for not isset @type makes sure there are multiple offers in the offer list. It is always an array.
@@ -136,12 +153,24 @@ class EDD implements Integration_Interface {
 	/**
 	 * Returns a Schema node for the current site's Organization.
 	 *
-	 * @return string[]
+	 * @return array{"@type": string[], "@id": string}
 	 */
 	private function return_organization_node() {
+		$home_page_meta = $this->meta->for_home_page();
+
+		$id = $home_page_meta->canonical . '#organization';
+		if ( $home_page_meta->site_represents === 'person' ) {
+			$current_page_meta = $this->meta->for_current_page();
+
+			$id = $this->schema_id->get_user_schema_id(
+				$current_page_meta->site_user_id,
+				$current_page_meta
+			);
+		}
+
 		return [
 			'@type' => [ 'Organization', 'Brand' ],
-			'@id'   => $this->meta->for_home_page()->canonical . '#organization',
+			'@id'   => $id,
 		];
 	}
 }

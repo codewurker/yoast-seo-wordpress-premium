@@ -5,8 +5,8 @@ namespace Yoast\WP\SEO\Premium\Integrations;
 use WP_Admin_Bar;
 use WPSEO_Metabox_Analysis_Readability;
 use WPSEO_Metabox_Analysis_SEO;
-use WPSEO_Options;
 use Yoast\WP\SEO\Conditionals\Front_End_Conditional;
+use Yoast\WP\SEO\Helpers\Options_Helper;
 use Yoast\WP\SEO\Helpers\Robots_Helper;
 use Yoast\WP\SEO\Integrations\Integration_Interface;
 use Yoast\WP\SEO\Schema\Application\Configuration\Schema_Configuration;
@@ -31,6 +31,13 @@ class Frontend_Inspector implements Integration_Interface {
 	protected $robots_helper;
 
 	/**
+	 * The options helper.
+	 *
+	 * @var Options_Helper
+	 */
+	protected $options_helper;
+
+	/**
 	 * The schema configuration.
 	 *
 	 * @var Schema_Configuration
@@ -41,13 +48,16 @@ class Frontend_Inspector implements Integration_Interface {
 	 * Constructs a Frontend_Inspector.
 	 *
 	 * @param Robots_Helper        $robots_helper        The Robots_Helper.
+	 * @param Options_Helper       $options_helper       The options helper.
 	 * @param Schema_Configuration $schema_configuration The schema configuration.
 	 */
 	public function __construct(
 		Robots_Helper $robots_helper,
+		Options_Helper $options_helper,
 		Schema_Configuration $schema_configuration
 	) {
 		$this->robots_helper        = $robots_helper;
+		$this->options_helper       = $options_helper;
 		$this->schema_configuration = $schema_configuration;
 	}
 
@@ -95,7 +105,7 @@ class Frontend_Inspector implements Integration_Interface {
 	 * @return void
 	 */
 	public function enqueue_assets() {
-		if ( ! \is_admin_bar_showing() || ! WPSEO_Options::get( 'enable_admin_bar_menu' ) ) {
+		if ( ! \is_admin_bar_showing() || ! $this->options_helper->get( 'enable_admin_bar_menu' ) ) {
 			return;
 		}
 
@@ -125,10 +135,10 @@ class Frontend_Inspector implements Integration_Interface {
 			case 'Static_Home_Page':
 			case 'Static_Posts_Page':
 			case 'Post_Type':
-				$display_metabox = WPSEO_Options::get( 'display-metabox-pt-' . $indexable->object_sub_type );
+				$display_metabox = $this->options_helper->get( 'display-metabox-pt-' . $indexable->object_sub_type );
 				break;
 			case 'Term_Archive':
-				$display_metabox = WPSEO_Options::get( 'display-metabox-tax-' . $indexable->object_sub_type );
+				$display_metabox = $this->options_helper->get( 'display-metabox-tax-' . $indexable->object_sub_type );
 				break;
 			case 'Author_Archive':
 				$display_metabox = false;
@@ -146,16 +156,20 @@ class Frontend_Inspector implements Integration_Interface {
 			'wpseoScriptData',
 			[
 				'frontendInspector' => [
-					'isSchemaEnabled'       => ! $this->schema_configuration->is_schema_disabled_programmatically(), // Even if schema is disabled via the settings, it's technically disabled programmatically.
-					'isIndexable'           => $this->robots_helper->is_indexable( $indexable ),
-					'indexable'             => [
+					'isSchemaEnabled'                  => ! $this->schema_configuration->is_schema_disabled_programmatically(), // Even if schema is disabled via the settings, it's technically disabled programmatically.
+					'isIndexable'                      => $this->robots_helper->is_indexable( $indexable ),
+					'indexable'                        => [
 						'is_robots_noindex'           => $indexable->is_robots_noindex,
 						'primary_focus_keyword'       => $indexable->primary_focus_keyword,
 						'primary_focus_keyword_score' => $indexable->primary_focus_keyword_score,
 						'readability_score'           => $indexable->readability_score,
 					],
-					'contentAnalysisActive' => $is_readability_analysis_active,
-					'keywordAnalysisActive' => $is_seo_analysis_active,
+					'contentAnalysisActive'            => $is_readability_analysis_active,
+					'keywordAnalysisActive'            => $is_seo_analysis_active,
+					'trackingConfig'                   => [
+						'firstActionedOn' => $this->options_helper->get( 'frontend_inspector_first_actioned_on', '' ),
+						'optionName'      => 'frontend_inspector_first_actioned_on',
+					],
 				],
 			]
 		);

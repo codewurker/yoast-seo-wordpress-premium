@@ -61,6 +61,7 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Helpers\\Post_Type_Helper' => 'getPostTypeHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Robots_Helper' => 'getRobotsHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Route_Helper' => 'getRouteHelperService',
+            'Yoast\\WP\\SEO\\Helpers\\Schema\\ID_Helper' => 'getIDHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Score_Icon_Helper' => 'getScoreIconHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Social_Profiles_Helper' => 'getSocialProfilesHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Url_Helper' => 'getUrlHelperService',
@@ -618,6 +619,16 @@ class Cached_Container extends Container
     protected function getRouteHelperService()
     {
         return $this->services['Yoast\\WP\\SEO\\Helpers\\Route_Helper'] = \Yoast\WP\Lib\Dependency_Injection\Container_Registry::get('yoast-seo', 'Yoast\\WP\\SEO\\Helpers\\Route_Helper');
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Helpers\Schema\ID_Helper' shared service.
+     *
+     * @return \Yoast\WP\SEO\Helpers\Schema\ID_Helper
+     */
+    protected function getIDHelperService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Helpers\\Schema\\ID_Helper'] = \Yoast\WP\Lib\Dependency_Injection\Container_Registry::get('yoast-seo', 'Yoast\\WP\\SEO\\Helpers\\Schema\\ID_Helper');
     }
 
     /**
@@ -1683,7 +1694,7 @@ class Cached_Container extends Container
      */
     protected function getFrontendInspectorService()
     {
-        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Frontend_Inspector'] = new \Yoast\WP\SEO\Premium\Integrations\Frontend_Inspector(($this->services['Yoast\\WP\\SEO\\Helpers\\Robots_Helper'] ?? $this->getRobotsHelperService()), ($this->services['Yoast\\WP\\SEO\\Schema\\Application\\Configuration\\Schema_Configuration'] ?? $this->getSchemaConfigurationService()));
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Frontend_Inspector'] = new \Yoast\WP\SEO\Premium\Integrations\Frontend_Inspector(($this->services['Yoast\\WP\\SEO\\Helpers\\Robots_Helper'] ?? $this->getRobotsHelperService()), ($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] ?? $this->getOptionsHelperService()), ($this->services['Yoast\\WP\\SEO\\Schema\\Application\\Configuration\\Schema_Configuration'] ?? $this->getSchemaConfigurationService()));
     }
 
     /**
@@ -1831,7 +1842,7 @@ class Cached_Container extends Container
      */
     protected function getEDDService()
     {
-        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\EDD'] = new \Yoast\WP\SEO\Premium\Integrations\Third_Party\EDD(($this->services['Yoast\\WP\\SEO\\Surfaces\\Meta_Surface'] ?? $this->getMetaSurfaceService()));
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\EDD'] = new \Yoast\WP\SEO\Premium\Integrations\Third_Party\EDD(($this->services['Yoast\\WP\\SEO\\Surfaces\\Meta_Surface'] ?? $this->getMetaSurfaceService()), ($this->services['Yoast\\WP\\SEO\\Helpers\\Schema\\ID_Helper'] ?? $this->getIDHelperService()));
     }
 
     /**
