@@ -143,6 +143,10 @@ class Workouts_Route implements Route_Interface {
 			return \current_user_can( 'edit_others_posts' );
 		};
 
+		$delete_others_posts = static function () {
+			return \current_user_can( 'delete_others_posts' );
+		};
+
 		$noindex_route = [
 			[
 				'methods'             => 'POST',
@@ -171,7 +175,7 @@ class Workouts_Route implements Route_Interface {
 			[
 				'methods'             => 'POST',
 				'callback'            => [ $this, 'remove_redirect' ],
-				'permission_callback' => $edit_others_posts,
+				'permission_callback' => $delete_others_posts,
 				'args'                => [
 					'object_id'       => [
 						'type'     => 'integer',

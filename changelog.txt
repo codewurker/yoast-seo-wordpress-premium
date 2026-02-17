@@ -1,13 +1,8 @@
 *** Yoast SEO premium Changelog ***
 
 
-2026-02-03 - version 26.9
-* fix -  Fixes a bug where Table of Content block failed to be registered in Widgets when Twenty Twenty-One theme was used.
-* fix -  Fixes a bug where the EDD schema structurepointed to non-existing nodes when a website represents a person.
-* fix -  Fixes a bug where the Yoast AI Optimize feature did not work properly when editing content in templated-locked mode in the Block Editor.
-* update -  Only loads AI Summarize assets on Posts, Pages, and CPTs.
-* update -  Ensures no deprecated props are used for WordPress components `ToggleControl`, `TextControl`, and `SelectControl` for Estimated reading time and Table of Contents blocks.
-* update -  Bumps the minimum required version of Yoast SEO to 26.9.
-* update -  Sets the minimum supported WordPress version to 6.8.
-* update -  Makes AI Summarize block not available inside Widgets when Twenty Twenty-One theme is used.
+2026-02-17 - version 27.0
+* update -  Improves permission checks in REST API routes.
+* update -  Modernizes how translations of the plugin work by removing the unneeded `load_plugin_textdomain()` calls.
+* update -  Bumps the minimum required version of Yoast SEO to 27.0
 

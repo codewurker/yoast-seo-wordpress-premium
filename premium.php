@@ -28,7 +28,7 @@ class WPSEO_Premium {
 	 *
 	 * @var string
 	 */
-	public const PLUGIN_VERSION_NAME = '26.9';
+	public const PLUGIN_VERSION_NAME = '27.0';
 
 	/**
 	 * Machine readable version for determining whether an upgrade is needed.
@@ -119,8 +119,6 @@ class WPSEO_Premium {
 	 * @return void
 	 */
 	private function setup() {
-		$this->load_textdomain();
-
 		$this->redirect_setup();
 
 		add_action( 'init', [ 'WPSEO_Premium_Option', 'register_option' ] );
@@ -391,15 +389,6 @@ class WPSEO_Premium {
 	 */
 	public function admin_css() {
 		echo "<style type='text/css'>#wpseo_content_top{ padding-left: 0; margin-left: 0; }</style>";
-	}
-
-	/**
-	 * Load textdomain
-	 *
-	 * @return void
-	 */
-	private function load_textdomain() {
-		load_plugin_textdomain( 'wordpress-seo-premium', false, dirname( WPSEO_PREMIUM_BASENAME ) . '/languages/' );
 	}
 
 	/**
