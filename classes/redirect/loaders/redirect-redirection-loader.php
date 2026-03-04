@@ -41,8 +41,8 @@ class WPSEO_Redirect_Redirection_Loader extends WPSEO_Redirect_Abstract_Loader {
 				WHERE %i = 'enabled' AND %i = 'url'",
 				$this->wpdb->prefix . 'redirection_items',
 				'status',
-				'action_type'
-			)
+				'action_type',
+			),
 		);
 		// phpcs:enable
 

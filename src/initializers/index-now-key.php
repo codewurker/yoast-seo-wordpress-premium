@@ -97,7 +97,7 @@ class Index_Now_Key implements Initializer_Interface {
 			// Only send plain text header.
 			\header( 'Content-Type: text/plain;charset=UTF-8' );
 			echo \esc_html( $this->key );
-			die;
+			exit();
 		}
 
 		// Trying keys? Good luck.

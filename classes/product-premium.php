@@ -49,7 +49,7 @@ if ( class_exists( 'Yoast_Product' ) && ! class_exists( 'WPSEO_Product_Premium',
 				'admin.php?page=wpseo_licenses#top#licenses',
 				'wordpress-seo',
 				self::PLUGIN_AUTHOR,
-				$file
+				$file,
 			);
 
 			if ( method_exists( $this, 'set_extension_url' ) ) {

@@ -76,7 +76,7 @@ class WPSEO_Premium_Orphaned_Post_Filter extends WPSEO_Abstract_Post_Filter {
 		/* translators: %1$s expands to the link to an article to read more about orphaned content, %2$s expands to </a> */
 			__( '%1$sLearn more about orphaned content%2$s.', 'wordpress-seo-premium' ),
 			'<a href="' . WPSEO_Shortlinker::get( 'https://yoa.st/1ja' ) . '" target="_blank">',
-			'</a>'
+			'</a>',
 		);
 
 		if ( $unprocessed && ! $can_recalculate ) {
@@ -84,7 +84,7 @@ class WPSEO_Premium_Orphaned_Post_Filter extends WPSEO_Abstract_Post_Filter {
 			/* translators: %1$s: plural form of the current post type, %2$s: a Learn more about link */
 				__( 'Ask your SEO Manager or Site Administrator to count links in all texts, so we can identify orphaned %1$s. %2$s', 'wordpress-seo-premium' ),
 				strtolower( $post_type_object->labels->name ),
-				$learn_more
+				$learn_more,
 			);
 		}
 
@@ -95,7 +95,7 @@ class WPSEO_Premium_Orphaned_Post_Filter extends WPSEO_Abstract_Post_Filter {
 				'<a href="' . esc_url( admin_url( 'admin.php?page=wpseo_tools&reIndexLinks=1' ) ) . '">',
 				'</a>',
 				strtolower( $post_type_object->labels->name ),
-				$learn_more
+				$learn_more,
 			);
 		}
 
@@ -103,7 +103,7 @@ class WPSEO_Premium_Orphaned_Post_Filter extends WPSEO_Abstract_Post_Filter {
 		/* translators: %1$s: plural form of the current post type, %2$s: a Learn more about link */
 			__( '\'Orphaned content\' refers to %1$s that have no inbound links, consider adding links towards these %1$s. %2$s', 'wordpress-seo-premium' ),
 			strtolower( $post_type_object->labels->name ),
-			$learn_more
+			$learn_more,
 		);
 	}
 
@@ -160,9 +160,7 @@ class WPSEO_Premium_Orphaned_Post_Filter extends WPSEO_Abstract_Post_Filter {
 	protected function get_label() {
 		static $label;
 
-		if ( $label === null ) {
-			$label = __( 'Orphaned content', 'wordpress-seo-premium' );
-		}
+		$label ??= __( 'Orphaned content', 'wordpress-seo-premium' );
 
 		return $label;
 	}
@@ -200,8 +198,8 @@ class WPSEO_Premium_Orphaned_Post_Filter extends WPSEO_Abstract_Post_Filter {
 					'post_status',
 					'post_password',
 					'post_type',
-					$post_type
-				)
+					$post_type,
+				),
 			);
 
 			$count = (int) $count;

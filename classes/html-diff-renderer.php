@@ -87,7 +87,7 @@ class WPSEO_HTML_Diff_Renderer extends WP_Text_Diff_Renderer_inline {
 				[
 					preg_split( '//', $text1 ),
 					preg_split( '//', $text2 ),
-				]
+				],
 			);
 		}
 		else {
@@ -101,7 +101,7 @@ class WPSEO_HTML_Diff_Renderer extends WP_Text_Diff_Renderer_inline {
 				[
 					$this->_splitOnWords( $text1, $nl ),
 					$this->_splitOnWords( $text2, $nl ),
-				]
+				],
 			);
 		}
 
@@ -109,8 +109,8 @@ class WPSEO_HTML_Diff_Renderer extends WP_Text_Diff_Renderer_inline {
 		$renderer = new self(
 			array_merge(
 				$this->getParams(),
-				[ 'split_level' => ( $this->_split_characters ) ? 'characters' : 'words' ]
-			)
+				[ 'split_level' => ( $this->_split_characters ) ? 'characters' : 'words' ],
+			),
 		);
 
 		/* Run the diff and get the output. */

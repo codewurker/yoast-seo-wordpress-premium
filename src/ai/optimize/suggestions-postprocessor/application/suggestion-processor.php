@@ -46,11 +46,7 @@ class Suggestion_Processor {
 	 * @param Node_Processor         $node_processor The node processor.
 	 * @param Suggestions_Serializer $serializer     The suggestion serializer.
 	 */
-	public function __construct(
-		DOM_Parser $parser,
-		Node_Processor $node_processor,
-		Suggestions_Serializer $serializer
-	) {
+	public function __construct( DOM_Parser $parser, Node_Processor $node_processor, Suggestions_Serializer $serializer ) {
 		$this->parser         = $parser;
 		$this->node_processor = $node_processor;
 		$this->serializer     = $serializer;
@@ -141,7 +137,7 @@ class Suggestion_Processor {
 		// Yes, we are using a regex to parse HTML. We are aware of the risks, see also above.
 		$introduced_blocks = \sprintf( '/<ins class="%s">&lt;\/.*?&gt;&lt;.*?&gt;<\/ins>/', self::YST_DIFF_CLASS );
 		$replacement       = static function () {
-			// translators: The text to show when a paragraph break is suggested through AI Optimize.
+			/* translators: The text to show when a paragraph break is suggested through AI Optimize. */
 			$paragraph_break_text = \__( 'Paragraph break', 'wordpress-seo-premium' );
 			return '<ins class="yst-paragraph">--- ' . $paragraph_break_text . ' ---</ins>';
 		};

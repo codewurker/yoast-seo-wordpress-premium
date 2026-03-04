@@ -121,7 +121,7 @@ class Update_Premium_Notification implements Integration_Interface {
 				\esc_html__( 'Please %2$supdate %1$s to the latest version%3$s to ensure you can fully use all Premium settings and features.', 'wordpress-seo-premium' ),
 				'Yoast SEO Premium',
 				( $is_plugins_page ) ? '' : '<a href="' . \esc_url( \self_admin_url( 'plugins.php' ) ) . '">',
-				( $is_plugins_page ) ? '' : '</a>'
+				( $is_plugins_page ) ? '' : '</a>',
 			);
 			// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped -- Output of the title escaped in the Notice_Presenter.
 			echo new Notice_Presenter(
@@ -131,7 +131,7 @@ class Update_Premium_Notification implements Integration_Interface {
 				null,
 				null,
 				true,
-				'yoast-update-premium-notification'
+				'yoast-update-premium-notification',
 			);
 			// phpcs:enable
 

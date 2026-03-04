@@ -80,7 +80,7 @@ class Gutenberg_Converter {
 			$script_safe_html_content = \str_replace(
 				[ '&lt;script&gt;', '&lt;/script&gt;' ],
 				[ '[encoded_script_open]', '[encoded_script_close]' ],
-				$html_content
+				$html_content,
 			);
 
 			// Create a DOM document from the HTML content.
@@ -126,8 +126,7 @@ class Gutenberg_Converter {
 			}
 
 			return \implode( \PHP_EOL . \PHP_EOL, $blocks );
-		}
-		catch ( Exception $e ) {
+		} catch ( Exception $e ) {
 			return $html_content;
 		}
 	}
@@ -342,7 +341,7 @@ class Gutenberg_Converter {
 			$positioned_blocks,
 			static function ( $a, $b ) {
 				return ( $a['position'] - $b['position'] );
-			}
+			},
 		);
 
 		if ( ! empty( $positioned_blocks ) ) {
@@ -353,7 +352,7 @@ class Gutenberg_Converter {
 					$block['content'] = \str_replace(
 						[ '[encoded_script_open]', '[encoded_script_close]' ],
 						[ '&lt;script&gt;', '&lt;/script&gt;' ],
-						$block['content']
+						$block['content'],
 					);
 				}
 

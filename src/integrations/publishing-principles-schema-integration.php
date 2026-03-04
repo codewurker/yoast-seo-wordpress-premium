@@ -106,7 +106,7 @@ class Publishing_Principles_Schema_Integration implements Integration_Interface 
 	 */
 	public function filter_organization_schema( $data ) {
 		$policy_indexables = $this->get_indexables_for_publishing_principle_pages(
-			self::PRINCIPLES_MAPPING
+			self::PRINCIPLES_MAPPING,
 		);
 
 		foreach ( $policy_indexables as $policy_data ) {

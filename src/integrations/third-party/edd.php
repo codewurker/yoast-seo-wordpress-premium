@@ -164,7 +164,7 @@ class EDD implements Integration_Interface {
 
 			$id = $this->schema_id->get_user_schema_id(
 				$current_page_meta->site_user_id,
-				$current_page_meta
+				$current_page_meta,
 			);
 		}
 

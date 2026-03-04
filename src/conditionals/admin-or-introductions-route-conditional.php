@@ -39,11 +39,7 @@ class Admin_Or_Introductions_Route_Conditional implements Conditional {
 			return true;
 		}
 
-		if ( $this->is_post_request() && $this->is_introductions_rest_request() ) {
-			return true;
-		}
-
-		return false;
+		return ( $this->is_post_request() && $this->is_introductions_rest_request() );
 	}
 
 	/**

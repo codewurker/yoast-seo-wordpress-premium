@@ -72,8 +72,8 @@ class Wincher_Keyphrases implements Integration_Interface {
 				$wpdb->posts,
 				'meta_key',
 				$meta_key,
-				'post_status'
-			)
+				'post_status',
+			),
 		);
 
 		if ( $results ) {

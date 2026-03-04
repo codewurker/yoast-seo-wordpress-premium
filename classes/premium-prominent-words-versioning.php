@@ -36,8 +36,8 @@ class WPSEO_Premium_Prominent_Words_Versioning {
 		$wpdb->query(
 			$wpdb->prepare(
 				'UPDATE ' . $wpdb->postmeta . ' SET meta_key = %s WHERE meta_key = "yst_prominent_words_version"',
-				self::POST_META_NAME
-			)
+				self::POST_META_NAME,
+			),
 		);
 	}
 
@@ -60,8 +60,8 @@ class WPSEO_Premium_Prominent_Words_Versioning {
 		$wpdb->query(
 			$wpdb->prepare(
 				'DELETE FROM ' . $wpdb->postmeta . ' WHERE meta_key = %s',
-				self::POST_META_NAME
-			)
+				self::POST_META_NAME,
+			),
 		);
 	}
 }

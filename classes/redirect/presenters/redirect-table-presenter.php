@@ -26,16 +26,16 @@ class WPSEO_Redirect_Table_Presenter extends WPSEO_Redirect_Tab_Presenter {
 				'redirect_table'   => new WPSEO_Redirect_Table(
 					$this->view,
 					$this->get_first_column_value(),
-					$redirect_manager->get_redirects()
+					$redirect_manager->get_redirects(),
 				),
 				'origin_from_url'  => $this->get_old_url(),
 				'quick_edit_table' => new WPSEO_Redirect_Quick_Edit_Presenter(),
 				'form_presenter'   => new WPSEO_Redirect_Form_Presenter(
 					[
 						'origin_label_value' => $this->get_first_column_value(),
-					]
+					],
 				),
-			]
+			],
 		);
 	}
 

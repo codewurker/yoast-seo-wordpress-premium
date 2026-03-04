@@ -58,11 +58,7 @@ abstract class WPSEO_Watcher {
 		// Get the site URL.
 		$site = wp_parse_url( get_site_url() );
 
-		if ( $old_url !== $new_url && $old_url !== '/' && ( ! isset( $site['path'] ) || ( isset( $site['path'] ) && $old_url !== $site['path'] . '/' ) ) ) {
-			return true;
-		}
-
-		return false;
+		return ( $old_url !== $new_url && $old_url !== '/' && ( ! isset( $site['path'] ) || $old_url !== $site['path'] . '/' ) );
 	}
 
 	/**
@@ -93,7 +89,7 @@ abstract class WPSEO_Watcher {
 		 */
 		$show_notification = apply_filters(
 			'Yoast\WP\SEO\enable_notification_' . $this->watch_type . '_' . $notification_type,
-			$show_notification
+			$show_notification,
 		);
 
 		if ( $show_notification ) {
@@ -124,7 +120,7 @@ abstract class WPSEO_Watcher {
 			$this->get_delete_action_list( $url, $id ),
 			'<a target="_blank" href="' . WPSEO_Shortlinker::get( 'https://yoa.st/2jd' ) . '">',
 			'</a>',
-			'<code>' . esc_url( trim( $url ) ) . '</code>'
+			'<code>' . esc_url( trim( $url ) ) . '</code>',
 		);
 
 		$this->create_notification( $message, 'delete' );
@@ -142,7 +138,7 @@ abstract class WPSEO_Watcher {
 		return sprintf(
 			'wpseoUndoRedirectByObjectId( "%1$s", "%2$s", this );return false;',
 			esc_js( $object_id ),
-			esc_js( $object_type )
+			esc_js( $object_type ),
 		);
 	}
 
@@ -179,7 +175,7 @@ abstract class WPSEO_Watcher {
 			'wpseoCreateRedirect( "%1$s", "%2$s", "%3$s", this );',
 			esc_js( $url ),
 			$type,
-			wp_create_nonce( 'wpseo-redirects-ajax-security' )
+			wp_create_nonce( 'wpseo-redirects-ajax-security' ),
 		);
 	}
 
@@ -233,7 +229,7 @@ abstract class WPSEO_Watcher {
 			$this->get_undo_slug_notification(),
 			'Yoast SEO Premium',
 			'<a target="_blank" href="' . $this->admin_redirect_url( $redirect->get_origin() ) . '">',
-			'</a>'
+			'</a>',
 		);
 
 		$message .= '<br>';
@@ -244,13 +240,13 @@ abstract class WPSEO_Watcher {
 
 		$message .= sprintf(
 			'<button type="button" class="button-primary" onclick="wpseoRemoveNotification( this );">%s</button>',
-			esc_html__( 'Ok', 'wordpress-seo-premium' )
+			esc_html__( 'Ok', 'wordpress-seo-premium' ),
 		);
 
 		$message .= sprintf(
 			'<span id="delete-link"><a class="delete" href="" onclick=\'%1$s\'>%2$s</a></span>',
 			$this->javascript_undo_redirect( $object_id, $object_type ),
-			esc_html__( 'Undo', 'wordpress-seo-premium' )
+			esc_html__( 'Undo', 'wordpress-seo-premium' ),
 		);
 
 		// Only set notification when the slug change was not saved through quick edit.
@@ -269,7 +265,7 @@ abstract class WPSEO_Watcher {
 		return sprintf(
 			'<ul>%1$s %2$s</ul>',
 			'<li><button type="button" class="button" onclick=\'' . $this->javascript_create_redirect( $url, $id, WPSEO_Redirect_Types::PERMANENT ) . '\'>' . __( 'Redirect it to another URL', 'wordpress-seo-premium' ) . '</button></li>',
-			'<li><button type="button" class="button" onclick=\'' . $this->javascript_create_redirect( $url, $id, WPSEO_Redirect_Types::DELETED ) . '\'>' . __( 'Make it serve a 410 Content Deleted header', 'wordpress-seo-premium' ) . '</button></li>'
+			'<li><button type="button" class="button" onclick=\'' . $this->javascript_create_redirect( $url, $id, WPSEO_Redirect_Types::DELETED ) . '\'>' . __( 'Make it serve a 410 Content Deleted header', 'wordpress-seo-premium' ) . '</button></li>',
 		);
 	}
 
@@ -305,9 +301,7 @@ abstract class WPSEO_Watcher {
 	protected function get_redirect_manager() {
 		static $redirect_manager;
 
-		if ( $redirect_manager === null ) {
-			$redirect_manager = new WPSEO_Redirect_Manager();
-		}
+		$redirect_manager ??= new WPSEO_Redirect_Manager();
 
 		return $redirect_manager;
 	}

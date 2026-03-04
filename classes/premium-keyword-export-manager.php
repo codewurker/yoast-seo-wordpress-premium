@@ -82,7 +82,7 @@ class WPSEO_Premium_Keyword_Export_Manager implements WPSEO_WordPress_Integratio
 
 		// And exit so we don't start appending HTML to our CSV file.
 		// NOTE: this makes this entire class untestable as it will exit all tests but WordPress seems to have no elegant way of handling this.
-		exit;
+		exit();
 	}
 
 	/**
@@ -163,13 +163,13 @@ class WPSEO_Premium_Keyword_Export_Manager implements WPSEO_WordPress_Integratio
 		$this->feed_to_builder(
 			$builder,
 			new WPSEO_Export_Keywords_Post_Query( $columns, 1000 ),
-			new WPSEO_Export_Keywords_Post_Presenter( $columns )
+			new WPSEO_Export_Keywords_Post_Presenter( $columns ),
 		);
 
 		$this->feed_to_builder(
 			$builder,
 			new WPSEO_Export_Keywords_Term_Query( $columns, 1000 ),
-			new WPSEO_Export_Keywords_Term_Presenter( $columns )
+			new WPSEO_Export_Keywords_Term_Presenter( $columns ),
 		);
 	}
 

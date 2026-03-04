@@ -53,7 +53,7 @@ class Estimated_Reading_Time_Block extends Dynamic_Block_V3 {
 			'/<span class="yoast-reading-time__time-unit">.*<\/span>/',
 			'<span class="yoast-reading-time__time-unit"> ' . \sprintf( \_n( 'minute', 'minutes', $attributes['estimatedReadingTime'], 'wordpress-seo-premium' ), $attributes['estimatedReadingTime'] ) . '</span>',
 			$content,
-			1
+			1,
 		);
 		if ( $attributes['showIcon'] ) {
 			// Replace 15.7 icon placeholder.
@@ -61,7 +61,7 @@ class Estimated_Reading_Time_Block extends Dynamic_Block_V3 {
 				'/ICON_PLACEHOLDER/',
 				$this->clock_icon,
 				$content,
-				1
+				1,
 			);
 
 			// Replace the 15.8+ icon placeholder.
@@ -69,7 +69,7 @@ class Estimated_Reading_Time_Block extends Dynamic_Block_V3 {
 				'/<span class="yoast-reading-time__icon"><\/span>/',
 				$this->clock_icon,
 				$content,
-				1
+				1,
 			);
 		}
 

@@ -30,8 +30,8 @@ class WPSEO_Redirect_Uniqueness_Validation extends WPSEO_Redirect_Abstract_Valid
 			$this->set_error(
 				new WPSEO_Validation_Error(
 					__( 'The old URL already exists as a redirect.', 'wordpress-seo-premium' ),
-					'origin'
-				)
+					'origin',
+				),
 			);
 
 			return false;

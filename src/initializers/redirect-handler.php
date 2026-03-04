@@ -240,7 +240,7 @@ class Redirect_Handler implements Initializer_Interface {
 			$redirect_url = \preg_replace_callback(
 				'/\$[0-9]+/',
 				[ $this, 'format_regex_redirect_url' ],
-				$redirect['url']
+				$redirect['url'],
 			);
 
 			$this->do_redirect( $redirect_url, $redirect['type'] );
@@ -635,7 +635,7 @@ class Redirect_Handler implements Initializer_Interface {
 
 		// phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect -- Location is validated by redirect logic before calling this method.
 		\wp_redirect( $location, $status, 'Yoast SEO Premium' );
-		exit;
+		exit();
 	}
 
 	/**

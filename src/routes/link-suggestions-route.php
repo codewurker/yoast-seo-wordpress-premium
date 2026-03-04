@@ -97,8 +97,8 @@ class Link_Suggestions_Route implements Route_Interface {
 				$object_id,
 				$object_type,
 				true,
-				$post_type
-			)
+				$post_type,
+			),
 		);
 	}
 

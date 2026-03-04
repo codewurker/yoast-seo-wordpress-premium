@@ -76,9 +76,7 @@ class WPSEO_Redirect_Sitemap_Filter implements WPSEO_WordPress_Integration {
 	protected function is_redirect( $entry_location ) {
 		static $redirects = null;
 
-		if ( $redirects === null ) {
-			$redirects = new WPSEO_Redirect_Option();
-		}
+		$redirects ??= new WPSEO_Redirect_Option();
 
 		return $redirects->search( $entry_location ) !== false;
 	}

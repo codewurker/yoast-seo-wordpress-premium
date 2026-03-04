@@ -126,7 +126,7 @@ class WPSEO_CLI_Redirect_Base_Command extends WP_CLI_Command {
 			'Failed to validate redirect \'%s\' => \'%s\': %s',
 			$new_redirect->get_origin(),
 			$new_redirect->get_target(),
-			$this->reformat_error( $error->get_message() )
+			$this->reformat_error( $error->get_message() ),
 		);
 
 		if ( $error->get_type() === 'warning' ) {

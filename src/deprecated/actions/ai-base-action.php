@@ -145,12 +145,7 @@ class AI_Base_Action {
 	 * @throws Unauthorized_Exception Unauthorized_Exception.
 	 * @return string The code verifier.
 	 */
-	public function callback(
-		string $access_jwt,
-		string $refresh_jwt,
-		string $code_challenge,
-		int $user_id
-	) {
+	public function callback( string $access_jwt, string $refresh_jwt, string $code_challenge, int $user_id ) {
 		\_deprecated_function( __METHOD__, 'Yoast SEO 25.6', 'Yoast\WP\SEO\AI_Authorization\User_Interface\Callback_Route::callback' );
 	}
 
@@ -255,9 +250,7 @@ class AI_Base_Action {
 	 * @throws RuntimeException Unable to retrieve the access token.
 	 * @return object<string, object<string>> The AI-generated content.
 	 */
-	public function get_usage(
-		WP_User $user
-	) {
+	public function get_usage( WP_User $user ) {
 		\_deprecated_function( __METHOD__, 'Yoast SEO 25.6', 'Yoast\WP\SEO\AI_Generator\User_Interface\Get_Usage_Route::get_usage' );
 	}
 

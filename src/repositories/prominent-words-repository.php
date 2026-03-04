@@ -102,7 +102,7 @@ class Prominent_Words_Repository {
 			->select( 'id' )
 			->where_raw(
 				'i.id IN ( SELECT DISTINCT pw.indexable_id FROM ' . Model::get_table_name( 'Prominent_Words' ) . ' pw WHERE pw.stem IN (' . $stem_placeholders . ') )',
-				$stems
+				$stems,
 			)
 			->where_raw( '( i.post_status NOT IN ( \'draft\', \'auto-draft\', \'trash\' ) OR i.post_status IS NULL )' )
 			->limit( $limit )
@@ -193,7 +193,7 @@ class Prominent_Words_Repository {
 			static function ( $item ) {
 				return $item->stem;
 			},
-			$raw_doc_frequencies
+			$raw_doc_frequencies,
 		);
 
 		$doc_frequencies = \array_fill_keys( $stems, 0 );

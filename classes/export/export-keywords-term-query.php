@@ -77,7 +77,7 @@ class WPSEO_Export_Keywords_Term_Query implements WPSEO_Export_Keywords_Query {
 				'public'  => true,
 				'show_ui' => true,
 			],
-			'names'
+			'names',
 		);
 
 		if ( empty( $taxonomies ) ) {
@@ -106,9 +106,9 @@ class WPSEO_Export_Keywords_Term_Query implements WPSEO_Export_Keywords_Query {
 				. ' ON terms.%i = taxonomies.%i AND taxonomies.%i IN ('
 				. implode( ',', array_fill( 0, count( $taxonomies ), '%s' ) ) . ')'
 				. ' LIMIT %d OFFSET %d',
-				$replacements
+				$replacements,
 			),
-			ARRAY_A
+			ARRAY_A,
 		);
 		// phpcs:enable
 	}

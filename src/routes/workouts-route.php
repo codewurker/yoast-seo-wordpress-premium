@@ -279,7 +279,7 @@ class Workouts_Route implements Route_Interface {
 		}
 
 		return new WP_REST_Response(
-			[ 'json' => true ]
+			[ 'json' => true ],
 		);
 	}
 
@@ -304,13 +304,13 @@ class Workouts_Route implements Route_Interface {
 			}
 			else {
 				return new WP_REST_Response(
-					[ 'json' => false ]
+					[ 'json' => false ],
 				);
 			}
 		}
 
 		return new WP_REST_Response(
-			[ 'json' => true ]
+			[ 'json' => true ],
 		);
 	}
 
@@ -334,7 +334,7 @@ class Workouts_Route implements Route_Interface {
 		}
 		else {
 			return new WP_REST_Response(
-				[ 'json' => false ]
+				[ 'json' => false ],
 			);
 		}
 
@@ -342,12 +342,12 @@ class Workouts_Route implements Route_Interface {
 			$request['permalink'],
 			$request['redirect_url'],
 			'301',
-			'plain'
+			'plain',
 		);
 		$redirect_manager = new WPSEO_Redirect_Manager( 'plain' );
 		$redirect_manager->create_redirect( $redirect );
 		return new WP_REST_Response(
-			[ 'json' => true ]
+			[ 'json' => true ],
 		);
 	}
 
@@ -362,7 +362,7 @@ class Workouts_Route implements Route_Interface {
 		$suggestions = $this->link_suggestions_action->get_indexable_suggestions_for_indexable(
 			$request['indexableId'],
 			5,
-			false
+			false,
 		);
 
 		foreach ( $suggestions as $index => $suggestion ) {
@@ -370,7 +370,7 @@ class Workouts_Route implements Route_Interface {
 		}
 
 		return new WP_REST_Response(
-			[ 'json' => $suggestions ]
+			[ 'json' => $suggestions ],
 		);
 	}
 
@@ -409,7 +409,7 @@ class Workouts_Route implements Route_Interface {
 					'cornerstones' => $cornerstones,
 					'mostLinked'   => $most_linked,
 				],
-			]
+			],
 		);
 	}
 
@@ -424,7 +424,7 @@ class Workouts_Route implements Route_Interface {
 		$post = \get_post( $request['postId'] );
 
 		return new WP_REST_Response(
-			[ 'json' => $post->post_modified ]
+			[ 'json' => $post->post_modified ],
 		);
 	}
 
@@ -456,8 +456,8 @@ class Workouts_Route implements Route_Interface {
 		$object_sub_types = \array_values(
 			\array_merge(
 				$this->post_type_helper->get_public_post_types(),
-				\get_taxonomies( [ 'public' => true ] )
-			)
+				\get_taxonomies( [ 'public' => true ] ),
+			),
 		);
 
 		$excluded_post_types = \apply_filters( 'wpseo_indexable_excluded_post_types', [ 'attachment' ] );

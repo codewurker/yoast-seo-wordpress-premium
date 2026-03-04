@@ -22,9 +22,7 @@ class Wrapper {
 	public static function get_replace_vars() {
 		static $instance;
 
-		if ( $instance === null ) {
-			$instance = new WPSEO_Replace_Vars();
-		}
+		$instance ??= new WPSEO_Replace_Vars();
 
 		return $instance;
 	}
@@ -37,9 +35,7 @@ class Wrapper {
 	public static function get_prominent_words_unindex_post_query() {
 		static $instance;
 
-		if ( $instance === null ) {
-			$instance = new WPSEO_Premium_Prominent_Words_Unindexed_Post_Query();
-		}
+		$instance ??= new WPSEO_Premium_Prominent_Words_Unindexed_Post_Query();
 
 		return $instance;
 	}
@@ -52,9 +48,7 @@ class Wrapper {
 	public static function get_prominent_words_support() {
 		static $instance;
 
-		if ( $instance === null ) {
-			$instance = new WPSEO_Premium_Prominent_Words_Support();
-		}
+		$instance ??= new WPSEO_Premium_Prominent_Words_Support();
 
 		return $instance;
 	}
@@ -67,9 +61,7 @@ class Wrapper {
 	public static function get_shortlinker() {
 		static $instance;
 
-		if ( $instance === null ) {
-			$instance = new WPSEO_Shortlinker();
-		}
+		$instance ??= new WPSEO_Shortlinker();
 
 		return $instance;
 	}

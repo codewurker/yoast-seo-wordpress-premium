@@ -134,7 +134,7 @@ class Workouts_Integration implements Integration_Interface {
 				'cornerstoneOn'             => $this->options_helper->get( 'enable_cornerstone_content' ),
 				'seoDataOptimizationNeeded' => ! $this->prominent_words_helper->is_indexing_completed(),
 				'orphaned'                  => $orphaned,
-			]
+			],
 		);
 	}
 
@@ -147,8 +147,8 @@ class Workouts_Integration implements Integration_Interface {
 		$object_sub_types = \array_values(
 			\array_merge(
 				$this->post_type_helper->get_public_post_types(),
-				\get_taxonomies( [ 'public' => true ] )
-			)
+				\get_taxonomies( [ 'public' => true ] ),
+			),
 		);
 
 		$excluded_post_types = \apply_filters( 'wpseo_indexable_excluded_post_types', [ 'attachment' ] );

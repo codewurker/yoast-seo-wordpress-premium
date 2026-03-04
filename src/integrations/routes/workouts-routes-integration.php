@@ -270,8 +270,8 @@ class Workouts_Routes_Integration implements Integration_Interface {
 					[
 						'orphaned'    => self::ALLOWED_ORPHANED_STEPS,
 						'cornerstone' => self::ALLOWED_CORNERSTONE_STEPS,
-					][ $workout ]
-				)
+					][ $workout ],
+				),
 			);
 
 			// Don't add indexables that are not published or are no-indexed.
@@ -299,9 +299,9 @@ class Workouts_Routes_Integration implements Integration_Interface {
 								}
 								return false;
 							},
-							$indexables
-						)
-					)
+							$indexables,
+						),
+					),
 				);
 			}
 		}

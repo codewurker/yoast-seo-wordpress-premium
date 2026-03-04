@@ -39,37 +39,37 @@ class Wp_Cli_Initializer implements Initializer_Interface {
 		WP_CLI::add_command(
 			'yoast redirect list',
 			'WPSEO_CLI_Redirect_List_Command',
-			[ 'before_invoke' => 'WPSEO_CLI_Premium_Requirement::enforce' ]
+			[ 'before_invoke' => 'WPSEO_CLI_Premium_Requirement::enforce' ],
 		);
 
 		WP_CLI::add_command(
 			'yoast redirect create',
 			'WPSEO_CLI_Redirect_Create_Command',
-			[ 'before_invoke' => 'WPSEO_CLI_Premium_Requirement::enforce' ]
+			[ 'before_invoke' => 'WPSEO_CLI_Premium_Requirement::enforce' ],
 		);
 
 		WP_CLI::add_command(
 			'yoast redirect update',
 			'WPSEO_CLI_Redirect_Update_Command',
-			[ 'before_invoke' => 'WPSEO_CLI_Premium_Requirement::enforce' ]
+			[ 'before_invoke' => 'WPSEO_CLI_Premium_Requirement::enforce' ],
 		);
 
 		WP_CLI::add_command(
 			'yoast redirect delete',
 			'WPSEO_CLI_Redirect_Delete_Command',
-			[ 'before_invoke' => 'WPSEO_CLI_Premium_Requirement::enforce' ]
+			[ 'before_invoke' => 'WPSEO_CLI_Premium_Requirement::enforce' ],
 		);
 
 		WP_CLI::add_command(
 			'yoast redirect has',
 			'WPSEO_CLI_Redirect_Has_Command',
-			[ 'before_invoke' => 'WPSEO_CLI_Premium_Requirement::enforce' ]
+			[ 'before_invoke' => 'WPSEO_CLI_Premium_Requirement::enforce' ],
 		);
 
 		WP_CLI::add_command(
 			'yoast redirect follow',
 			'WPSEO_CLI_Redirect_Follow_Command',
-			[ 'before_invoke' => 'WPSEO_CLI_Premium_Requirement::enforce' ]
+			[ 'before_invoke' => 'WPSEO_CLI_Premium_Requirement::enforce' ],
 		);
 	}
 }

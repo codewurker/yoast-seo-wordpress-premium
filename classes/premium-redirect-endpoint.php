@@ -98,7 +98,7 @@ class WPSEO_Premium_Redirect_EndPoint implements WPSEO_WordPress_Integration {
 					$this,
 					'can_save_data',
 				],
-			]
+			],
 		);
 
 		register_rest_route(
@@ -114,7 +114,7 @@ class WPSEO_Premium_Redirect_EndPoint implements WPSEO_WordPress_Integration {
 							'type'        => 'string',
 							'description' => 'The redirect format',
 						],
-					]
+					],
 				),
 				'callback'            => [
 					$this->service,
@@ -124,7 +124,7 @@ class WPSEO_Premium_Redirect_EndPoint implements WPSEO_WordPress_Integration {
 					$this,
 					'can_save_data',
 				],
-			]
+			],
 		);
 
 		register_rest_route(
@@ -152,7 +152,7 @@ class WPSEO_Premium_Redirect_EndPoint implements WPSEO_WordPress_Integration {
 					$this,
 					'can_save_data',
 				],
-			]
+			],
 		);
 
 		register_rest_route(
@@ -216,7 +216,7 @@ class WPSEO_Premium_Redirect_EndPoint implements WPSEO_WordPress_Integration {
 					$this,
 					'can_save_data',
 				],
-			]
+			],
 		);
 
 		register_rest_route(
@@ -232,7 +232,7 @@ class WPSEO_Premium_Redirect_EndPoint implements WPSEO_WordPress_Integration {
 					$this,
 					'can_save_data',
 				],
-			]
+			],
 		);
 
 		register_rest_route(
@@ -262,7 +262,7 @@ class WPSEO_Premium_Redirect_EndPoint implements WPSEO_WordPress_Integration {
 					$this,
 					'can_save_data',
 				],
-			]
+			],
 		);
 	}
 

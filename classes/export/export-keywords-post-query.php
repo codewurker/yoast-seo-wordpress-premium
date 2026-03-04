@@ -102,9 +102,9 @@ class WPSEO_Export_Keywords_Post_Query implements WPSEO_Export_Keywords_Query {
 				. ' WHERE posts.%i = "publish" AND posts.%i IN ('
 				. implode( ',', array_fill( 0, count( $post_types ), '%s' ) ) . ')'
 				. ' LIMIT %d OFFSET %d',
-				$replacements
+				$replacements,
 			),
-			ARRAY_A
+			ARRAY_A,
 		);
 		// phpcs:enable
 	}

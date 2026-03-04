@@ -43,7 +43,7 @@ class Plugin_Links_Integration implements Integration_Interface {
 			$links,
 			static function ( $link ) use ( $link_to_remove ) {
 				return $link !== $link_to_remove;
-			}
+			},
 		);
 	}
 

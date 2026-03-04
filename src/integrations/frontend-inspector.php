@@ -171,7 +171,7 @@ class Frontend_Inspector implements Integration_Interface {
 						'optionName'      => 'frontend_inspector_first_actioned_on',
 					],
 				],
-			]
+			],
 		);
 	}
 }

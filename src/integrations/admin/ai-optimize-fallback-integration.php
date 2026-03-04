@@ -40,9 +40,7 @@ class Ai_Optimize_Fallback_Integration implements Integration_Interface {
 	 *
 	 * @param Options_Helper $options_helper The options helper.
 	 */
-	public function __construct(
-		Options_Helper $options_helper
-	) {
+	public function __construct( Options_Helper $options_helper ) {
 		$this->options_helper = $options_helper;
 	}
 

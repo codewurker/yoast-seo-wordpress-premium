@@ -102,7 +102,7 @@ class Organization_Schema extends Abstract_Task {
 		return new Call_To_Action_Entry(
 			\__( 'Take me there', 'wordpress-seo-premium' ),
 			'link',
-			$this->get_link()
+			$this->get_link(),
 		);
 	}
 
@@ -115,7 +115,7 @@ class Organization_Schema extends Abstract_Task {
 		return new Copy_Set(
 			\__( 'Fill in Organization Schema', 'wordpress-seo-premium' ),
 			\__( 'Missing organization details make it harder for search engines to recognize your brand. Completing this helps your business appear correctly in search results.', 'wordpress-seo-premium' ),
-			\__( 'Go to Site representation, open Additional organization info, and fill in the information.', 'wordpress-seo-premium' )
+			\__( 'Go to Site representation, open Additional organization info, and fill in the information.', 'wordpress-seo-premium' ),
 		);
 	}
 }

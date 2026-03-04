@@ -34,7 +34,7 @@ $yoast_seo_form_presenter->display(
 			'target' => '',
 			'type'   => '',
 		],
-	]
+	],
 );
 ?>
 
@@ -49,7 +49,7 @@ $yoast_seo_form_presenter->display(
 		[
 			'form_presenter' => $yoast_seo_form_presenter,
 			'total_columns'  => $yoast_seo_redirect_table->count_columns(),
-		]
+		],
 	);
 	?>
 

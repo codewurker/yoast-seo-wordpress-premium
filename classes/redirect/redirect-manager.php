@@ -57,9 +57,7 @@ class WPSEO_Redirect_Manager {
 	 * @param WPSEO_Redirect_Option|null     $option          Model object to handle the redirects.
 	 */
 	public function __construct( $redirect_format = WPSEO_Redirect_Formats::PLAIN, $exporters = null, ?WPSEO_Redirect_Option $option = null ) {
-		if ( $option === null ) {
-			$option = new WPSEO_Redirect_Option();
-		}
+		$option ??= new WPSEO_Redirect_Option();
 
 		$this->redirect_option = $option;
 		$this->redirect_format = $redirect_format;

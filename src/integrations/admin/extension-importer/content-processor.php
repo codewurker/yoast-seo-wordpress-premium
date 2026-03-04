@@ -321,7 +321,7 @@ class Content_Processor {
 				$headings[] = [
 					'content' => $node->textContent,
 					'href'    => '#' . $node->getAttribute( 'id' ),
-					'level'   => \intval( \substr( $tag, 1 ) ),
+					'level'   => (int) \substr( $tag, 1 ),
 				];
 			}
 		}
@@ -461,7 +461,7 @@ class Content_Processor {
 						'id'       => 0,
 						'isDark'   => false,
 						'dimRatio' => 50,
-					]
+					],
 				);
 
 				// Generate the paragraph block comments.

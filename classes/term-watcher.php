@@ -295,7 +295,7 @@ class WPSEO_Term_Watcher extends WPSEO_Watcher implements WPSEO_WordPress_Integr
 		/* translators: %1$s: Yoast SEO Premium, %2$s and %3$s expand to a link to the admin page. */
 		return __(
 			'%1$s created a %2$sredirect%3$s from the old term URL to the new term URL.',
-			'wordpress-seo-premium'
+			'wordpress-seo-premium',
 		);
 	}
 
@@ -308,7 +308,7 @@ class WPSEO_Term_Watcher extends WPSEO_Watcher implements WPSEO_WordPress_Integr
 		/* translators: %1$s: Yoast SEO Premium, %2$s: List with actions, %3$s: <a href='{post_with_explaination.}'>, %4$s: </a>, %5%s: The removed url. */
 		return __(
 			'%1$s detected that you deleted a term (%5$s). You can either: %2$s Don\'t know what to do? %3$sRead this post %4$s.',
-			'wordpress-seo-premium'
+			'wordpress-seo-premium',
 		);
 	}
 

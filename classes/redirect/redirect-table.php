@@ -99,10 +99,8 @@ class WPSEO_Redirect_Table extends WP_List_Table {
 			return;
 		}
 
-		$selected = $this->filter['redirect_type'];
-		if ( $selected === null ) {
-			$selected = 0;
-		}
+		$selected   = $this->filter['redirect_type'];
+		$selected ??= 0;
 		?>
 		<div class="alignleft actions">
 			<label for="filter-by-redirect" class="screen-reader-text">
@@ -119,7 +117,7 @@ class WPSEO_Redirect_Table extends WP_List_Table {
 						"<option %s value='%s'>%s</option>\n",
 						selected( $selected, $http_code, false ),
 						esc_attr( $http_code ),
-						esc_html( $redirect_type )
+						esc_html( $redirect_type ),
 					);
 				}
 				?>
@@ -247,7 +245,7 @@ class WPSEO_Redirect_Table extends WP_List_Table {
 			esc_attr( $item['old'] ),
 			$item['row_number'],
 			/* translators: Hidden accessibility text. */
-			esc_html( __( 'Select this redirect', 'wordpress-seo-premium' ) )
+			esc_html( __( 'Select this redirect', 'wordpress-seo-premium' ) ),
 		);
 	}
 

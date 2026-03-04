@@ -54,7 +54,7 @@ class WPSEO_Redirect_Apache_Exporter extends WPSEO_Redirect_File_Exporter {
 	public function format( WPSEO_Redirect $redirect ) {
 
 		// 4xx redirects don't have a target.
-		$redirect_type = intval( $redirect->get_type() );
+		$redirect_type = (int) $redirect->get_type();
 		if ( $redirect_type >= 400 && $redirect_type < 500 ) {
 			return $this->format_non_target( $redirect );
 		}
@@ -69,7 +69,7 @@ class WPSEO_Redirect_Apache_Exporter extends WPSEO_Redirect_File_Exporter {
 			$this->get_format( $redirect->get_format() ),
 			$origin,
 			$this->format_url( $redirect->get_target() ),
-			$redirect->get_type()
+			$redirect->get_type(),
 		);
 	}
 
@@ -101,7 +101,7 @@ class WPSEO_Redirect_Apache_Exporter extends WPSEO_Redirect_File_Exporter {
 		return sprintf(
 			$this->get_non_target_format( $redirect->get_format() ),
 			$target,
-			$redirect->get_type()
+			$redirect->get_type(),
 		);
 	}
 

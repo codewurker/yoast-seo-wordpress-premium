@@ -57,7 +57,7 @@ class Siblings_Block extends Dynamic_Block_V3 {
 		}
 		$indexables = $this->indexable_repository->get_subpages_by_post_parent(
 			$post_parent_id,
-			[ \get_the_ID() ]
+			[ \get_the_ID() ],
 		);
 
 		$links = \array_map(
@@ -67,7 +67,7 @@ class Siblings_Block extends Dynamic_Block_V3 {
 					'permalink' => $indexable->permalink,
 				];
 			},
-			$indexables
+			$indexables,
 		);
 
 		if ( empty( $links ) ) {

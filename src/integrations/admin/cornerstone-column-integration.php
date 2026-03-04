@@ -135,7 +135,7 @@ class Cornerstone_Column_Integration implements Integration_Interface {
 			'<span class="yoast-column-cornerstone yoast-column-header-has-tooltip" data-tooltip-text="%1$s"><span class="screen-reader-text">%2$s</span></span>',
 			\esc_attr__( 'Is this cornerstone content?', 'wordpress-seo-premium' ),
 			/* translators: Hidden accessibility text. */
-			\esc_html__( 'Cornerstone content', 'wordpress-seo-premium' )
+			\esc_html__( 'Cornerstone content', 'wordpress-seo-premium' ),
 		);
 
 		return $columns;

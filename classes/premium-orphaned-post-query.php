@@ -45,7 +45,7 @@ class WPSEO_Premium_Orphaned_Post_Query {
 					[
 						[ 'incoming_link_count' => 0 ],
 						[ 'incoming_link_count' => null ],
-					]
+					],
 				);
 
 			$frontpage_id = self::get_frontpage_id();

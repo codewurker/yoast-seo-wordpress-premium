@@ -36,7 +36,7 @@ class WPSEO_Premium_Stale_Cornerstone_Content_Filter extends WPSEO_Abstract_Post
 		$where .= sprintf(
 			' AND ' . $wpdb->posts . '.ID IN( SELECT post_id FROM ' . $wpdb->postmeta . ' WHERE meta_key = "%s" AND meta_value = "1" ) AND ' . $wpdb->posts . '.post_modified < "%s" ',
 			WPSEO_Meta::$meta_prefix . 'is_cornerstone',
-			$this->date_threshold()
+			$this->date_threshold(),
 		);
 
 		return $where;
@@ -68,7 +68,7 @@ class WPSEO_Premium_Stale_Cornerstone_Content_Filter extends WPSEO_Abstract_Post
 			__( 'Stale cornerstone content refers to cornerstone content that hasn’t been updated in the last 6 months. Make sure to keep these %1$s up-to-date. %2$sLearn more about cornerstone content%3$s.', 'wordpress-seo-premium' ),
 			strtolower( $post_type_object->labels->name ),
 			'<a href="' . WPSEO_Shortlinker::get( 'https://yoa.st/1i9' ) . '" target="_blank">',
-			'</a>'
+			'</a>',
 		);
 	}
 
@@ -95,8 +95,8 @@ class WPSEO_Premium_Stale_Cornerstone_Content_Filter extends WPSEO_Abstract_Post
 					',
 					$post_type,
 					$this->date_threshold(),
-					WPSEO_Meta::$meta_prefix . 'is_cornerstone'
-				)
+					WPSEO_Meta::$meta_prefix . 'is_cornerstone',
+				),
 			);
 			wp_cache_set( $cache_key, $count, 'stale_cornerstone_counts', DAY_IN_SECONDS );
 		}

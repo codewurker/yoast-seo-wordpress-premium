@@ -43,7 +43,7 @@ class WPSEO_Redirect_Nginx_Exporter extends WPSEO_Redirect_File_Exporter {
 			$redirect->get_origin(),
 			$redirect->get_target(),
 			$redirect->get_type(),
-			$this->add_x_redirect_header()
+			$this->add_x_redirect_header(),
 		);
 	}
 

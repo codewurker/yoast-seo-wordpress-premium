@@ -88,8 +88,8 @@ class WPSEO_Premium_Prominent_Words_Unindexed_Post_Query {
 					AND post_type IN( ' . implode( ',', array_fill( 0, count( $post_types ), '%s' ) ) . ' )
 				GROUP BY post_type
 				',
-				$replacements
-			)
+				$replacements,
+			),
 		);
 
 		$totals = [];
@@ -168,9 +168,9 @@ class WPSEO_Premium_Prominent_Words_Unindexed_Post_Query {
 					AND post_status IN( "future", "draft", "pending", "private", "publish" )
 					AND post_type IN( ' . implode( ',', array_fill( 0, count( $post_types ), '%s' ) ) . ' )
 				LIMIT %d',
-				$replacements
+				$replacements,
 			),
-			ARRAY_A
+			ARRAY_A,
 		);
 
 		// Make sure we return a list of IDs.

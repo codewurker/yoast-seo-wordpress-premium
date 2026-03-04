@@ -23,7 +23,7 @@ class Addon_Installer {
 	/**
 	 * The minimum Yoast SEO version required.
 	 */
-	public const MINIMUM_YOAST_SEO_VERSION = '27.0';
+	public const MINIMUM_YOAST_SEO_VERSION = '27.1';
 
 	/**
 	 * The base directory for the installer.
@@ -142,7 +142,7 @@ class Addon_Installer {
 					. \sprintf(
 						/* translators: %1$s: Yoast SEO */
 						\esc_html__( 'Install latest %1$s', 'wordpress-seo-premium' ),
-						'Yoast SEO'
+						'Yoast SEO',
 					)
 				. '</h4>'
 				. '<div class="notice-yoast-content">'
@@ -152,7 +152,7 @@ class Addon_Installer {
 							\esc_html__( '%1$s %2$s must be installed and activated in order to use %3$s.', 'wordpress-seo-premium' ),
 							'Yoast SEO',
 							\esc_html( self::MINIMUM_YOAST_SEO_VERSION ),
-							'Yoast SEO Premium'
+							'Yoast SEO Premium',
 						)
 					. '</p>'
 					. '<p>'
@@ -218,7 +218,7 @@ class Addon_Installer {
 				\esc_html( $button_content ),
 				'Yoast SEO',
 				'<a class="button" href="' . \esc_url( $url ) . '">',
-				'</a>'
+				'</a>',
 			);
 		}
 
@@ -233,7 +233,7 @@ class Addon_Installer {
 		return \sprintf(
 			\esc_html( $message ),
 			'Yoast SEO',
-			\esc_html( self::MINIMUM_YOAST_SEO_VERSION )
+			\esc_html( self::MINIMUM_YOAST_SEO_VERSION ),
 		);
 	}
 

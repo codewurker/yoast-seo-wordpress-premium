@@ -23,7 +23,7 @@ class WPSEO_Redirect_Settings_Presenter extends WPSEO_Redirect_Tab_Presenter {
 			[
 				'file_path'     => WPSEO_Redirect_File_Util::get_file_path(),
 				'redirect_file' => $this->writable_redirect_file(),
-			]
+			],
 		);
 	}
 

@@ -22,7 +22,7 @@ class WPSEO_Redirect_Formatter {
 			$redirect->get_origin(),
 			$redirect->get_target(),
 			$redirect->get_type(),
-			$redirect->get_format()
+			$redirect->get_format(),
 		);
 	}
 }

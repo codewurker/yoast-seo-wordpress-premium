@@ -153,7 +153,7 @@ class Inclusive_Language_Column_Integration implements Integration_Interface {
 		$columns[ self::INCLUSIVE_LANGUAGE_COLUMN_NAME ] = \sprintf(
 			'<span class="yoast-column-inclusive-language yoast-column-header-has-tooltip" data-tooltip-text="%1$s"><span class="screen-reader-text">%2$s</span></span>',
 			\esc_attr__( 'Inclusive language score', 'wordpress-seo-premium' ),
-			\esc_html__( 'Inclusive language score', 'wordpress-seo-premium' )
+			\esc_html__( 'Inclusive language score', 'wordpress-seo-premium' ),
 		);
 
 		return $columns;

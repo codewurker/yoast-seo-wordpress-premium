@@ -145,7 +145,7 @@ class Inclusive_Language_Filter_Integration implements Integration_Interface {
 		if ( \is_string( $inclusive_language_filter ) && $inclusive_language_filter !== '' ) {
 			$active_filters = \array_merge(
 				$active_filters,
-				$this->determine_inclusive_language_filters( $inclusive_language_filter )
+				$this->determine_inclusive_language_filters( $inclusive_language_filter ),
 			);
 		}
 

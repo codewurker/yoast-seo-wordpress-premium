@@ -52,11 +52,9 @@ class WPSEO_Redirect_Util {
 		}
 
 		// This part mimics the behavior in the WPSEO_Redirect class.
-		if ( static::$home_url === null ) {
-			static::$home_url = new Home_Url_Helper();
-		}
-		$home_url_pieces = static::$home_url->get_parsed();
-		$url_pieces      = ( wp_parse_url( $url ) ?? [] );
+		static::$home_url ??= new Home_Url_Helper();
+		$home_url_pieces    = static::$home_url->get_parsed();
+		$url_pieces         = ( wp_parse_url( $url ) ?? [] );
 
 		// We skip the scheme check for existence, if scheme is missing it's considered relative and thus internal.
 		if ( ! isset( $url_pieces['host'] ) || ! static::match_home_url_host( $home_url_pieces['host'], $url_pieces['host'] ) ) {

@@ -23,10 +23,10 @@
 				/* translators: %1$s: <strong>, %2$s: </strong> */
 				esc_html__(
 					'%1$sCornerstone content%2$s is the content on your site that’s most important. You want to rank highest in Google with these articles. Make sure your internal linking structure reflects what pages are most important. Want to know how?',
-					'wordpress-seo-premium'
+					'wordpress-seo-premium',
 				),
 				'<strong>',
-				'</strong>'
+				'</strong>',
 			);
 			?>
 		</p>
@@ -45,10 +45,10 @@
 				/* translators: %1$s: <strong>, %2$s: </strong> */
 				esc_html__(
 					'Different people search with different search terms. With our %1$spremium analysis%2$s, you are free to use variations and synonyms of your keywords in your content, which will make your writing style far more natural.',
-					'wordpress-seo-premium'
+					'wordpress-seo-premium',
 				),
 				'<strong>',
-				'</strong>'
+				'</strong>',
 			);
 			?>
 		</p>
@@ -67,11 +67,11 @@
 				/* translators: %1$s: Yoast SEO, %2$s: <strong>, %3$s: </strong> */
 				esc_html__(
 					'The %1$s %2$sRedirect Manager%3$s automatically prevents visitors from reaching a dead end whenever you move or delete content. It also makes managing your existing redirects easy.',
-					'wordpress-seo-premium'
+					'wordpress-seo-premium',
 				),
 				'Yoast SEO',
 				'<strong>',
-				'</strong>'
+				'</strong>',
 			);
 			?>
 		</p>
@@ -90,12 +90,12 @@
 				/* translators: %1$s: Yoast SEO Premium, %2$s: <strong>, %3$s: Yoast SEO, %4$s: </strong> */
 				esc_html__(
 					'%1$s grants you direct access to %2$sall premium %3$s academy courses%4$s. Learn all the ins and outs of holistic SEO from industry experts.',
-					'wordpress-seo-premium'
+					'wordpress-seo-premium',
 				),
 				'Yoast SEO Premium',
 				'<strong>',
 				'Yoast SEO',
-				'</strong>'
+				'</strong>',
 			);
 			?>
 

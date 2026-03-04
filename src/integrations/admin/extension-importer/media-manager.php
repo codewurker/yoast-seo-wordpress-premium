@@ -32,7 +32,7 @@ class Media_Manager {
 			$content,
 			'/<img[^>]*src="(https:\/\/[a-zA-Z0-9-]+\.googleusercontent\.com\/docsz[^"]*)"[^>]*>/',
 			[ $this, 'get_google_docs_filename' ],
-			false
+			false,
 		);
 
 		// Process base64 encoded Drawing and Equation images.
@@ -40,7 +40,7 @@ class Media_Manager {
 			$content,
 			'/<img[^>]*src="(data:image\/[^;]+;base64,[^"]+)"[^>]*>/',
 			null,
-			true
+			true,
 		);
 
 		return $content;
@@ -141,8 +141,7 @@ class Media_Manager {
 				if ( ! \in_array( $mime_type, $allowed_mime_types, true ) ) {
 					return [];
 				}
-			}
-			catch ( Exception $e ) {
+			} catch ( Exception $e ) {
 				return [];
 			}
 		}
@@ -293,7 +292,7 @@ class Media_Manager {
 		$new_img_tag = \preg_replace(
 			'/src="[^"]*"/',
 			'src="' . \esc_url( $new_image_url ) . '"',
-			$original_img_tag
+			$original_img_tag,
 		);
 
 		// Replace the original img tag with the updated one.

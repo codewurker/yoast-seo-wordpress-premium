@@ -10,14 +10,14 @@
 $yoast_seo_i18n_import_redirects_from = sprintf(
 	/* translators: %s: '.htaccess' file name */
 	__( 'Import redirects from %s', 'wordpress-seo-premium' ),
-	'<code>.htaccess</code>'
+	'<code>.htaccess</code>',
 );
 
 $yoast_seo_i18n_import_redirects_explain = sprintf(
 	/* translators: %1$s: '.htaccess' file name, %2$s: plugin name */
 	__( 'You can copy the contents of any %1$s file in here, and it will import the redirects into %2$s.', 'wordpress-seo-premium' ),
 	'<code>.htaccess</code>',
-	'Yoast SEO Premium'
+	'Yoast SEO Premium',
 );
 
 // The plugins we have import functions for.

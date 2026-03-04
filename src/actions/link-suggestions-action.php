@@ -176,7 +176,7 @@ class Link_Suggestions_Action {
 				'post_type'      => $this->prominent_words_support->get_supported_post_types(),
 				'post__in'       => $post_ids,
 				'posts_per_page' => \count( $post_ids ),
-			]
+			],
 		);
 		$posts = $query->get_posts();
 
@@ -364,7 +364,7 @@ class Link_Suggestions_Action {
 	protected function get_candidate_words( $stems, $batch_size, $page, $excluded_ids = [], $post_type = [], $only_include_public = false ) {
 
 		return $this->prominent_words_repository->find_by_list_of_ids(
-			$this->prominent_words_repository->find_ids_by_stems( $stems, $batch_size, $page, $excluded_ids, $post_type, $only_include_public )
+			$this->prominent_words_repository->find_ids_by_stems( $stems, $batch_size, $page, $excluded_ids, $post_type, $only_include_public ),
 		);
 	}
 
@@ -468,7 +468,7 @@ class Link_Suggestions_Action {
 				}
 
 				return ( ( $score_1 < $score_2 ) ? 1 : -1 );
-			}
+			},
 		);
 
 		// Take the top $limit suggestions, while preserving their ids specified in the keys of the array elements.
@@ -584,7 +584,7 @@ class Link_Suggestions_Action {
 				}
 
 				return ( ( $suggestion_1[ $field ] < $suggestion_2[ $field ] ) ? 1 : -1 );
-			}
+			},
 		);
 	}
 
@@ -601,7 +601,7 @@ class Link_Suggestions_Action {
 			$link_suggestions,
 			static function ( $suggestion ) use ( $cornerstone ) {
 				return (bool) $suggestion['isCornerstone'] === $cornerstone;
-			}
+			},
 		);
 	}
 }

@@ -47,9 +47,7 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 		Current_Page_Helper $current_page_helper,
 		?WPSEO_Metabox_Link_Suggestions $link_suggestions = null
 	) {
-		if ( $link_suggestions === null ) {
-			$link_suggestions = new WPSEO_Metabox_Link_Suggestions();
-		}
+		$link_suggestions ??= new WPSEO_Metabox_Link_Suggestions();
 
 		$this->prominent_words_helper = $prominent_words_helper;
 		$this->current_page_helper    = $current_page_helper;
@@ -154,7 +152,7 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 			'integrationsTabURL'          => admin_url( 'admin.php?page=wpseo_integrations' ),
 			'premiumAssessmentsScriptUrl' => plugins_url(
 				'assets/js/dist/register-premium-assessments-' . $assets_manager->flatten_version( WPSEO_PREMIUM_VERSION ) . WPSEO_CSSJS_SUFFIX . '.js',
-				WPSEO_PREMIUM_FILE
+				WPSEO_PREMIUM_FILE,
 			),
 			'pluginUrl'                   => plugins_url( '', WPSEO_PREMIUM_FILE ),
 			'isAiFeatureEnabled'          => WPSEO_Options::get( 'enable_ai_generator' ),
@@ -163,7 +161,7 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 		if ( defined( 'YOAST_SEO_TEXT_FORMALITY' ) && YOAST_SEO_TEXT_FORMALITY === true ) {
 			$data['textFormalityScriptUrl'] = plugins_url(
 				'assets/js/dist/register-text-formality-' . $assets_manager->flatten_version( WPSEO_PREMIUM_VERSION ) . WPSEO_CSSJS_SUFFIX . '.js',
-				WPSEO_PREMIUM_FILE
+				WPSEO_PREMIUM_FILE,
 			);
 		}
 
@@ -189,7 +187,7 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 				'data' => [
 					'disableTableOfContents' => $disable_table_of_content,
 				],
-			]
+			],
 		);
 	}
 

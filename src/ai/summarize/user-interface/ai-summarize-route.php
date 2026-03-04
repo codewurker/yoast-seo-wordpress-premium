@@ -88,7 +88,7 @@ class AI_Summarize_Route implements Route_Interface {
 				],
 				'callback'            => [ $this, 'summarize' ],
 				'permission_callback' => [ $this, 'check_permissions' ],
-			]
+			],
 		);
 	}
 
@@ -113,7 +113,7 @@ class AI_Summarize_Route implements Route_Interface {
 			}
 			return new WP_REST_Response(
 				$message,
-				$e->getCode()
+				$e->getCode(),
 			);
 		} catch ( RuntimeException $e ) {
 			return new WP_REST_Response( 'Failed to retrieve text improvements.', 500 );

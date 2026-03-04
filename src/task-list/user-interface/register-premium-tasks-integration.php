@@ -36,10 +36,7 @@ class Register_Premium_Tasks_Integration implements Integration_Interface {
 	 * @param Tasks_Collector          $task_collector     The Tasks Collector.
 	 * @param Post_Type_Task_Interface ...$post_type_tasks The post type tasks.
 	 */
-	public function __construct(
-		Tasks_Collector $task_collector,
-		Post_Type_Task_Interface ...$post_type_tasks
-	) {
+	public function __construct( Tasks_Collector $task_collector, Post_Type_Task_Interface ...$post_type_tasks ) {
 		$this->task_collector  = $task_collector;
 		$this->post_type_tasks = $post_type_tasks;
 	}

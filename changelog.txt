@@ -1,8 +1,6 @@
 *** Yoast SEO premium Changelog ***
 
 
-2026-02-17 - version 27.0
-* update -  Improves permission checks in REST API routes.
-* update -  Modernizes how translations of the plugin work by removing the unneeded `load_plugin_textdomain()` calls.
-* update -  Bumps the minimum required version of Yoast SEO to 27.0
+2026-03-03 - version 27.1
+* update -  Bumps the minimum required version of Yoast SEO to 27.1
 

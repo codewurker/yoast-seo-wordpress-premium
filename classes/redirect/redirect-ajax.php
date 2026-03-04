@@ -139,7 +139,7 @@ class WPSEO_Redirect_Ajax {
 		if ( $error->get_type() === 'error' || ( $error->get_type() === 'warning' && $ignore_warning === 'false' ) ) {
 			wp_die(
 				// phpcs:ignore WordPress.Security.EscapeOutput -- WPCS bug/methods can't be whitelisted yet.
-				WPSEO_Utils::format_json_encode( [ 'error' => $error->to_array() ] )
+				WPSEO_Utils::format_json_encode( [ 'error' => $error->to_array() ] ),
 			);
 		}
 	}
@@ -250,7 +250,7 @@ class WPSEO_Redirect_Ajax {
 				$this->sanitize_url( $post_values['origin'] ),
 				$this->sanitize_url( $post_values['target'] ),
 				urldecode( $post_values['type'] ),
-				$this->redirect_format
+				$this->redirect_format,
 			);
 		}
 

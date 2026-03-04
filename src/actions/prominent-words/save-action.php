@@ -208,7 +208,7 @@ class Save_Action {
 					'indexable_id' => $indexable_id,
 					'stem'         => $stem,
 					'weight'       => $weight,
-				]
+				],
 			);
 			$new_models[] = $new_model;
 		}

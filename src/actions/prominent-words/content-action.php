@@ -199,12 +199,10 @@ class Content_Action implements Indexation_Action_Interface {
 	 * @return array The array with object subtypes.
 	 */
 	protected function get_object_sub_types() {
-		if ( $this->object_sub_types === null ) {
-			$this->object_sub_types = \array_merge(
-				$this->prominent_words_support->get_supported_post_types(),
-				$this->prominent_words_support->get_supported_taxonomies()
-			);
-		}
+		$this->object_sub_types ??= \array_merge(
+			$this->prominent_words_support->get_supported_post_types(),
+			$this->prominent_words_support->get_supported_taxonomies(),
+		);
 
 		return $this->object_sub_types;
 	}

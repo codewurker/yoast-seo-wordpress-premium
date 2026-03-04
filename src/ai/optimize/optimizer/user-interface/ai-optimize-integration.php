@@ -182,7 +182,7 @@ class AI_Optimize_Integration implements Integration_Interface {
 				'hasSeenIntroduction'  => $this->introductions_seen_repository->is_introduction_seen( $user_id, Ai_Fix_Assessments_Introduction::ID ),
 				'pluginUrl'            => \plugins_url( '', \WPSEO_PREMIUM_FILE ),
 				'requestTimeout'       => $this->api_client->get_request_timeout(),
-			]
+			],
 		);
 		$this->asset_manager->enqueue_style( 'premium-ai-fix-assessments' );
 	}

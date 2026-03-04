@@ -59,7 +59,7 @@ class Subpages_Block extends Dynamic_Block_V3 {
 					'permalink' => $indexable->permalink,
 				];
 			},
-			$indexables
+			$indexables,
 		);
 
 		if ( empty( $links ) ) {

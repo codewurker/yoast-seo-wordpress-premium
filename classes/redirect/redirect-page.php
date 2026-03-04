@@ -56,7 +56,7 @@ class WPSEO_Redirect_Page {
 		if ( $url !== $new_url ) {
 			// Do the redirect.
 			wp_safe_redirect( $new_url );
-			exit;
+			exit();
 		}
 	}
 
@@ -131,7 +131,7 @@ class WPSEO_Redirect_Page {
 					'isRtl'       => is_rtl(),
 					'isMultisite' => is_multisite(),
 				],
-			]
+			],
 		);
 		wp_enqueue_style( WPSEO_Admin_Asset_Manager::PREFIX . 'premium-tailwind' );
 		$asset_manager->enqueue_style( 'redirects' );

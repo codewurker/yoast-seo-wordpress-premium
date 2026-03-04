@@ -68,7 +68,7 @@ class Thank_You_Page_Integration implements Integration_Interface {
 		$this->options_helper->set( 'activation_redirect_timestamp', \time() );
 
 		\wp_safe_redirect( \admin_url( 'admin.php?page=wpseo_installation_successful' ), 302, 'Yoast SEO Premium' );
-		exit;
+		exit();
 	}
 
 	/**
@@ -85,7 +85,7 @@ class Thank_You_Page_Integration implements Integration_Interface {
 			'',
 			'manage_options',
 			'wpseo_installation_successful',
-			[ $this, 'render_page' ]
+			[ $this, 'render_page' ],
 		);
 
 		return $submenu_pages;

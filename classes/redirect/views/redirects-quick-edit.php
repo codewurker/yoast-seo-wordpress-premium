@@ -31,7 +31,7 @@ $yoast_seo_form_presenter = $display_data['form_presenter'];
 											'target' => '{{data.target}}',
 											'type'   => '<# if(data.type === %1$s) {  #> selected="selected"<# } #>',
 										],
-									]
+									],
 								);
 								?>
 							</div>

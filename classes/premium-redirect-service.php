@@ -38,7 +38,7 @@ class WPSEO_Premium_Redirect_Service {
 						'type'    => $errors['type'],
 						'success' => false,
 					],
-					200
+					200,
 				);
 			}
 			// If it's a warning and ignore_warning is true, continue to create the redirect below.
@@ -50,7 +50,7 @@ class WPSEO_Premium_Redirect_Service {
 					'title'   => __( 'Redirect created.', 'wordpress-seo-premium' ),
 					'message' => __( 'The redirect was created successfully.', 'wordpress-seo-premium' ),
 					'success' => true,
-				]
+				],
 			);
 		}
 
@@ -60,7 +60,7 @@ class WPSEO_Premium_Redirect_Service {
 				'message' => __( 'Something went wrong when creating this redirect.', 'wordpress-seo-premium' ),
 				'success' => false,
 			],
-			400
+			400,
 		);
 	}
 
@@ -86,7 +86,7 @@ class WPSEO_Premium_Redirect_Service {
 					'title'   => __( 'Redirect deleted.', 'wordpress-seo-premium' ),
 					'message' => __( 'The redirect was deleted successfully.', 'wordpress-seo-premium' ),
 					'success' => true,
-				]
+				],
 			);
 		}
 
@@ -96,7 +96,7 @@ class WPSEO_Premium_Redirect_Service {
 				'message' => __( 'Something went wrong when deleting this redirect.', 'wordpress-seo-premium' ),
 				'success' => false,
 			],
-			400
+			400,
 		);
 	}
 
@@ -116,7 +116,7 @@ class WPSEO_Premium_Redirect_Service {
 			[
 				'success'   => true,
 				'redirects' => $redirect_manager->get_redirects(),
-			]
+			],
 		);
 	}
 
@@ -143,7 +143,7 @@ class WPSEO_Premium_Redirect_Service {
 					'type'    => ( $errors['type'] ?? 'error' ),
 					'success' => false,
 				],
-				400
+				400,
 			);
 		}
 
@@ -153,7 +153,7 @@ class WPSEO_Premium_Redirect_Service {
 					'title'   => __( 'Redirect updated.', 'wordpress-seo-premium' ),
 					'message' => __( 'The redirect was updated successfully.', 'wordpress-seo-premium' ),
 					'success' => true,
-				]
+				],
 			);
 		}
 
@@ -163,7 +163,7 @@ class WPSEO_Premium_Redirect_Service {
 				'message' => __( 'Something went wrong while updating this redirect.', 'wordpress-seo-premium' ),
 				'success' => false,
 			],
-			400
+			400,
 		);
 	}
 
@@ -187,7 +187,7 @@ class WPSEO_Premium_Redirect_Service {
 						'disable_php_redirect' => WPSEO_Options::get( 'disable_php_redirect' ),
 						'separate_file'        => $separate_file,
 						'file_path'            => 'cannot_write_htaccess',
-					]
+					],
 				);
 			}
 		}
@@ -199,7 +199,7 @@ class WPSEO_Premium_Redirect_Service {
 				'disable_php_redirect' => WPSEO_Options::get( 'disable_php_redirect' ),
 				'separate_file'        => $separate_file,
 				'file_path'            => WPSEO_Redirect_File_Util::get_file_path(),
-			]
+			],
 		);
 	}
 
@@ -227,7 +227,7 @@ class WPSEO_Premium_Redirect_Service {
 					'error'   => true,
 					'message' => 'Invalid value for disable_php_redirect.',
 				],
-				400
+				400,
 			);
 		}
 
@@ -237,7 +237,7 @@ class WPSEO_Premium_Redirect_Service {
 					'error'   => true,
 					'message' => 'Invalid value for separate_file.',
 				],
-				400
+				400,
 			);
 		}
 
@@ -248,7 +248,7 @@ class WPSEO_Premium_Redirect_Service {
 			[
 				'disable_php_redirect' => $disable_php_redirect,
 				'separate_file'        => $separate_file,
-			]
+			],
 		);
 
 		update_option( 'wpseo_redirect', $new_options );
@@ -258,7 +258,7 @@ class WPSEO_Premium_Redirect_Service {
 				'success' => true,
 				'message' => 'Redirect settings updated successfully.',
 				'data'    => $new_options,
-			]
+			],
 		);
 	}
 

@@ -28,7 +28,7 @@ class WPSEO_Premium {
 	 *
 	 * @var string
 	 */
-	public const PLUGIN_VERSION_NAME = '27.0';
+	public const PLUGIN_VERSION_NAME = '27.1';
 
 	/**
 	 * Machine readable version for determining whether an upgrade is needed.
@@ -91,7 +91,7 @@ class WPSEO_Premium {
 		$this->integrations = [
 			'premium-metabox'              => new WPSEO_Premium_Metabox(
 				YoastSEOPremium()->helpers->prominent_words,
-				YoastSEOPremium()->helpers->current_page
+				YoastSEOPremium()->helpers->current_page,
 			),
 			'premium-assets'               => new WPSEO_Premium_Assets(),
 			'link-suggestions'             => new WPSEO_Metabox_Link_Suggestions(),
@@ -142,7 +142,7 @@ class WPSEO_Premium {
 					'admin_page_meta_post_types_checkboxes',
 				],
 				10,
-				2
+				2,
 			);
 			// Settings.
 			add_action( 'admin_init', [ $this, 'register_settings' ] );
@@ -154,7 +154,7 @@ class WPSEO_Premium {
 		// Add page analysis fields to variable array key patterns.
 		add_filter(
 			'wpseo_option_titles_variable_array_key_patterns',
-			[ $this, 'add_variable_array_key_pattern' ]
+			[ $this, 'add_variable_array_key_pattern' ],
 		);
 
 		// Only activate post and term watcher if permalink structure is enabled.
@@ -241,7 +241,7 @@ class WPSEO_Premium {
 
 		// phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect -- Redirect URL is validated and sanitized by redirect object.
 		wp_redirect( $redirect_url, $redirect->get_type(), 'Yoast SEO Premium' );
-		exit;
+		exit();
 	}
 
 	/**
@@ -308,7 +308,7 @@ class WPSEO_Premium {
 	public function admin_page_meta_post_types_checkboxes( $yform, $name ) {
 		$custom_fields_help_link = new Help_Link_Presenter(
 			WPSEO_Shortlinker::get( 'https://yoa.st/4cr' ),
-			__( 'Learn more about including custom fields in the page analysis', 'wordpress-seo-premium' )
+			__( 'Learn more about including custom fields in the page analysis', 'wordpress-seo-premium' ),
 		);
 
 		echo '<div class="yoast-settings-section yoast-settings-section--last">';
@@ -318,7 +318,7 @@ class WPSEO_Premium {
 			esc_html__( 'Custom fields to include in page analysis', 'wordpress-seo-premium' ),
 			[
 				'extra_content' => $custom_fields_help_link,
-			]
+			],
 		);
 		echo '</div>';
 	}

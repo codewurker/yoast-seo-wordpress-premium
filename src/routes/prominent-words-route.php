@@ -133,7 +133,7 @@ class Prominent_Words_Route extends Abstract_Indexation_Route {
 				'methods'             => 'POST',
 				'callback'            => [ $this, 'run_content_action' ],
 				'permission_callback' => [ $this, 'can_retrieve_data' ],
-			]
+			],
 		);
 
 		\register_rest_route(
@@ -143,7 +143,7 @@ class Prominent_Words_Route extends Abstract_Indexation_Route {
 				'methods'             => 'POST',
 				'callback'            => [ $this, 'run_complete_action' ],
 				'permission_callback' => [ $this, 'can_retrieve_data' ],
-			]
+			],
 		);
 
 		$route_args = [
@@ -212,7 +212,7 @@ class Prominent_Words_Route extends Abstract_Indexation_Route {
 		$this->save_action->save( $request->get_param( 'data' ) );
 
 		return new WP_REST_Response(
-			[ 'message' => 'The words have been successfully saved for the given indexables.' ]
+			[ 'message' => 'The words have been successfully saved for the given indexables.' ],
 		);
 	}
 

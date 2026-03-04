@@ -11,9 +11,9 @@ $yoast_seo_csv_export_explain = sprintf(
 	/* translators: %s resolves to the button label translation. */
 	esc_html__(
 		'If you need a list of all public posts, terms and related keyphrases, you can generate a CSV file using the %s button below.',
-		'wordpress-seo-premium'
+		'wordpress-seo-premium',
 	),
-	sprintf( '<code>%s</code>', esc_html( $yoast_seo_button_label ) )
+	sprintf( '<code>%s</code>', esc_html( $yoast_seo_button_label ) ),
 );
 
 ?>

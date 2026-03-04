@@ -95,7 +95,7 @@ class Introductions_Initializer implements Initializer_Interface {
 			'wpseoPremiumIntroductions',
 			[
 				'pluginUrl' => \plugins_url( '', \WPSEO_PREMIUM_FILE ),
-			]
+			],
 		);
 	}
 }

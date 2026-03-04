@@ -63,10 +63,7 @@ class Set_Social_Appearance_Templates extends Abstract_Post_Type_Task {
 	 * @param Options_Helper $options_helper The options helper.
 	 * @param Route_Helper   $route_helper   The route helper.
 	 */
-	public function __construct(
-		Options_Helper $options_helper,
-		Route_Helper $route_helper
-	) {
+	public function __construct( Options_Helper $options_helper, Route_Helper $route_helper ) {
 		$this->options_helper = $options_helper;
 		$this->route_helper   = $route_helper;
 	}
@@ -116,7 +113,7 @@ class Set_Social_Appearance_Templates extends Abstract_Post_Type_Task {
 		$link      = \sprintf(
 			'admin.php?page=wpseo_page_settings#/post-type/%s#button-wpseo_titles-social-image-%s-preview',
 			$this->route_helper->get_route( $post_type->name, $post_type->rewrite, $post_type->rest_base ),
-			$post_type->name
+			$post_type->name,
 		);
 
 		return \self_admin_url( $link );
@@ -131,7 +128,7 @@ class Set_Social_Appearance_Templates extends Abstract_Post_Type_Task {
 		return new Call_To_Action_Entry(
 			\__( 'Set social templates', 'wordpress-seo-premium' ),
 			'link',
-			$this->get_link()
+			$this->get_link(),
 		);
 	}
 
@@ -148,7 +145,7 @@ class Set_Social_Appearance_Templates extends Abstract_Post_Type_Task {
 			\sprintf( \__( 'Set social media appearance templates for your content type: %1$s', 'wordpress-seo-premium' ), $post_type->label ),
 			\__( 'Unstyled previews and general descriptions can lower engagement when shared on social media. Templates keep content on brand and share-ready automatically.', 'wordpress-seo-premium' ),
 			/* translators: %1$s expands to the post type label this task is about */
-			\sprintf( \__( 'Go to Settings and choose %1$s under Content types. Then use the Social media appearance section to set your default image, title, and description.', 'wordpress-seo-premium' ), $post_type->label )
+			\sprintf( \__( 'Go to Settings and choose %1$s under Content types. Then use the Social media appearance section to set your default image, title, and description.', 'wordpress-seo-premium' ), $post_type->label ),
 		);
 	}
 }

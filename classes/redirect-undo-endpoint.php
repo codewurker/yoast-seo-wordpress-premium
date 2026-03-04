@@ -63,7 +63,7 @@ class WPSEO_Premium_Redirect_Undo_EndPoint implements WPSEO_WordPress_Integratio
 				],
 				'callback'            => [ $this, 'undo_redirect' ],
 				'permission_callback' => [ $this, 'can_save_data' ],
-			]
+			],
 		);
 	}
 
@@ -88,7 +88,7 @@ class WPSEO_Premium_Redirect_Undo_EndPoint implements WPSEO_WordPress_Integratio
 					'message' => __( 'Something went wrong when deleting this redirect.', 'wordpress-seo-premium' ),
 					'success' => false,
 				],
-				400
+				400,
 			);
 		}
 
@@ -98,7 +98,7 @@ class WPSEO_Premium_Redirect_Undo_EndPoint implements WPSEO_WordPress_Integratio
 					'title'   => __( 'Redirect deleted.', 'wordpress-seo-premium' ),
 					'message' => __( 'The redirect was deleted successfully.', 'wordpress-seo-premium' ),
 					'success' => true,
-				]
+				],
 			);
 		}
 
@@ -108,7 +108,7 @@ class WPSEO_Premium_Redirect_Undo_EndPoint implements WPSEO_WordPress_Integratio
 				'message' => __( 'Something went wrong when deleting this redirect.', 'wordpress-seo-premium' ),
 				'success' => false,
 			],
-			400
+			400,
 		);
 	}
 

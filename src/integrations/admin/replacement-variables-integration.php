@@ -85,7 +85,7 @@ class Replacement_Variables_Integration implements Integration_Interface {
 				WPSEO_Admin_Asset_Manager::PREFIX . 'search-metadata-previews',
 			],
 			\WPSEO_PREMIUM_VERSION,
-			false
+			false,
 		);
 	}
 

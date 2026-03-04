@@ -164,14 +164,14 @@ class Elementor_Premium implements Integration_Interface {
 			'integrationsTabURL'          => \admin_url( 'admin.php?page=wpseo_integrations' ),
 			'premiumAssessmentsScriptUrl' => \plugins_url(
 				'assets/js/dist/register-premium-assessments-' . $assets_manager->flatten_version( \WPSEO_PREMIUM_VERSION ) . \WPSEO_CSSJS_SUFFIX . '.js',
-				\WPSEO_PREMIUM_FILE
+				\WPSEO_PREMIUM_FILE,
 			),
 			'pluginUrl'                   => \plugins_url( '', \WPSEO_PREMIUM_FILE ),
 		];
 		if ( \defined( 'YOAST_SEO_TEXT_FORMALITY' ) && \YOAST_SEO_TEXT_FORMALITY === true ) {
 			$data['textFormalityScriptUrl'] = \plugins_url(
 				'assets/js/dist/register-text-formality-' . $assets_manager->flatten_version( \WPSEO_PREMIUM_VERSION ) . \WPSEO_CSSJS_SUFFIX . '.js',
-				\WPSEO_PREMIUM_FILE
+				\WPSEO_PREMIUM_FILE,
 			);
 		}
 		$data = \array_merge( $data, $this->get_post_metabox_config() );

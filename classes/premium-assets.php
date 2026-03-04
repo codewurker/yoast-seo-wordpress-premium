@@ -508,7 +508,7 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 			$url,
 			$script['dependencies'],
 			WPSEO_PREMIUM_VERSION,
-			$in_footer
+			$in_footer,
 		);
 	}
 
@@ -526,7 +526,7 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 			$style['name'],
 			plugin_dir_url( WPSEO_PREMIUM_FILE ) . $style['source'],
 			$style['dependencies'],
-			WPSEO_PREMIUM_VERSION
+			WPSEO_PREMIUM_VERSION,
 		);
 	}
 }

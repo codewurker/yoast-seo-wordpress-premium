@@ -37,9 +37,7 @@ class AI_Summarize_Integration implements Integration_Interface {
 	 *
 	 * @param Options_Helper $options_helper The options helper.
 	 */
-	public function __construct(
-		Options_Helper $options_helper
-	) {
+	public function __construct( Options_Helper $options_helper ) {
 		$this->options_helper = $options_helper;
 	}
 
@@ -117,7 +115,7 @@ class AI_Summarize_Integration implements Integration_Interface {
 			[
 				'editor_script_handles' => [ 'wp-seo-premium-ai-blocks' ],
 				'editor_style_handles'  => [ WPSEO_Admin_Asset_Manager::PREFIX . 'premium-ai-summarize' ],
-			]
+			],
 		);
 	}
 
@@ -147,12 +145,12 @@ class AI_Summarize_Integration implements Integration_Interface {
 				[
 					'slug'  => 'yoast-ai-blocks',
 					'title' => \sprintf(
-					/* translators: %1$s expands to Yoast. */
+						/* translators: %1$s expands to Yoast. */
 						\__( '%1$s AI Blocks', 'wordpress-seo-premium' ),
-						'Yoast'
+						'Yoast',
 					),
 				],
-			]
+			],
 		);
 	}
 }

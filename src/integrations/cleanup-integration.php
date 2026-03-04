@@ -71,7 +71,7 @@ class Cleanup_Integration implements Integration_Interface {
 				'clean_old_prominent_word_version_numbers' => function ( $limit ) {
 					return $this->cleanup_old_prominent_word_version_numbers( $limit );
 				},
-			]
+			],
 		);
 	}
 
@@ -114,7 +114,7 @@ class Cleanup_Integration implements Integration_Interface {
 			WHERE indexable_table.id IS NULL
 			AND table_to_clean.{$column} IS NOT NULL
 			LIMIT %d",
-			$limit
+			$limit,
 		);
 		// phpcs:enable
 
@@ -126,7 +126,7 @@ class Cleanup_Integration implements Integration_Interface {
 		}
 
 		// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Reason: Already prepared.
-		return \intval( $wpdb->query( "DELETE FROM $table WHERE {$column} IN( " . \implode( ',', $orphans ) . ' ) ' ) );
+		return (int) $wpdb->query( "DELETE FROM $table WHERE {$column} IN( " . \implode( ',', $orphans ) . ' ) ' );
 	}
 
 	/**
@@ -167,7 +167,7 @@ class Cleanup_Integration implements Integration_Interface {
 
 		$query = $wpdb->prepare(
 			"SELECT count(term_taxonomy_id) FROM {$wpdb->term_taxonomy} WHERE taxonomy = %s",
-			[ 'yst_prominent_words' ]
+			[ 'yst_prominent_words' ],
 		);
 
 		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Reason: Already prepared.
@@ -186,8 +186,8 @@ class Cleanup_Integration implements Integration_Interface {
 		return $wpdb->get_col(
 			$wpdb->prepare(
 				"SELECT term_taxonomy_id FROM {$wpdb->term_taxonomy} WHERE taxonomy = %s LIMIT %d",
-				[ 'yst_prominent_words', $limit ]
-			)
+				[ 'yst_prominent_words', $limit ],
+			),
 		);
 	}
 
@@ -206,8 +206,8 @@ class Cleanup_Integration implements Integration_Interface {
 				LEFT JOIN {$wpdb->terms} t ON tt.term_id = t.term_id 
 				LEFT JOIN {$wpdb->term_relationships} tr ON tt.term_taxonomy_id = tr.term_taxonomy_id 
 				WHERE tt.term_taxonomy_id IN ( " . \implode( ', ', \array_fill( 0, \count( $taxonomy_ids ), '%s' ) ) . ' )',
-				$taxonomy_ids
-			)
+				$taxonomy_ids,
+			),
 		);
 	}
 
@@ -224,7 +224,7 @@ class Cleanup_Integration implements Integration_Interface {
 		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Reason: There is no unescaped user input.
 		$query = $wpdb->prepare(
 			"DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s LIMIT %d",
-			[ '_yst_prominent_words_version', $limit ]
+			[ '_yst_prominent_words_version', $limit ],
 		);
 		// phpcs:enable
 
@@ -243,7 +243,7 @@ class Cleanup_Integration implements Integration_Interface {
 		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Reason: There is no unescaped user input.
 		$query = $wpdb->prepare(
 			"SELECT count(*) FROM {$wpdb->postmeta} WHERE meta_key = %s",
-			[ '_yst_prominent_words_version' ]
+			[ '_yst_prominent_words_version' ],
 		);
 		// phpcs:enable
 

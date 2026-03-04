@@ -114,7 +114,7 @@ class Inclusive_Language_Taxonomy_Column_Integration implements Integration_Inte
 				</span>
 			</span>',
 			\esc_attr__( 'Inclusive language score', 'wordpress-seo-premium' ),
-			\esc_html__( 'Inclusive language score', 'wordpress-seo-premium' )
+			\esc_html__( 'Inclusive language score', 'wordpress-seo-premium' ),
 		);
 
 		return $columns;

@@ -35,7 +35,7 @@ if ( ! empty( $yoast_seo_redirect_file ) ) {
 					printf(
 						/* translators: %s: '.htaccess' file name. */
 						esc_html__( "We're unable to save the redirects to your %s file. Please make the file writable.", 'wordpress-seo-premium' ),
-						'<code>.htaccess</code>'
+						'<code>.htaccess</code>',
 					);
 					?>
 				</p>
@@ -61,7 +61,7 @@ if ( ! empty( $yoast_seo_redirect_file ) ) {
 					printf(
 						/* translators: %s expands to the folder location where the redirects fill will be saved. */
 						esc_html__( "We're unable to save the redirect file to %s", 'wordpress-seo-premium' ),
-						esc_html( $yoast_seo_file_path )
+						esc_html( $yoast_seo_file_path ),
 					);
 					?>
 				</p>

@@ -79,12 +79,12 @@ final class WPSEO_CLI_Redirect_List_Command extends WPSEO_CLI_Redirect_Base_Comm
 
 		$formatter = new Formatter(
 			$assoc_args,
-			$this->get_fields( $assoc_args )
+			$this->get_fields( $assoc_args ),
 		);
 
 		$redirects = array_filter(
 			$this->get_redirects(),
-			[ $this, 'filter_redirect' ]
+			[ $this, 'filter_redirect' ],
 		);
 
 		$formatter->display_items( $redirects );
@@ -100,7 +100,7 @@ final class WPSEO_CLI_Redirect_List_Command extends WPSEO_CLI_Redirect_Base_Comm
 
 		return array_map(
 			[ $this, 'adapt_redirect_data' ],
-			$redirect_objects
+			$redirect_objects,
 		);
 	}
 

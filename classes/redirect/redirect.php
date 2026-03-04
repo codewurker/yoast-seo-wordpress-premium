@@ -63,9 +63,7 @@ class WPSEO_Redirect implements ArrayAccess, JsonSerializable {
 	 * @param string $format The format of the redirect.
 	 */
 	public function __construct( $origin, $target = '', $type = WPSEO_Redirect_Types::PERMANENT, $format = WPSEO_Redirect_Formats::PLAIN ) {
-		if ( static::$home_url === null ) {
-			static::$home_url = new Home_Url_Helper();
-		}
+		static::$home_url ??= new Home_Url_Helper();
 
 		$this->origin = ( $format === WPSEO_Redirect_Formats::PLAIN ) ? $this->sanitize_origin_url( $origin ) : $origin;
 		$this->target = $this->sanitize_target_url( $target );
@@ -261,7 +259,7 @@ class WPSEO_Redirect implements ArrayAccess, JsonSerializable {
 		if ( $this->match_home_url( $home_url_pieces, $url_pieces ) ) {
 			$url = substr(
 				$this->strip_scheme_from_url( $url_pieces['scheme'], $url ),
-				strlen( $this->strip_scheme_from_url( $home_url_pieces['scheme'], $home_url ) )
+				strlen( $this->strip_scheme_from_url( $home_url_pieces['scheme'], $home_url ) ),
 			);
 
 			$url_pieces['scheme'] = null;
@@ -284,7 +282,7 @@ class WPSEO_Redirect implements ArrayAccess, JsonSerializable {
 		if ( $this->match_home_url( $home_url_pieces, $url_pieces ) ) {
 			$url = substr(
 				$this->strip_scheme_from_url( $url_pieces['scheme'], $url ),
-				strlen( $home_url_pieces['host'] )
+				strlen( $home_url_pieces['host'] ),
 			);
 
 			$url_pieces['scheme'] = null;

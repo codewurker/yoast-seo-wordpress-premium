@@ -44,8 +44,8 @@ class WPSEO_Redirect_File_Util {
 				new Yoast_Notification(
 					/* translators: %s expands to the file path that we tried to write to */
 					sprintf( __( "We're unable to create the directory %s", 'wordpress-seo-premium' ), $basedir ),
-					[ 'type' => 'error' ]
-				)
+					[ 'type' => 'error' ],
+				),
 			);
 
 			return;
@@ -86,8 +86,8 @@ class WPSEO_Redirect_File_Util {
 				new Yoast_Notification(
 					/* translators: %s expands to the file path that we tried to write to */
 					sprintf( __( "We're unable to write data to the file %s", 'wordpress-seo-premium' ), $file_path ),
-					[ 'type' => 'error' ]
-				)
+					[ 'type' => 'error' ],
+				),
 			);
 
 			return false;

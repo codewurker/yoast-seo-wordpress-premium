@@ -41,7 +41,7 @@ $yoast_seo_values             = $display_vars['values'];
 		/* translators: 1: opens a link to a related help center article. 2: closes the link. */
 		esc_html__( 'The redirect type is the HTTP response code sent to the browser telling the browser what type of redirect is served. %1$sLearn more about redirect types%2$s.', 'wordpress-seo-premium' ),
 		'<a href="' . WPSEO_Shortlinker::get( 'https://yoa.st/2jb' ) . '" target="_blank">', // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- WPSEO_Shortlinker::get() returns a safe URL.
-		'</a>'
+		'</a>',
 	);
 	?>
 </p>

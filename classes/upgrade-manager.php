@@ -167,7 +167,7 @@ class WPSEO_Upgrade_Manager {
 					'numberposts'  => '-1',
 					'post_type'    => 'any',
 					'post_status'  => 'any',
-				]
+				],
 			);
 
 			foreach ( $posts as $post ) {
@@ -193,7 +193,7 @@ class WPSEO_Upgrade_Manager {
 						[
 							'ID'           => $post->ID,
 							'post_content' => $tags->get_updated_html(),
-						]
+						],
 					);
 				}
 			}

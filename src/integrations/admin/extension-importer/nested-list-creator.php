@@ -100,7 +100,6 @@ class Nested_List_Creator {
 								'current_item' => 0,   // Current item count at this level.
 							],
 						];
-
 					}
 					else {
 						// We're continuing with the same prefix, check level information.
@@ -153,7 +152,7 @@ class Nested_List_Creator {
 			$list_groups,
 			static function ( $a, $b ) {
 				return ( $a['position'] - $b['position'] );
-			}
+			},
 		);
 
 		return [
@@ -266,7 +265,7 @@ class Nested_List_Creator {
 			$lists,
 			static function ( $a, $b ) {
 				return ( $a['node_index'] - $b['node_index'] );
-			}
+			},
 		);
 
 		// Group lists by level.
@@ -284,8 +283,8 @@ class Nested_List_Creator {
 				'index'    => $list_index, // Original index in the full lists array.
 				'items'    => $this->get_list_items( $list['node'], $dom_processor ),
 				'type'     => $list['node']->nodeName, // ol or ul.
-				'start'    => isset( $list['start_number'] ) ? $list['start_number'] : 1,
-				'is_start' => isset( $list['is_start'] ) ? $list['is_start'] : false,
+				'start'    => ( $list['start_number'] ?? 1 ),
+				'is_start' => ( $list['is_start'] ?? false ),
 			];
 		}
 
@@ -404,7 +403,7 @@ class Nested_List_Creator {
 		$items              = $current_list['items'];
 		$item_count         = \count( $items );
 		$current_list_pos   = $current_list['index'];
-		$current_list_level = isset( $current_list['list']['level'] ) ? $current_list['list']['level'] : null;
+		$current_list_level = ( $current_list['list']['level'] ?? null );
 
 		// If we don't have level info, try to extract it from the lists_by_level array.
 		if ( $current_list_level === null && ! empty( $lists_by_level ) ) {
