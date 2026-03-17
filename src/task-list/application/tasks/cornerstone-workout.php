@@ -103,7 +103,7 @@ class Cornerstone_Workout extends Abstract_Task {
 	public function get_copy_set(): Copy_Set {
 		return new Copy_Set(
 			\__( 'Do the Cornerstone Approach workout', 'wordpress-seo-premium' ),
-			\__( 'When important pages aren’t well-linked, search engines can’t tell they matter most. Strengthening cornerstone content helps your main topics rank better.', 'wordpress-seo-premium' ),
+			'<p>' . \__( 'When important pages aren\'t well-linked, search engines can\'t tell they matter most. Strengthening cornerstone content helps your main topics rank better.', 'wordpress-seo-premium' ) . '</p>',
 		);
 	}
 }

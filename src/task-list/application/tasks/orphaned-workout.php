@@ -103,7 +103,7 @@ class Orphaned_Workout extends Abstract_Task {
 	public function get_copy_set(): Copy_Set {
 		return new Copy_Set(
 			\__( 'Do the Orphaned Content workout', 'wordpress-seo-premium' ),
-			\__( 'Pages without internal links are hard to find and rarely rank. Linking them up improves discoverability for both users and search engines.', 'wordpress-seo-premium' ),
+			'<p>' . \__( 'Pages without internal links are hard to find by users and search engines. Linking them up improves discoverability for both users and search engines.', 'wordpress-seo-premium' ) . '</p>',
 		);
 	}
 }

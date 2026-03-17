@@ -114,8 +114,14 @@ class Organization_Schema extends Abstract_Task {
 	public function get_copy_set(): Copy_Set {
 		return new Copy_Set(
 			\__( 'Fill in Organization Schema', 'wordpress-seo-premium' ),
-			\__( 'Missing organization details make it harder for search engines to recognize your brand. Completing this helps your business appear correctly in search results.', 'wordpress-seo-premium' ),
-			\__( 'Go to Site representation, open Additional organization info, and fill in the information.', 'wordpress-seo-premium' ),
+			\sprintf(
+				/* translators: %1$s and %3$s expands to an opening p tag, %2$s and %4$s expand to a closing p tag */
+				\__( '%1$sMissing organization details makes it harder for search engines to recognize your brand. Completing this helps your business appear correctly in search results.%2$s%3$sGo to Site representation, open Additional organization info, and fill in the information.%4$s', 'wordpress-seo-premium' ),
+				'<p>',
+				'</p>',
+				'<p>',
+				'</p>',
+			),
 		);
 	}
 }
