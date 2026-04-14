@@ -1,9 +1,7 @@
 *** Yoast SEO premium Changelog ***
 
 
-2026-03-31 - version 27.3
-* add -  Improves focus management restauration when the AI Optimize dialog is dissmissed.
-* fix -  Fixes a console error in the editor related to AI Optimize feature that occurred when the “Enable SEO controls and assessments” option was disabled for a content type.
-* fix -  Fixes a bug where the AI Optimize dialog did not have focus when visible.
-* update -  Bumps the minimum required version of Yoast SEO to 27.3
+2026-04-14 - version 27.4
+* add -  Enhances the task list with a task about adding Open Graph images to recent content.
+* update -  Bumps the minimum required version of Yoast SEO to 27.4.
 

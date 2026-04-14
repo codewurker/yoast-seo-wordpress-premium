@@ -182,6 +182,7 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Premium\\Introductions\\Application\\Ai_Fix_Assessments_Introduction' => 'getAiFixAssessmentsIntroductionService',
             'Yoast\\WP\\SEO\\Premium\\Introductions\\Application\\Ai_Generate_Titles_And_Descriptions_Introduction' => 'getAiGenerateTitlesAndDescriptionsIntroductionService',
             'Yoast\\WP\\SEO\\Premium\\Main' => 'getMainService',
+            'Yoast\\WP\\SEO\\Premium\\Repositories\\Indexable_Repository' => 'getIndexableRepositoryService',
             'Yoast\\WP\\SEO\\Premium\\Repositories\\Prominent_Words_Repository' => 'getProminentWordsRepositoryService',
             'Yoast\\WP\\SEO\\Premium\\Routes\\Link_Suggestions_Route' => 'getLinkSuggestionsRouteService',
             'Yoast\\WP\\SEO\\Premium\\Routes\\Prominent_Words_Route' => 'getProminentWordsRouteService',
@@ -191,12 +192,14 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks\\Organization_Schema' => 'getOrganizationSchemaService',
             'Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks\\Orphaned_Workout' => 'getOrphanedWorkoutService',
             'Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks\\Set_Social_Appearance_Templates' => 'getSetSocialAppearanceTemplatesService',
+            'Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks\\Set_Social_Sharing_Images' => 'getSetSocialSharingImagesService',
             'Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks_Collector' => 'getTasksCollectorService',
+            'Yoast\\WP\\SEO\\Premium\\Task_List\\Infrastructure\\Indexables\\Recent_Content_Indexable_Collector' => 'getRecentContentIndexableCollectorService',
             'Yoast\\WP\\SEO\\Premium\\Task_List\\User_Interface\\Register_Premium_Tasks_Integration' => 'getRegisterPremiumTasksIntegrationService',
             'Yoast\\WP\\SEO\\Premium\\User_Meta\\Framework\\Additional_Contactmethods\\Mastodon' => 'getMastodon2Service',
             'Yoast\\WP\\SEO\\Premium\\User_Meta\\User_Interface\\Additional_Contactmethods_Integration' => 'getAdditionalContactmethodsIntegrationService',
             'Yoast\\WP\\SEO\\Repositories\\Indexable_Cleanup_Repository' => 'getIndexableCleanupRepositoryService',
-            'Yoast\\WP\\SEO\\Repositories\\Indexable_Repository' => 'getIndexableRepositoryService',
+            'Yoast\\WP\\SEO\\Repositories\\Indexable_Repository' => 'getIndexableRepository2Service',
             'Yoast\\WP\\SEO\\Repositories\\SEO_Links_Repository' => 'getSEOLinksRepositoryService',
             'Yoast\\WP\\SEO\\Schema\\Application\\Configuration\\Schema_Configuration' => 'getSchemaConfigurationService',
             'Yoast\\WP\\SEO\\Surfaces\\Classes_Surface' => 'getClassesSurfaceService',
@@ -1024,7 +1027,7 @@ class Cached_Container extends Container
      */
     protected function getLinkSuggestionsActionService()
     {
-        return $this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Link_Suggestions_Action'] = new \Yoast\WP\SEO\Premium\Actions\Link_Suggestions_Action(($this->services['Yoast\\WP\\SEO\\Premium\\Repositories\\Prominent_Words_Repository'] ?? ($this->services['Yoast\\WP\\SEO\\Premium\\Repositories\\Prominent_Words_Repository'] = new \Yoast\WP\SEO\Premium\Repositories\Prominent_Words_Repository())), ($this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository'] ?? $this->getIndexableRepositoryService()), ($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper'] ?? $this->getProminentWordsHelperService()), ($this->services['WPSEO_Premium_Prominent_Words_Support'] ?? $this->getWPSEOPremiumProminentWordsSupportService()), ($this->services['Yoast\\WP\\SEO\\Repositories\\SEO_Links_Repository'] ?? $this->getSEOLinksRepositoryService()));
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Link_Suggestions_Action'] = new \Yoast\WP\SEO\Premium\Actions\Link_Suggestions_Action(($this->services['Yoast\\WP\\SEO\\Premium\\Repositories\\Prominent_Words_Repository'] ?? ($this->services['Yoast\\WP\\SEO\\Premium\\Repositories\\Prominent_Words_Repository'] = new \Yoast\WP\SEO\Premium\Repositories\Prominent_Words_Repository())), ($this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository'] ?? $this->getIndexableRepository2Service()), ($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper'] ?? $this->getProminentWordsHelperService()), ($this->services['WPSEO_Premium_Prominent_Words_Support'] ?? $this->getWPSEOPremiumProminentWordsSupportService()), ($this->services['Yoast\\WP\\SEO\\Repositories\\SEO_Links_Repository'] ?? $this->getSEOLinksRepositoryService()));
     }
 
     /**
@@ -1044,7 +1047,7 @@ class Cached_Container extends Container
      */
     protected function getContentActionService()
     {
-        return $this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Content_Action'] = new \Yoast\WP\SEO\Premium\Actions\Prominent_Words\Content_Action(($this->services['WPSEO_Premium_Prominent_Words_Support'] ?? $this->getWPSEOPremiumProminentWordsSupportService()), ($this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository'] ?? $this->getIndexableRepositoryService()), ($this->services['Yoast\\WP\\SEO\\Memoizers\\Meta_Tags_Context_Memoizer'] ?? $this->getMetaTagsContextMemoizerService()), ($this->services['Yoast\\WP\\SEO\\Helpers\\Meta_Helper'] ?? $this->getMetaHelperService()));
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Content_Action'] = new \Yoast\WP\SEO\Premium\Actions\Prominent_Words\Content_Action(($this->services['WPSEO_Premium_Prominent_Words_Support'] ?? $this->getWPSEOPremiumProminentWordsSupportService()), ($this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository'] ?? $this->getIndexableRepository2Service()), ($this->services['Yoast\\WP\\SEO\\Memoizers\\Meta_Tags_Context_Memoizer'] ?? $this->getMetaTagsContextMemoizerService()), ($this->services['Yoast\\WP\\SEO\\Helpers\\Meta_Helper'] ?? $this->getMetaHelperService()));
     }
 
     /**
@@ -1054,7 +1057,7 @@ class Cached_Container extends Container
      */
     protected function getSaveActionService()
     {
-        return $this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Save_Action'] = new \Yoast\WP\SEO\Premium\Actions\Prominent_Words\Save_Action(($this->services['Yoast\\WP\\SEO\\Premium\\Repositories\\Prominent_Words_Repository'] ?? ($this->services['Yoast\\WP\\SEO\\Premium\\Repositories\\Prominent_Words_Repository'] = new \Yoast\WP\SEO\Premium\Repositories\Prominent_Words_Repository())), ($this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository'] ?? $this->getIndexableRepositoryService()), ($this->services['Yoast\\WP\\SEO\\Helpers\\Indexable_Helper'] ?? $this->getIndexableHelperService()), ($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper'] ?? $this->getProminentWordsHelperService()));
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Save_Action'] = new \Yoast\WP\SEO\Premium\Actions\Prominent_Words\Save_Action(($this->services['Yoast\\WP\\SEO\\Premium\\Repositories\\Prominent_Words_Repository'] ?? ($this->services['Yoast\\WP\\SEO\\Premium\\Repositories\\Prominent_Words_Repository'] = new \Yoast\WP\SEO\Premium\Repositories\Prominent_Words_Repository())), ($this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository'] ?? $this->getIndexableRepository2Service()), ($this->services['Yoast\\WP\\SEO\\Helpers\\Indexable_Helper'] ?? $this->getIndexableHelperService()), ($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper'] ?? $this->getProminentWordsHelperService()));
     }
 
     /**
@@ -1624,7 +1627,7 @@ class Cached_Container extends Container
      */
     protected function getWorkoutsIntegrationService()
     {
-        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Workouts_Integration'] = new \Yoast\WP\SEO\Premium\Integrations\Admin\Workouts_Integration(($this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository'] ?? $this->getIndexableRepositoryService()), ($this->services['WPSEO_Shortlinker'] ?? $this->getWPSEOShortlinkerService()), ($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] ?? $this->getOptionsHelperService()), ($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper'] ?? $this->getProminentWordsHelperService()), ($this->services['Yoast\\WP\\SEO\\Helpers\\Post_Type_Helper'] ?? $this->getPostTypeHelperService()));
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Workouts_Integration'] = new \Yoast\WP\SEO\Premium\Integrations\Admin\Workouts_Integration(($this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository'] ?? $this->getIndexableRepository2Service()), ($this->services['WPSEO_Shortlinker'] ?? $this->getWPSEOShortlinkerService()), ($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] ?? $this->getOptionsHelperService()), ($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper'] ?? $this->getProminentWordsHelperService()), ($this->services['Yoast\\WP\\SEO\\Helpers\\Post_Type_Helper'] ?? $this->getPostTypeHelperService()));
     }
 
     /**
@@ -1784,7 +1787,7 @@ class Cached_Container extends Container
      */
     protected function getPublishingPrinciplesSchemaIntegrationService()
     {
-        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Publishing_Principles_Schema_Integration'] = new \Yoast\WP\SEO\Premium\Integrations\Publishing_Principles_Schema_Integration(($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] ?? $this->getOptionsHelperService()), ($this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository'] ?? $this->getIndexableRepositoryService()), ($this->services['Yoast\\WP\\SEO\\Helpers\\Indexable_Helper'] ?? $this->getIndexableHelperService()), ($this->services['Yoast\\WP\\SEO\\Helpers\\Post_Type_Helper'] ?? $this->getPostTypeHelperService()));
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Publishing_Principles_Schema_Integration'] = new \Yoast\WP\SEO\Premium\Integrations\Publishing_Principles_Schema_Integration(($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] ?? $this->getOptionsHelperService()), ($this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository'] ?? $this->getIndexableRepository2Service()), ($this->services['Yoast\\WP\\SEO\\Helpers\\Indexable_Helper'] ?? $this->getIndexableHelperService()), ($this->services['Yoast\\WP\\SEO\\Helpers\\Post_Type_Helper'] ?? $this->getPostTypeHelperService()));
     }
 
     /**
@@ -1822,7 +1825,7 @@ class Cached_Container extends Container
      */
     protected function getWorkoutsRoutesIntegrationService()
     {
-        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Routes\\Workouts_Routes_Integration'] = new \Yoast\WP\SEO\Premium\Integrations\Routes\Workouts_Routes_Integration(($this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository'] ?? $this->getIndexableRepositoryService()), ($this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Link_Suggestions_Action'] ?? $this->getLinkSuggestionsActionService()), ($this->services['WPSEO_Admin_Asset_Manager'] ?? $this->getWPSEOAdminAssetManagerService()), ($this->services['WPSEO_Shortlinker'] ?? $this->getWPSEOShortlinkerService()), ($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] ?? $this->getOptionsHelperService()), ($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper'] ?? $this->getProminentWordsHelperService()), ($this->services['Yoast\\WP\\SEO\\Helpers\\Post_Type_Helper'] ?? $this->getPostTypeHelperService()));
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Routes\\Workouts_Routes_Integration'] = new \Yoast\WP\SEO\Premium\Integrations\Routes\Workouts_Routes_Integration(($this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository'] ?? $this->getIndexableRepository2Service()), ($this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Link_Suggestions_Action'] ?? $this->getLinkSuggestionsActionService()), ($this->services['WPSEO_Admin_Asset_Manager'] ?? $this->getWPSEOAdminAssetManagerService()), ($this->services['WPSEO_Shortlinker'] ?? $this->getWPSEOShortlinkerService()), ($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] ?? $this->getOptionsHelperService()), ($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper'] ?? $this->getProminentWordsHelperService()), ($this->services['Yoast\\WP\\SEO\\Helpers\\Post_Type_Helper'] ?? $this->getPostTypeHelperService()));
     }
 
     /**
@@ -1960,6 +1963,16 @@ class Cached_Container extends Container
     }
 
     /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Repositories\Indexable_Repository' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Repositories\Indexable_Repository
+     */
+    protected function getIndexableRepositoryService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Repositories\\Indexable_Repository'] = new \Yoast\WP\SEO\Premium\Repositories\Indexable_Repository();
+    }
+
+    /**
      * Gets the public 'Yoast\WP\SEO\Premium\Repositories\Prominent_Words_Repository' shared autowired service.
      *
      * @return \Yoast\WP\SEO\Premium\Repositories\Prominent_Words_Repository
@@ -1996,7 +2009,7 @@ class Cached_Container extends Container
      */
     protected function getWorkoutsRouteService()
     {
-        return $this->services['Yoast\\WP\\SEO\\Premium\\Routes\\Workouts_Route'] = new \Yoast\WP\SEO\Premium\Routes\Workouts_Route(($this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository'] ?? $this->getIndexableRepositoryService()), ($this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Link_Suggestions_Action'] ?? $this->getLinkSuggestionsActionService()), ($this->services['Yoast\\WP\\SEO\\Builders\\Indexable_Term_Builder'] ?? $this->getIndexableTermBuilderService()), ($this->services['Yoast\\WP\\SEO\\Helpers\\Indexable_Helper'] ?? $this->getIndexableHelperService()), ($this->services['Yoast\\WP\\SEO\\Helpers\\Post_Type_Helper'] ?? $this->getPostTypeHelperService()));
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Routes\\Workouts_Route'] = new \Yoast\WP\SEO\Premium\Routes\Workouts_Route(($this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository'] ?? $this->getIndexableRepository2Service()), ($this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Link_Suggestions_Action'] ?? $this->getLinkSuggestionsActionService()), ($this->services['Yoast\\WP\\SEO\\Builders\\Indexable_Term_Builder'] ?? $this->getIndexableTermBuilderService()), ($this->services['Yoast\\WP\\SEO\\Helpers\\Indexable_Helper'] ?? $this->getIndexableHelperService()), ($this->services['Yoast\\WP\\SEO\\Helpers\\Post_Type_Helper'] ?? $this->getPostTypeHelperService()));
     }
 
     /**
@@ -2050,13 +2063,33 @@ class Cached_Container extends Container
     }
 
     /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Task_List\Application\Tasks\Set_Social_Sharing_Images' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Task_List\Application\Tasks\Set_Social_Sharing_Images
+     */
+    protected function getSetSocialSharingImagesService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks\\Set_Social_Sharing_Images'] = new \Yoast\WP\SEO\Premium\Task_List\Application\Tasks\Set_Social_Sharing_Images(($this->services['Yoast\\WP\\SEO\\Premium\\Task_List\\Infrastructure\\Indexables\\Recent_Content_Indexable_Collector'] ?? $this->getRecentContentIndexableCollectorService()), ($this->services['Yoast\\WP\\SEO\\Helpers\\Indexable_Helper'] ?? $this->getIndexableHelperService()));
+    }
+
+    /**
      * Gets the public 'Yoast\WP\SEO\Premium\Task_List\Application\Tasks_Collector' shared autowired service.
      *
      * @return \Yoast\WP\SEO\Premium\Task_List\Application\Tasks_Collector
      */
     protected function getTasksCollectorService()
     {
-        return $this->services['Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks_Collector'] = new \Yoast\WP\SEO\Premium\Task_List\Application\Tasks_Collector(($this->services['Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks\\Cornerstone_Workout'] ?? $this->getCornerstoneWorkoutService()), ($this->services['Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks\\Organization_Schema'] ?? $this->getOrganizationSchemaService()), ($this->services['Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks\\Orphaned_Workout'] ?? $this->getOrphanedWorkoutService()), ($this->services['Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks\\Set_Social_Appearance_Templates'] ?? $this->getSetSocialAppearanceTemplatesService()));
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks_Collector'] = new \Yoast\WP\SEO\Premium\Task_List\Application\Tasks_Collector(($this->services['Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks\\Cornerstone_Workout'] ?? $this->getCornerstoneWorkoutService()), ($this->services['Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks\\Organization_Schema'] ?? $this->getOrganizationSchemaService()), ($this->services['Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks\\Orphaned_Workout'] ?? $this->getOrphanedWorkoutService()), ($this->services['Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks\\Set_Social_Appearance_Templates'] ?? $this->getSetSocialAppearanceTemplatesService()), ($this->services['Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks\\Set_Social_Sharing_Images'] ?? $this->getSetSocialSharingImagesService()));
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Task_List\Infrastructure\Indexables\Recent_Content_Indexable_Collector' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Task_List\Infrastructure\Indexables\Recent_Content_Indexable_Collector
+     */
+    protected function getRecentContentIndexableCollectorService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Task_List\\Infrastructure\\Indexables\\Recent_Content_Indexable_Collector'] = new \Yoast\WP\SEO\Premium\Task_List\Infrastructure\Indexables\Recent_Content_Indexable_Collector(($this->services['Yoast\\WP\\SEO\\Premium\\Repositories\\Indexable_Repository'] ?? ($this->services['Yoast\\WP\\SEO\\Premium\\Repositories\\Indexable_Repository'] = new \Yoast\WP\SEO\Premium\Repositories\Indexable_Repository())));
     }
 
     /**
@@ -2066,7 +2099,7 @@ class Cached_Container extends Container
      */
     protected function getRegisterPremiumTasksIntegrationService()
     {
-        return $this->services['Yoast\\WP\\SEO\\Premium\\Task_List\\User_Interface\\Register_Premium_Tasks_Integration'] = new \Yoast\WP\SEO\Premium\Task_List\User_Interface\Register_Premium_Tasks_Integration(($this->services['Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks_Collector'] ?? $this->getTasksCollectorService()), ($this->services['Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks\\Set_Social_Appearance_Templates'] ?? $this->getSetSocialAppearanceTemplatesService()));
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Task_List\\User_Interface\\Register_Premium_Tasks_Integration'] = new \Yoast\WP\SEO\Premium\Task_List\User_Interface\Register_Premium_Tasks_Integration(($this->services['Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks_Collector'] ?? $this->getTasksCollectorService()), ($this->services['Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks\\Set_Social_Appearance_Templates'] ?? $this->getSetSocialAppearanceTemplatesService()), ($this->services['Yoast\\WP\\SEO\\Premium\\Task_List\\Application\\Tasks\\Set_Social_Sharing_Images'] ?? $this->getSetSocialSharingImagesService()));
     }
 
     /**
@@ -2104,7 +2137,7 @@ class Cached_Container extends Container
      *
      * @return \Yoast\WP\SEO\Repositories\Indexable_Repository
      */
-    protected function getIndexableRepositoryService()
+    protected function getIndexableRepository2Service()
     {
         return $this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository'] = \Yoast\WP\Lib\Dependency_Injection\Container_Registry::get('yoast-seo', 'Yoast\\WP\\SEO\\Repositories\\Indexable_Repository');
     }
