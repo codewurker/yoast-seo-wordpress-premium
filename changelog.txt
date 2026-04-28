@@ -1,7 +1,6 @@
 *** Yoast SEO premium Changelog ***
 
 
-2026-04-14 - version 27.4
-* add -  Enhances the task list with a task about adding Open Graph images to recent content.
-* update -  Bumps the minimum required version of Yoast SEO to 27.4.
+2026-04-28 - version 27.5
+* update -  Bumps the minimum required version of Yoast SEO to 27.5.
 
