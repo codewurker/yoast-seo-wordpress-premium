@@ -140,6 +140,10 @@ class WPSEO_Upgrade_Manager {
 		if ( version_compare( $version_number, '26.5-RC0', '<' ) ) {
 			add_action( 'init', [ $this, 'upgrade_26_5' ], 12 );
 		}
+
+		if ( version_compare( $version_number, '27.6.1-RC0', '<' ) ) {
+			add_action( 'init', [ 'WPSEO_Redirect_Upgrade', 'cleanup_27_6_1' ], 12 );
+		}
 	}
 
 	/**

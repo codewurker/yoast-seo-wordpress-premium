@@ -253,11 +253,7 @@ class WPSEO_Redirect_Page {
 	 * @return void
 	 */
 	private function initialize_ajax() {
-		// Normal Redirect AJAX.
 		new WPSEO_Redirect_Ajax( WPSEO_Redirect_Formats::PLAIN );
-
-		// Regex Redirect AJAX.
-		new WPSEO_Redirect_Ajax( WPSEO_Redirect_Formats::REGEX );
 	}
 
 	/**

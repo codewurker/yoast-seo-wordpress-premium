@@ -76,6 +76,7 @@ class ComposerStaticInit1cdea6241c2f0f91931358c057d761fa
         'WPSEO_Redirect_Apache_Exporter' => __DIR__ . '/../..' . '/classes/redirect/exporters/redirect-apache-exporter.php',
         'WPSEO_Redirect_CSV_Exporter' => __DIR__ . '/../..' . '/classes/redirect/exporters/redirect-csv-exporter.php',
         'WPSEO_Redirect_CSV_Loader' => __DIR__ . '/../..' . '/classes/redirect/loaders/redirect-csv-loader.php',
+        'WPSEO_Redirect_Control_Chars_Validation' => __DIR__ . '/../..' . '/classes/redirect/validation/redirect-control-chars-validation.php',
         'WPSEO_Redirect_Endpoint_Validation' => __DIR__ . '/../..' . '/classes/redirect/validation/redirect-endpoint-validation.php',
         'WPSEO_Redirect_Exporter' => __DIR__ . '/../..' . '/classes/redirect/exporters/redirect-exporter-interface.php',
         'WPSEO_Redirect_File_Exporter' => __DIR__ . '/../..' . '/classes/redirect/exporters/redirect-file-exporter.php',

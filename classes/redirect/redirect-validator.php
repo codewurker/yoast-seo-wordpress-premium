@@ -16,6 +16,11 @@ class WPSEO_Redirect_Validator {
 	 * @var array
 	 */
 	protected $validation_rules = [
+		'control-chars' => [
+			'validation_class' => 'WPSEO_Redirect_Control_Chars_Validation',
+			'exclude_types'    => [],
+			'exclude_format'   => [],
+		],
 		'relative-origin' => [
 			'validation_class' => 'WPSEO_Redirect_Relative_Origin_Validation',
 			'exclude_types'    => [],

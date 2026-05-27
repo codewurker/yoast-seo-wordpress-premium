@@ -28,7 +28,7 @@ class WPSEO_Premium {
 	 *
 	 * @var string
 	 */
-	public const PLUGIN_VERSION_NAME = '27.6';
+	public const PLUGIN_VERSION_NAME = '27.7';
 
 	/**
 	 * Machine readable version for determining whether an upgrade is needed.
@@ -146,6 +146,9 @@ class WPSEO_Premium {
 			);
 			// Settings.
 			add_action( 'admin_init', [ $this, 'register_settings' ] );
+
+			// Dismiss the 27.6.1 redirect-cleanup notice when the admin lands on the .htaccess file editor.
+			add_action( 'admin_init', [ 'WPSEO_Redirect_Upgrade', 'maybe_dismiss_cleanup_27_6_1_notice' ] );
 
 			// Add Premium imports.
 			$this->integrations[] = new WPSEO_Premium_Import_Manager();

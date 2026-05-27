@@ -4,21 +4,21 @@ namespace Yoast\WP\SEO\Premium\AI\Summarize\Application;
 
 use RuntimeException;
 use WP_User;
-use Yoast\WP\SEO\AI_Authorization\Application\Token_Manager;
-use Yoast\WP\SEO\AI_Consent\Application\Consent_Handler;
-use Yoast\WP\SEO\AI_Generator\Domain\Suggestion;
-use Yoast\WP\SEO\AI_Generator\Domain\Suggestions_Bucket;
-use Yoast\WP\SEO\AI_HTTP_Request\Application\Request_Handler;
-use Yoast\WP\SEO\AI_HTTP_Request\Domain\Exceptions\Bad_Request_Exception;
-use Yoast\WP\SEO\AI_HTTP_Request\Domain\Exceptions\Forbidden_Exception;
-use Yoast\WP\SEO\AI_HTTP_Request\Domain\Exceptions\Internal_Server_Error_Exception;
-use Yoast\WP\SEO\AI_HTTP_Request\Domain\Exceptions\Not_Found_Exception;
-use Yoast\WP\SEO\AI_HTTP_Request\Domain\Exceptions\Payment_Required_Exception;
-use Yoast\WP\SEO\AI_HTTP_Request\Domain\Exceptions\Request_Timeout_Exception;
-use Yoast\WP\SEO\AI_HTTP_Request\Domain\Exceptions\Service_Unavailable_Exception;
-use Yoast\WP\SEO\AI_HTTP_Request\Domain\Exceptions\Too_Many_Requests_Exception;
-use Yoast\WP\SEO\AI_HTTP_Request\Domain\Exceptions\Unauthorized_Exception;
-use Yoast\WP\SEO\AI_HTTP_Request\Domain\Request;
+use Yoast\WP\SEO\AI\Authorization\Application\Token_Manager;
+use Yoast\WP\SEO\AI\Consent\Application\Consent_Handler;
+use Yoast\WP\SEO\AI\Generator\Domain\Suggestion;
+use Yoast\WP\SEO\AI\Generator\Domain\Suggestions_Bucket;
+use Yoast\WP\SEO\AI\HTTP_Request\Application\Request_Handler;
+use Yoast\WP\SEO\AI\HTTP_Request\Domain\Exceptions\Bad_Request_Exception;
+use Yoast\WP\SEO\AI\HTTP_Request\Domain\Exceptions\Forbidden_Exception;
+use Yoast\WP\SEO\AI\HTTP_Request\Domain\Exceptions\Internal_Server_Error_Exception;
+use Yoast\WP\SEO\AI\HTTP_Request\Domain\Exceptions\Not_Found_Exception;
+use Yoast\WP\SEO\AI\HTTP_Request\Domain\Exceptions\Payment_Required_Exception;
+use Yoast\WP\SEO\AI\HTTP_Request\Domain\Exceptions\Request_Timeout_Exception;
+use Yoast\WP\SEO\AI\HTTP_Request\Domain\Exceptions\Service_Unavailable_Exception;
+use Yoast\WP\SEO\AI\HTTP_Request\Domain\Exceptions\Too_Many_Requests_Exception;
+use Yoast\WP\SEO\AI\HTTP_Request\Domain\Exceptions\Unauthorized_Exception;
+use Yoast\WP\SEO\AI\HTTP_Request\Domain\Request;
 use Yoast\WP\SEO\Helpers\User_Helper;
 
 /**

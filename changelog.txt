@@ -1,7 +1,6 @@
 *** Yoast SEO premium Changelog ***
 
 
-2026-05-12 - version 27.6
-* fix -  Fixes a bug where an empty Yoast Related Links block could not be selected or removed from the editor.
-* update -  Bumps the minimum required version of Yoast SEO to 27.6.
+2026-05-27 - version 27.7
+* update -  Bumps the minimum required version of Yoast SEO to 27.7.
 

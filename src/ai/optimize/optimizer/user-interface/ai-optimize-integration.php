@@ -5,7 +5,7 @@ namespace Yoast\WP\SEO\Premium\AI\Optimize\Optimizer\User_Interface;
 
 use WPSEO_Addon_Manager;
 use WPSEO_Admin_Asset_Manager;
-use Yoast\WP\SEO\AI_HTTP_Request\Infrastructure\API_Client;
+use Yoast\WP\SEO\AI\HTTP_Request\Infrastructure\API_Client;
 use Yoast\WP\SEO\Conditionals\Admin\Post_Conditional;
 use Yoast\WP\SEO\Helpers\Current_Page_Helper;
 use Yoast\WP\SEO\Helpers\Options_Helper;

@@ -65,10 +65,73 @@ class WPSEO_Redirect implements ArrayAccess, JsonSerializable {
 	public function __construct( $origin, $target = '', $type = WPSEO_Redirect_Types::PERMANENT, $format = WPSEO_Redirect_Formats::PLAIN ) {
 		static::$home_url ??= new Home_Url_Helper();
 
-		$this->origin = ( $format === WPSEO_Redirect_Formats::PLAIN ) ? $this->sanitize_origin_url( $origin ) : $origin;
-		$this->target = $this->sanitize_target_url( $target );
+		$this->origin = ( $format === WPSEO_Redirect_Formats::PLAIN ) ? $this->sanitize_origin_url( (string) $origin ) : (string) $origin;
+		$this->target = $this->sanitize_target_url( (string) $target );
 		$this->format = $format;
 		$this->type   = (int) $type;
+	}
+
+	/**
+	 * Strips C0 control characters and DEL from a string.
+	 *
+	 * @param string|null $value The value to strip.
+	 *
+	 * @return string The value without control characters.
+	 */
+	public static function strip_control_chars( $value ) {
+		return preg_replace( '/[\x00-\x1F\x7F]/', '', (string) $value );
+	}
+
+	/**
+	 * Checks whether a string contains a C0 control character or DEL.
+	 *
+	 * @param string|null $value The value to check.
+	 *
+	 * @return bool
+	 */
+	public static function contains_control_chars( $value ) {
+		return preg_match( '/[\x00-\x1F\x7F]/', (string) $value ) === 1;
+	}
+
+	/**
+	 * Returns true when either the origin or the target carries a C0 control character
+	 * or DEL. Shared by the export pre-filter (WPSEO_Redirect_Manager) and the upgrade
+	 * cleanup routine (WPSEO_Redirect_Upgrade) so both layers stay in lockstep.
+	 *
+	 * @param string|null $origin The redirect origin value.
+	 * @param string|null $target The redirect target value.
+	 *
+	 * @return bool True when either side is poisoned.
+	 */
+	public static function pair_has_control_chars( $origin, $target ) {
+		return self::contains_control_chars( $origin )
+			|| self::contains_control_chars( $target );
+	}
+
+	/**
+	 * Surfaces an admin notice naming a redirect that was dropped because its origin
+	 * or target carried a control character. The origin is stripped and truncated to
+	 * a safe excerpt before being embedded in the (escaped) message. Shared by
+	 * WPSEO_Redirect_Option::save() and WPSEO_Redirect_Manager so dropped rows are
+	 * reported once per save cycle regardless of which layer caught them.
+	 *
+	 * @param self $redirect The dropped redirect.
+	 *
+	 * @return void
+	 */
+	public static function notify_dropped_redirect( self $redirect ) {
+		$origin_excerpt = mb_substr( self::strip_control_chars( $redirect->get_origin() ), 0, 50, get_bloginfo( 'charset' ) );
+
+		Yoast_Notification_Center::get()->add_notification(
+			new Yoast_Notification(
+				sprintf(
+					/* translators: %s expands to a truncated form of the redirect origin. */
+					__( 'A redirect was skipped because it contained line breaks or control characters: %s', 'wordpress-seo-premium' ),
+					esc_html( $origin_excerpt ),
+				),
+				[ 'type' => 'error' ],
+			),
+		);
 	}
 
 	/**

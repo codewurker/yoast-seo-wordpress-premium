@@ -182,6 +182,10 @@ class WPSEO_Redirect_Option {
 			$redirects = array_merge( $redirects, $this->get_all() );
 		}
 
+		// Drop any redirect whose origin or target carries a C0 control character or DEL;
+		// these would corrupt downstream consumers (the .htaccess export, the runtime matcher).
+		$redirects = array_filter( $redirects, [ $this, 'reject_poisoned_redirect' ] );
+
 		array_walk( $redirects, [ $this, 'map_object_to_option' ] );
 
 		/**
@@ -258,6 +262,22 @@ class WPSEO_Redirect_Option {
 	 */
 	private function map_option_to_object( array &$redirect_values ) {
 		$redirect_values = new WPSEO_Redirect( $redirect_values['origin'], $redirect_values['url'], $redirect_values['type'], $redirect_values['format'] );
+	}
+
+	/**
+	 * Filter callback for save(): keeps redirects whose origin and target are free of
+	 * control characters, and raises an admin notice for every dropped row.
+	 *
+	 * @param WPSEO_Redirect $redirect The redirect about to be persisted.
+	 *
+	 * @return bool True to keep, false to drop.
+	 */
+	private function reject_poisoned_redirect( WPSEO_Redirect $redirect ) {
+		if ( WPSEO_Redirect::pair_has_control_chars( $redirect->get_origin(), $redirect->get_target() ) ) {
+			WPSEO_Redirect::notify_dropped_redirect( $redirect );
+			return false;
+		}
+		return true;
 	}
 
 	/**

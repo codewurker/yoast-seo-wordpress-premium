@@ -61,6 +61,7 @@ return array(
     'WPSEO_Redirect_Apache_Exporter' => $baseDir . '/classes/redirect/exporters/redirect-apache-exporter.php',
     'WPSEO_Redirect_CSV_Exporter' => $baseDir . '/classes/redirect/exporters/redirect-csv-exporter.php',
     'WPSEO_Redirect_CSV_Loader' => $baseDir . '/classes/redirect/loaders/redirect-csv-loader.php',
+    'WPSEO_Redirect_Control_Chars_Validation' => $baseDir . '/classes/redirect/validation/redirect-control-chars-validation.php',
     'WPSEO_Redirect_Endpoint_Validation' => $baseDir . '/classes/redirect/validation/redirect-endpoint-validation.php',
     'WPSEO_Redirect_Exporter' => $baseDir . '/classes/redirect/exporters/redirect-exporter-interface.php',
     'WPSEO_Redirect_File_Exporter' => $baseDir . '/classes/redirect/exporters/redirect-file-exporter.php',

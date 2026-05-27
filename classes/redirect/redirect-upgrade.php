@@ -11,6 +11,11 @@
 class WPSEO_Redirect_Upgrade {
 
 	/**
+	 * ID of the persistent admin notification raised by the 27.6.1 cleanup.
+	 */
+	public const CLEANUP_27_6_1_NOTIFICATION_ID = 'wpseo-premium-redirect-cleanup-27-6-1';
+
+	/**
 	 * Lookup table for previous redirect format constants to their current counterparts.
 	 *
 	 * @var array
@@ -104,6 +109,91 @@ class WPSEO_Redirect_Upgrade {
 	public static function upgrade_13_0() {
 		$redirect_manager = new WPSEO_Redirect_Manager();
 		$redirect_manager->export_redirects();
+	}
+
+	/**
+	 * Removes any stored redirect rows whose origin or target contains a C0
+	 * control character or DEL. Bails on sites using PHP redirects; on file-based
+	 * redirect sites it cleans the option but leaves .htaccess alone -- the admin
+	 * is asked, via a persistent notice, to inspect the file editor and clean any
+	 * leftover poisoned directives manually.
+	 *
+	 * @return void
+	 */
+	public static function cleanup_27_6_1() {
+		if ( WPSEO_Options::get( 'disable_php_redirect' ) !== 'on' ) {
+			return;
+		}
+
+		$rows = get_option( WPSEO_Redirect_Option::OPTION, [] );
+		if ( ! is_array( $rows ) || $rows === [] ) {
+			return;
+		}
+
+		$clean   = [];
+		$removed = 0;
+		foreach ( $rows as $row ) {
+			if ( ! is_array( $row ) ) {
+				$clean[] = $row;
+				continue;
+			}
+			if ( WPSEO_Redirect::pair_has_control_chars( ( $row['origin'] ?? '' ), ( $row['url'] ?? '' ) ) ) {
+				++$removed;
+				continue;
+			}
+			$clean[] = $row;
+		}
+
+		if ( $removed === 0 ) {
+			return;
+		}
+
+		update_option( WPSEO_Redirect_Option::OPTION, array_values( $clean ) );
+
+		Yoast_Notification_Center::get()->add_notification(
+			new Yoast_Notification(
+				sprintf(
+					/* translators: 1: number of removed redirect entries. 2: link opening tag to the .htaccess file editor. 3: link closing tag. */
+					_n(
+						'Yoast SEO Premium removed %1$d malformed redirect entry during a security update. Please %2$sinspect your .htaccess%3$s for leftover directives.',
+						'Yoast SEO Premium removed %1$d malformed redirect entries during a security update. Please %2$sinspect your .htaccess%3$s for leftover directives.',
+						$removed,
+						'wordpress-seo-premium',
+					),
+					$removed,
+					'<a href="' . esc_url( admin_url( 'admin.php?page=wpseo_tools&tool=file-editor' ) ) . '">',
+					'</a>',
+				),
+				[
+					'type' => 'error',
+					'id'   => self::CLEANUP_27_6_1_NOTIFICATION_ID,
+				],
+			),
+		);
+	}
+
+	/**
+	 * Dismisses the 27.6.1 cleanup notification when the admin is viewing the
+	 * .htaccess file editor -- visiting that page is taken as acknowledgement
+	 * that the admin has the file open in front of them.
+	 *
+	 * @return void
+	 */
+	public static function maybe_dismiss_cleanup_27_6_1_notice() {
+		// phpcs:ignore WordPress.WP.Capabilities.Unknown -- 'wpseo_manage_options' is a custom capability added by Yoast SEO.
+		if ( ! current_user_can( 'wpseo_manage_options' ) ) {
+			return;
+		}
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only query-param inspection; no state mutation gated on it.
+		if ( ! isset( $_GET['page'], $_GET['tool'] ) ) {
+			return;
+		}
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Strict compare against known literals; sanitize is unnecessary.
+		if ( wp_unslash( $_GET['page'] ) !== 'wpseo_tools' || wp_unslash( $_GET['tool'] ) !== 'file-editor' ) {
+			return;
+		}
+
+		Yoast_Notification_Center::get()->remove_notification_by_id( self::CLEANUP_27_6_1_NOTIFICATION_ID );
 	}
 
 	/**
