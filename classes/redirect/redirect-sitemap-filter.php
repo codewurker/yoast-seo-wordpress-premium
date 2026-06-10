@@ -41,7 +41,7 @@ class WPSEO_Redirect_Sitemap_Filter implements WPSEO_WordPress_Integration {
 	 *
 	 * @param array $url The url data.
 	 *
-	 * @return bool|array False when entry will be redirected.
+	 * @return array Empty array when the entry will be redirected.
 	 */
 	public function filter_sitemap_entry( $url ) {
 		if ( empty( $url['loc'] ) ) {
@@ -51,7 +51,7 @@ class WPSEO_Redirect_Sitemap_Filter implements WPSEO_WordPress_Integration {
 		$entry_location = str_replace( $this->home_url, '', $url['loc'] );
 
 		if ( $this->is_redirect( $entry_location ) !== false ) {
-			return false;
+			return [];
 		}
 
 		return $url;

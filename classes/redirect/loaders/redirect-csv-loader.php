@@ -39,7 +39,9 @@ class WPSEO_Redirect_CSV_Loader extends WPSEO_Redirect_Abstract_Loader {
 		}
 
 		$redirects = [];
-		while ( $item = fgetcsv( $handle, 10_000 ) ) {
+
+		// Empty `$escape` parameter is allowed since PHP 7.4 and disables the PHP native escaping mechanism (we use our own).
+		while ( $item = fgetcsv( $handle, 10_000, ',', '"', '' ) ) {
 			if ( ! $this->validate_item( $item ) ) {
 				continue;
 			}

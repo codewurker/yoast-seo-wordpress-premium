@@ -3,9 +3,10 @@
 namespace Yoast\WP\SEO\Premium;
 
 use Exception;
-use Plugin_Installer_Skin;
 use Plugin_Upgrader;
+use stdClass;
 use WP_Error;
+use WP_Upgrader_Skin;
 use WPSEO_Capability_Manager_Factory;
 use WPSEO_Options;
 use WPSEO_Premium_Option;
@@ -21,9 +22,48 @@ class Addon_Installer {
 	public const OPTION_KEY = 'yoast_premium_as_an_addon_installer';
 
 	/**
+	 * The transient key used to prevent concurrent installs.
+	 */
+	private const LOCK_KEY = 'yoast_premium_addon_install_lock';
+
+	/**
+	 * The lock time-to-live in seconds.
+	 */
+	private const LOCK_TTL = 300; // 5 minutes.
+
+	/**
+	 * The transient key used to back off after a failed install attempt.
+	 */
+	private const COOLDOWN_KEY = 'yoast_premium_addon_install_cooldown';
+
+	/**
+	 * The cooldown time-to-live in seconds.
+	 */
+	private const COOLDOWN_TTL = 86_400; // 24 hours.
+
+	/**
 	 * The minimum Yoast SEO version required.
 	 */
-	public const MINIMUM_YOAST_SEO_VERSION = '27.7';
+	public const MINIMUM_YOAST_SEO_VERSION = '27.8';
+
+	/**
+	 * The trunk download URL for Yoast SEO.
+	 */
+	public const TRUNK_URL = 'https://downloads.wordpress.org/plugin/wordpress-seo.zip';
+
+	/**
+	 * The filter callback for injecting the update transient.
+	 *
+	 * @var array<int, object|string>|null
+	 */
+	private $update_transient_filter = null;
+
+	/**
+	 * The URL to inject into the update transient filter.
+	 *
+	 * @var string|null
+	 */
+	private $update_transient_url = null;
 
 	/**
 	 * The base directory for the installer.
@@ -282,82 +322,219 @@ class Addon_Installer {
 		if ( $this->get_status() ) {
 			return;
 		}
-		// Mark the installer as having been started but not completed.
-		\update_option( self::OPTION_KEY, 'started', true );
 
-		require_once \ABSPATH . 'wp-admin/includes/plugin.php';
-
-		$this->detect_yoast_seo();
-		// Either the plugin is not installed or is installed and too old.
-		if ( \version_compare( $this->yoast_seo_version, self::MINIMUM_YOAST_SEO_VERSION . '-RC0', '<' ) ) {
-			include_once \ABSPATH . 'wp-includes/pluggable.php';
-			include_once \ABSPATH . 'wp-admin/includes/file.php';
-			include_once \ABSPATH . 'wp-admin/includes/misc.php';
-			require_once \ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
-
-			// The class is defined inline to avoid problems with the autoloader when extending a WP class.
-			$skin = new class() extends Plugin_Installer_Skin {
-
-				/**
-				 * Suppresses the header.
-				 *
-				 * @return void
-				 */
-				public function header() {
-				}
-
-				/**
-				 * Suppresses the footer.
-				 *
-				 * @return void
-				 */
-				public function footer() {
-				}
-
-				/**
-				 * Suppresses the errors.
-				 *
-				 * @phpcs:disable VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- Flags unused params which are required via the interface. Invalid.
-				 *
-				 * @param string|WP_Error $errors Errors.
-				 *
-				 * @return void
-				 */
-				public function error( $errors ) {
-				}
-
-				/**
-				 * Suppresses the feedback.
-				 *
-				 * @phpcs:disable VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- Flags unused params which are required via the interface. Invalid.
-				 *
-				 * @param string        $feedback Message data.
-				 * @param array<string> ...$args  Optional text replacements.
-				 *
-				 * @return void
-				 */
-				public function feedback( $feedback, ...$args ) {
-				}
-			};
-
-			// Check if the minimum version is available, otherwise we'll download the zip from SVN trunk (which should be the latest RC).
-			$url          = 'https://downloads.wordpress.org/plugin/wordpress-seo.' . self::MINIMUM_YOAST_SEO_VERSION . '.zip';
-			$check_result = \wp_remote_retrieve_response_code( \wp_remote_head( $url ) );
-			if ( $check_result !== 200 ) {
-				$url = 'https://downloads.wordpress.org/plugin/wordpress-seo.zip';
-			}
-
-			$upgrader  = new Plugin_Upgrader( $skin ); // nosemgrep audit.php.wp.security.arbitrary-plugin-install -- Used to pull and install Yoast SEO from the WordPress repository.
-			$installed = $upgrader->install( $url );
-			if ( \is_wp_error( $installed ) || ! $installed ) {
-				throw new Exception( 'Could not automatically install Yoast SEO' );
-			}
+		// Back off if a recent install attempt failed.
+		if ( \get_transient( self::COOLDOWN_KEY ) ) {
+			return;
 		}
 
-		$this->ensure_yoast_seo_is_activated();
-		$this->transfer_auto_update_settings();
-		// Mark the installer as having been completed.
-		\update_option( self::OPTION_KEY, 'completed', true );
+		// Acquire a lock to prevent concurrent installs.
+		if ( \get_transient( self::LOCK_KEY ) ) {
+			return;
+		}
+		\set_transient( self::LOCK_KEY, true, self::LOCK_TTL );
+
+		try {
+			// Mark the installer as having been started but not completed.
+			\update_option( self::OPTION_KEY, 'started', true );
+
+			require_once \ABSPATH . 'wp-admin/includes/plugin.php';
+
+			$this->detect_yoast_seo();
+			// Either the plugin is not installed or is installed and too old.
+			if ( \version_compare( $this->yoast_seo_version, self::MINIMUM_YOAST_SEO_VERSION . '-RC0', '<' ) ) {
+				include_once \ABSPATH . 'wp-includes/pluggable.php';
+				include_once \ABSPATH . 'wp-admin/includes/file.php';
+				include_once \ABSPATH . 'wp-admin/includes/misc.php';
+				require_once \ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+
+				$free_is_installed = ( $this->yoast_seo_version !== '0' );
+
+				/**
+				 * Filters the trunk download URL used when the versioned Yoast SEO zip is not yet available.
+				 *
+				 * @param string $trunk_url The default trunk URL pointing to the latest Yoast SEO release on wordpress.org.
+				 */
+				$trunk_url = (string) \apply_filters( 'Yoast\WP\SEO\Premium\trunk_url', self::TRUNK_URL );
+
+				/**
+				 * Filters the versioned download URL for the minimum required Yoast SEO release.
+				 *
+				 * @param string $versioned_url The default versioned URL on wordpress.org.
+				 * @param string $version       The minimum required Yoast SEO version.
+				 */
+				$versioned_url       = (string) \apply_filters(
+					'Yoast\WP\SEO\Premium\versioned_url',
+					'https://downloads.wordpress.org/plugin/wordpress-seo.' . self::MINIMUM_YOAST_SEO_VERSION . '.zip',
+					self::MINIMUM_YOAST_SEO_VERSION,
+				);
+				$version_is_released = \wp_remote_retrieve_response_code( \wp_remote_head( $versioned_url, [ 'redirection' => 5 ] ) ) === 200;
+
+				if ( $free_is_installed ) {
+					// Upgrade via WP's update system; inject trunk URL if the version is not yet released.
+					$result = $this->perform_upgrade( ( $version_is_released ) ? null : $trunk_url );
+				}
+				else {
+					// Fresh install: use versioned URL if available, otherwise trunk.
+					$result = $this->perform_fresh_install( ( $version_is_released ) ? $versioned_url : $trunk_url );
+				}
+
+				if ( \is_wp_error( $result ) || ! $result ) {
+					\set_transient( self::COOLDOWN_KEY, true, self::COOLDOWN_TTL );
+					throw new Exception( 'Could not automatically install Yoast SEO' );
+				}
+
+				// Re-detect after install/upgrade since the plugin file path may have changed.
+				$this->detect_yoast_seo();
+			}
+
+			$this->ensure_yoast_seo_is_activated();
+			$this->transfer_auto_update_settings();
+			// Mark the installer as having been completed.
+			\update_option( self::OPTION_KEY, 'completed', true );
+		} finally {
+			\delete_transient( self::LOCK_KEY );
+		}
+	}
+
+	/**
+	 * Creates a silent upgrader skin that suppresses all output.
+	 *
+	 * The class is defined inline to avoid problems with the autoloader when extending a WP class.
+	 *
+	 * @return WP_Upgrader_Skin The silent skin instance.
+	 */
+	protected function create_silent_skin() {
+		return new class() extends WP_Upgrader_Skin {
+
+			/**
+			 * Suppresses the header.
+			 *
+			 * @return void
+			 */
+			public function header() {
+			}
+
+			/**
+			 * Suppresses the footer.
+			 *
+			 * @return void
+			 */
+			public function footer() {
+			}
+
+			/**
+			 * Suppresses the errors.
+			 *
+			 * @phpcs:disable VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- Flags unused params which are required via the interface. Invalid.
+			 *
+			 * @param string|WP_Error $errors Errors.
+			 *
+			 * @return void
+			 */
+			public function error( $errors ) {
+			}
+
+			/**
+			 * Suppresses the feedback.
+			 *
+			 * @phpcs:disable VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- Flags unused params which are required via the interface. Invalid.
+			 *
+			 * @param string        $feedback Message data.
+			 * @param array<string> ...$args  Optional text replacements.
+			 *
+			 * @return void
+			 */
+			public function feedback( $feedback, ...$args ) {
+			}
+		};
+	}
+
+	/**
+	 * Performs a fresh install of Yoast SEO from the given URL.
+	 *
+	 * @param string $url The download URL.
+	 *
+	 * @return bool|WP_Error The install result.
+	 */
+	private function perform_fresh_install( string $url ) {
+		$skin     = $this->create_silent_skin();
+		$upgrader = new Plugin_Upgrader( $skin ); // nosemgrep audit.php.wp.security.arbitrary-plugin-install -- Used to pull and install Yoast SEO from the WordPress repository.
+		return $upgrader->install( $url );
+	}
+
+	/**
+	 * Performs an upgrade of an existing Yoast SEO installation.
+	 *
+	 * When a trunk URL is provided, a temporary filter is added to inject it
+	 * into the update_plugins transient so the upgrader can find the package.
+	 *
+	 * @param string|null $trunk_url Optional trunk URL for unreleased versions.
+	 *
+	 * @return bool|WP_Error The upgrade result.
+	 */
+	private function perform_upgrade( ?string $trunk_url = null ) {
+		if ( $trunk_url !== null ) {
+			$this->inject_update_transient( $trunk_url );
+		}
+
+		try {
+			$skin     = $this->create_silent_skin();
+			$upgrader = new Plugin_Upgrader( $skin ); // nosemgrep audit.php.wp.security.arbitrary-plugin-install -- Used to pull and upgrade Yoast SEO from the WordPress repository.
+			return $upgrader->upgrade( $this->yoast_seo_file );
+		} finally {
+			if ( $trunk_url !== null ) {
+				$this->remove_update_transient();
+			}
+		}
+	}
+
+	/**
+	 * Injects a download URL into the update_plugins transient via a filter.
+	 *
+	 * @param string $url The download URL to inject.
+	 *
+	 * @return void
+	 */
+	private function inject_update_transient( string $url ): void {
+		$this->update_transient_url    = $url;
+		$this->update_transient_filter = [ $this, 'filter_update_plugins_transient' ];
+		\add_filter( 'site_transient_update_plugins', $this->update_transient_filter );
+	}
+
+	/**
+	 * Filters the update_plugins transient to inject a download URL.
+	 *
+	 * @param object|false $transient The update_plugins transient value.
+	 *
+	 * @return object The modified transient.
+	 */
+	public function filter_update_plugins_transient( $transient ) {
+		if ( ! \is_object( $transient ) ) {
+			$transient = new stdClass();
+		}
+		if ( ! isset( $transient->response ) ) {
+			$transient->response = [];
+		}
+		$transient->response[ $this->yoast_seo_file ] = (object) [
+			'slug'    => 'wordpress-seo',
+			'plugin'  => $this->yoast_seo_file,
+			'package' => $this->update_transient_url,
+		];
+		return $transient;
+	}
+
+	/**
+	 * Removes the update_plugins transient filter if it was added.
+	 *
+	 * @return void
+	 */
+	private function remove_update_transient(): void {
+		if ( $this->update_transient_filter !== null ) {
+			\remove_filter( 'site_transient_update_plugins', $this->update_transient_filter );
+			$this->update_transient_filter = null;
+			$this->update_transient_url    = null;
+		}
 	}
 
 	/**

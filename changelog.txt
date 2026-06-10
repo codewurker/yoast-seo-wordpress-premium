@@ -1,6 +1,11 @@
 *** Yoast SEO premium Changelog ***
 
 
-2026-05-27 - version 27.7
-* update -  Bumps the minimum required version of Yoast SEO to 27.7.
+2026-06-09 - version 27.8
+* add -  Improves post editor rendering performance by stabilising the `getKeywords` Redux selector reference to prevent unnecessary re-renders.
+* fix -  Fixes a bug where the addon installer repeatedly downloaded Yoast SEO on every request when the installation failed or was outdated.
+* fix -  Fixes a bug where the XML sitemap could fail to generate when redirects were combined with another plugin or theme that also filtered sitemap entries.
+* update -  Sets the title of a child task to "(no title)" in the task list, when the related post has no title.
+* update -  Improves cross-version PHP compatibility.
+* update -  Bumps the minimum required version of Yoast SEO to 27.8.
 

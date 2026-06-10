@@ -27,7 +27,7 @@ class WPSEO_Redirect_Control_Chars_Validation extends WPSEO_Redirect_Abstract_Va
 	 *
 	 * @return bool
 	 */
-	public function run( WPSEO_Redirect $redirect, ?WPSEO_Redirect $old_redirect = null, ?array $redirects = null ) {
+	public function run( WPSEO_Redirect $redirect, ?WPSEO_Redirect $old_redirect = null, ?array $redirects = null ) { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
 		if ( ! WPSEO_Redirect::pair_has_control_chars( $redirect->get_origin(), $redirect->get_target() ) ) {
 			return true;
 		}

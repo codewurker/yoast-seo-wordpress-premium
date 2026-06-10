@@ -98,8 +98,14 @@ class Set_Social_Sharing_Images_Child extends Abstract_Child_Task {
 	 * @return Copy_Set
 	 */
 	public function get_copy_set(): Copy_Set {
+		$title = \html_entity_decode( $this->content_data->get_title(), \ENT_QUOTES, 'UTF-8' );
+		if ( $title === '' ) {
+			// Mirror WordPress' own untitled-post convention so screen readers have text content.
+			$title = \__( '(no title)', 'wordpress-seo-premium' );
+		}
+
 		return new Copy_Set(
-			\html_entity_decode( $this->content_data->get_title(), \ENT_QUOTES, 'UTF-8' ),
+			$title,
 			$this->parent_task->get_copy_set()->get_about(),
 		);
 	}
