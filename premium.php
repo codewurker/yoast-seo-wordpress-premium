@@ -28,7 +28,7 @@ class WPSEO_Premium {
 	 *
 	 * @var string
 	 */
-	public const PLUGIN_VERSION_NAME = '27.8';
+	public const PLUGIN_VERSION_NAME = '27.9';
 
 	/**
 	 * Machine readable version for determining whether an upgrade is needed.
@@ -129,6 +129,8 @@ class WPSEO_Premium {
 			add_filter( 'wpseo_helpscout_beacon_settings', [ $this, 'filter_helpscout_beacon' ], 1 );
 
 			add_filter( 'wpseo_enable_tracking', '__return_true', 1 );
+
+			add_filter( 'wpseo_tracking_settings_include_list', [ $this, 'add_redirect_options_to_tracking' ] );
 
 			// Add Sub Menu page and add redirect page to admin page array.
 			// This should be possible in one method in the future, see #535.
@@ -280,6 +282,21 @@ class WPSEO_Premium {
 			'href'  => wp_nonce_url( admin_url( 'admin.php?page=wpseo_redirects&old_url=' . $old_url ), 'wpseo_redirects-old-url', 'wpseo_premium_redirects_nonce' ),
 		];
 		$wp_admin_bar->add_menu( $node );
+	}
+
+	/**
+	 * Extends the Free tracking include list with the redirect-mode options so we can see
+	 * what proportion of installs runs PHP redirects vs file-based ones.
+	 *
+	 * @param array<string> $include_list The tracking include list from WPSEO_Tracking_Settings_Data.
+	 *
+	 * @return array<string> The extended include list.
+	 */
+	public function add_redirect_options_to_tracking( $include_list ) {
+		$include_list[] = 'disable_php_redirect';
+		$include_list[] = 'separate_file';
+
+		return $include_list;
 	}
 
 	/**

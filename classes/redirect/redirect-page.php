@@ -130,11 +130,35 @@ class WPSEO_Redirect_Page {
 					'homeUrl'     => home_url( '/' ),
 					'isRtl'       => is_rtl(),
 					'isMultisite' => is_multisite(),
+					'oldUrl'      => $this->get_old_url_from_request(),
 				],
 			],
 		);
 		wp_enqueue_style( WPSEO_Admin_Asset_Manager::PREFIX . 'premium-tailwind' );
 		$asset_manager->enqueue_style( 'redirects' );
+	}
+
+	/**
+	 * Gets the old URL from the request query parameters.
+	 *
+	 * @return string The sanitized old URL, or empty string if not present or invalid.
+	 */
+	private function get_old_url_from_request() {
+		if ( isset( $_GET['old_url'] ) && is_string( $_GET['old_url'] ) ) {
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Reason: We decode it before sanitization to keep encoded characters.
+			$old_url = sanitize_text_field( rawurldecode( wp_unslash( $_GET['old_url'] ) ) );
+			if ( ! empty( $old_url ) ) {
+				// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Reason: We sanitize the nonce value with sanitize_text_field.
+				$nonce = isset( $_REQUEST['wpseo_premium_redirects_nonce'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['wpseo_premium_redirects_nonce'] ) ) : '';
+				if ( $nonce && wp_verify_nonce( $nonce, 'wpseo_redirects-old-url' ) ) {
+					return $old_url;
+				}
+
+				return '';
+			}
+		}
+
+		return '';
 	}
 
 	/**

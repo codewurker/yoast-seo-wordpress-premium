@@ -132,7 +132,15 @@ class Optimizer {
 		string $editor,
 		bool $retry_on_unauthorized = true
 	): string {
-		$token = $this->token_manager->get_or_request_access_token( $user );
+		try {
+			$token = $this->token_manager->get_or_request_access_token( $user );
+		} catch ( Forbidden_Exception $exception ) {
+			// Follow the API in the consent being revoked (Use case: user sent an e-mail to revoke?).
+			$this->consent_handler->revoke_consent( $user->ID );
+			// phpcs:disable WordPress.Security.EscapeOutput.ExceptionNotEscaped -- false positive.
+			throw new Forbidden_Exception( 'CONSENT_REVOKED', $exception->getCode() );
+			// phpcs:enable WordPress.Security.EscapeOutput.ExceptionNotEscaped
+		}
 
 		$subject = [
 			'language'        => $language,
