@@ -150,7 +150,7 @@ class WPSEO_Redirect_Page {
 			if ( ! empty( $old_url ) ) {
 				// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Reason: We sanitize the nonce value with sanitize_text_field.
 				$nonce = isset( $_REQUEST['wpseo_premium_redirects_nonce'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['wpseo_premium_redirects_nonce'] ) ) : '';
-				if ( $nonce && wp_verify_nonce( $nonce, 'wpseo_redirects-old-url' ) ) {
+				if ( $nonce && wp_verify_nonce( $nonce, 'wpseo_redirects-old-url' ) ) { // nosemgrep scanner.php.wp.security.csrf.verify-nonce-inverted -- Nonce check logic is correct, returns data only when nonce is valid.
 					return $old_url;
 				}
 
