@@ -1,7 +1,8 @@
 *** Yoast SEO premium Changelog ***
 
 
-2026-07-07 - version 28.0
-* fix -  Fixes a bug where keyphrase highlights were not applied when using the Elementor V4 atomic editor.
-* update -  Bumps the minimum required version of Yoast SEO to 28.0.
+2026-07-21 - version 28.1
+* add -  Adds the bulk generation feature, which allows users to get AI-powered Metadata suggestions for multiple posts directly from the bulk editor page. 
+* fix -  Fixes a bug where Yoast SEO Premium could delete a version-controlled copy of Yoast SEO (for example a local Git checkout) when it automatically updated an outdated Yoast SEO installation in the background.
+* update -  Bumps the minimum required version of Yoast SEO to 28.1.
 

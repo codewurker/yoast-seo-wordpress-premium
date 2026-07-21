@@ -5,6 +5,7 @@ namespace Yoast\WP\SEO\Premium;
 use Exception;
 use Plugin_Upgrader;
 use stdClass;
+use WP_Automatic_Updater;
 use WP_Error;
 use WP_Upgrader_Skin;
 use WPSEO_Capability_Manager_Factory;
@@ -44,7 +45,7 @@ class Addon_Installer {
 	/**
 	 * The minimum Yoast SEO version required.
 	 */
-	public const MINIMUM_YOAST_SEO_VERSION = '28.0';
+	public const MINIMUM_YOAST_SEO_VERSION = '28.1';
 
 	/**
 	 * The trunk download URL for Yoast SEO.
@@ -335,20 +336,28 @@ class Addon_Installer {
 		\set_transient( self::LOCK_KEY, true, self::LOCK_TTL );
 
 		try {
-			// Mark the installer as having been started but not completed.
-			\update_option( self::OPTION_KEY, 'started', true );
-
 			require_once \ABSPATH . 'wp-admin/includes/plugin.php';
 
 			$this->detect_yoast_seo();
+
+			$free_is_installed = ( $this->yoast_seo_version !== '0' );
 			// Either the plugin is not installed or is installed and too old.
-			if ( \version_compare( $this->yoast_seo_version, self::MINIMUM_YOAST_SEO_VERSION . '-RC0', '<' ) ) {
+			$needs_install = \version_compare( $this->yoast_seo_version, self::MINIMUM_YOAST_SEO_VERSION . '-RC0', '<' );
+
+			// Skip the automatic upgrade for a Yoast SEO copy under version control, e.g. a developer's local checkout.
+			if ( $needs_install && $free_is_installed && $this->is_version_controlled() ) {
+				\set_transient( self::COOLDOWN_KEY, true, self::COOLDOWN_TTL );
+				return;
+			}
+
+			// Mark the installer as having been started but not completed.
+			\update_option( self::OPTION_KEY, 'started', true );
+
+			if ( $needs_install ) {
 				include_once \ABSPATH . 'wp-includes/pluggable.php';
 				include_once \ABSPATH . 'wp-admin/includes/file.php';
 				include_once \ABSPATH . 'wp-admin/includes/misc.php';
 				require_once \ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
-
-				$free_is_installed = ( $this->yoast_seo_version !== '0' );
 
 				/**
 				 * Filters the trunk download URL used when the versioned Yoast SEO zip is not yet available.
@@ -395,6 +404,22 @@ class Addon_Installer {
 		} finally {
 			\delete_transient( self::LOCK_KEY );
 		}
+	}
+
+	/**
+	 * Determines whether the detected Yoast SEO copy is part of a version control checkout.
+	 *
+	 * Delegates to WordPress core's WP_Automatic_Updater::is_vcs_checkout(), the same check core
+	 * runs before it performs automatic updates.
+	 *
+	 * @return bool True when the Yoast SEO directory is under version control.
+	 */
+	protected function is_version_controlled() {
+		require_once \ABSPATH . 'wp-admin/includes/class-wp-automatic-updater.php';
+
+		$updater = new WP_Automatic_Updater();
+
+		return $updater->is_vcs_checkout( $this->yoast_seo_dir );
 	}
 
 	/**

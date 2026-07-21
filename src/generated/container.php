@@ -28,9 +28,8 @@ class Cached_Container extends Container
             'WPSEO_Premium_Prominent_Words_Unindexed_Post_Query' => 'getWPSEOPremiumProminentWordsUnindexedPostQueryService',
             'WPSEO_Shortlinker' => 'getWPSEOShortlinkerService',
             'Yoast\\WP\\Lib\\Migrations\\Adapter' => 'getAdapterService',
-            'Yoast\\WP\\SEO\\AI\\Authorization\\Application\\Token_Manager' => 'getTokenManagerService',
+            'Yoast\\WP\\SEO\\AI\\Authentication\\Application\\AI_Request_Sender_Factory' => 'getAIRequestSenderFactoryService',
             'Yoast\\WP\\SEO\\AI\\Consent\\Application\\Consent_Handler' => 'getConsentHandlerService',
-            'Yoast\\WP\\SEO\\AI\\HTTP_Request\\Application\\Request_Handler' => 'getRequestHandlerService',
             'Yoast\\WP\\SEO\\AI\\HTTP_Request\\Infrastructure\\API_Client' => 'getAPIClientService',
             'Yoast\\WP\\SEO\\AI_HTTP_Request\\Infrastructure\\API_Client' => 'getAPIClient2Service',
             'Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_General_Indexation_Action' => 'getIndexableGeneralIndexationActionService',
@@ -64,6 +63,7 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Helpers\\Route_Helper' => 'getRouteHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Schema\\ID_Helper' => 'getIDHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Score_Icon_Helper' => 'getScoreIconHelperService',
+            'Yoast\\WP\\SEO\\Helpers\\Short_Link_Helper' => 'getShortLinkHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Social_Profiles_Helper' => 'getSocialProfilesHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Url_Helper' => 'getUrlHelperService',
             'Yoast\\WP\\SEO\\Helpers\\User_Helper' => 'getUserHelperService',
@@ -74,6 +74,12 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Introductions\\Infrastructure\\Wistia_Embed_Permission_Repository' => 'getWistiaEmbedPermissionRepositoryService',
             'Yoast\\WP\\SEO\\Loader' => 'getLoaderService',
             'Yoast\\WP\\SEO\\Memoizers\\Meta_Tags_Context_Memoizer' => 'getMetaTagsContextMemoizerService',
+            'Yoast\\WP\\SEO\\Premium\\AI\\Bulk_Editor\\User_Interface\\Bulk_Editor_Premium_Integration' => 'getBulkEditorPremiumIntegrationService',
+            'Yoast\\WP\\SEO\\Premium\\AI\\Bulk_Suggestions\\Application\\Bulk_Suggestions_Provider' => 'getBulkSuggestionsProviderService',
+            'Yoast\\WP\\SEO\\Premium\\AI\\Bulk_Suggestions\\Domain\\Subject' => 'getSubjectService',
+            'Yoast\\WP\\SEO\\Premium\\AI\\Bulk_Suggestions\\Domain\\Subject_Build_Exception' => 'getSubjectBuildExceptionService',
+            'Yoast\\WP\\SEO\\Premium\\AI\\Bulk_Suggestions\\Infrastructure\\WordPress_Subject_Builder' => 'getWordPressSubjectBuilderService',
+            'Yoast\\WP\\SEO\\Premium\\AI\\Bulk_Suggestions\\User_Interface\\AI_Bulk_Suggestions_Route' => 'getAIBulkSuggestionsRouteService',
             'Yoast\\WP\\SEO\\Premium\\AI\\Optimize\\Optimizer\\Application\\Optimizer' => 'getOptimizerService',
             'Yoast\\WP\\SEO\\Premium\\AI\\Optimize\\Optimizer\\Domain\\Suggestion' => 'getSuggestionService',
             'Yoast\\WP\\SEO\\Premium\\AI\\Optimize\\Optimizer\\User_Interface\\AI_Optimize_Integration' => 'getAIOptimizeIntegrationService',
@@ -231,6 +237,7 @@ class Cached_Container extends Container
             'Psr\\Container\\ContainerInterface' => true,
             'YoastSEO_Vendor\\Symfony\\Component\\DependencyInjection\\ContainerInterface' => true,
             'YoastSEO_Vendor\\YoastSEO_Vendor\\Symfony\\Component\\DependencyInjection\\ContainerInterface' => true,
+            'Yoast\\WP\\SEO\\Premium\\AI\\Bulk_Suggestions\\Application\\Subject_Builder_Interface' => true,
             'Yoast\\WP\\SEO\\Premium\\AI\\Optimize\\Optimizer\\Domain\\Suggestion_Interface' => true,
         ];
     }
@@ -296,13 +303,13 @@ class Cached_Container extends Container
     }
 
     /**
-     * Gets the public 'Yoast\WP\SEO\AI\Authorization\Application\Token_Manager' shared service.
+     * Gets the public 'Yoast\WP\SEO\AI\Authentication\Application\AI_Request_Sender_Factory' shared service.
      *
-     * @return \Yoast\WP\SEO\AI\Authorization\Application\Token_Manager
+     * @return \Yoast\WP\SEO\AI\Authentication\Application\AI_Request_Sender_Factory
      */
-    protected function getTokenManagerService()
+    protected function getAIRequestSenderFactoryService()
     {
-        return $this->services['Yoast\\WP\\SEO\\AI\\Authorization\\Application\\Token_Manager'] = \Yoast\WP\Lib\Dependency_Injection\Container_Registry::get('yoast-seo', 'Yoast\\WP\\SEO\\AI\\Authorization\\Application\\Token_Manager');
+        return $this->services['Yoast\\WP\\SEO\\AI\\Authentication\\Application\\AI_Request_Sender_Factory'] = \Yoast\WP\Lib\Dependency_Injection\Container_Registry::get('yoast-seo', 'Yoast\\WP\\SEO\\AI\\Authentication\\Application\\AI_Request_Sender_Factory');
     }
 
     /**
@@ -313,16 +320,6 @@ class Cached_Container extends Container
     protected function getConsentHandlerService()
     {
         return $this->services['Yoast\\WP\\SEO\\AI\\Consent\\Application\\Consent_Handler'] = \Yoast\WP\Lib\Dependency_Injection\Container_Registry::get('yoast-seo', 'Yoast\\WP\\SEO\\AI\\Consent\\Application\\Consent_Handler');
-    }
-
-    /**
-     * Gets the public 'Yoast\WP\SEO\AI\HTTP_Request\Application\Request_Handler' shared service.
-     *
-     * @return \Yoast\WP\SEO\AI\HTTP_Request\Application\Request_Handler
-     */
-    protected function getRequestHandlerService()
-    {
-        return $this->services['Yoast\\WP\\SEO\\AI\\HTTP_Request\\Application\\Request_Handler'] = \Yoast\WP\Lib\Dependency_Injection\Container_Registry::get('yoast-seo', 'Yoast\\WP\\SEO\\AI\\HTTP_Request\\Application\\Request_Handler');
     }
 
     /**
@@ -656,6 +653,16 @@ class Cached_Container extends Container
     }
 
     /**
+     * Gets the public 'Yoast\WP\SEO\Helpers\Short_Link_Helper' shared service.
+     *
+     * @return \Yoast\WP\SEO\Helpers\Short_Link_Helper
+     */
+    protected function getShortLinkHelperService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Helpers\\Short_Link_Helper'] = \Yoast\WP\Lib\Dependency_Injection\Container_Registry::get('yoast-seo', 'Yoast\\WP\\SEO\\Helpers\\Short_Link_Helper');
+    }
+
+    /**
      * Gets the public 'Yoast\WP\SEO\Helpers\Social_Profiles_Helper' shared service.
      *
      * @return \Yoast\WP\SEO\Helpers\Social_Profiles_Helper
@@ -744,6 +751,8 @@ class Cached_Container extends Container
     {
         $this->services['Yoast\\WP\\SEO\\Loader'] = $instance = new \Yoast\WP\SEO\Loader($this);
 
+        $instance->register_integration('Yoast\\WP\\SEO\\Premium\\AI\\Bulk_Editor\\User_Interface\\Bulk_Editor_Premium_Integration');
+        $instance->register_route('Yoast\\WP\\SEO\\Premium\\AI\\Bulk_Suggestions\\User_Interface\\AI_Bulk_Suggestions_Route');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\AI\\Optimize\\Optimizer\\User_Interface\\AI_Optimize_Integration');
         $instance->register_route('Yoast\\WP\\SEO\\Premium\\AI\\Optimize\\Optimizer\\User_Interface\\AI_Optimize_Route');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\AI\\Summarize\\User_Interface\\AI_Summarize_Integration');
@@ -824,13 +833,73 @@ class Cached_Container extends Container
     }
 
     /**
+     * Gets the public 'Yoast\WP\SEO\Premium\AI\Bulk_Editor\User_Interface\Bulk_Editor_Premium_Integration' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\AI\Bulk_Editor\User_Interface\Bulk_Editor_Premium_Integration
+     */
+    protected function getBulkEditorPremiumIntegrationService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\AI\\Bulk_Editor\\User_Interface\\Bulk_Editor_Premium_Integration'] = new \Yoast\WP\SEO\Premium\AI\Bulk_Editor\User_Interface\Bulk_Editor_Premium_Integration(($this->services['WPSEO_Admin_Asset_Manager'] ?? $this->getWPSEOAdminAssetManagerService()), ($this->services['Yoast\\WP\\SEO\\Helpers\\Current_Page_Helper'] ?? $this->getCurrentPageHelperService()), ($this->services['Yoast\\WP\\SEO\\Helpers\\User_Helper'] ?? $this->getUserHelperService()), ($this->services['Yoast\\WP\\SEO\\Helpers\\Short_Link_Helper'] ?? $this->getShortLinkHelperService()), ($this->services['WPSEO_Addon_Manager'] ?? $this->getWPSEOAddonManagerService()));
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\AI\Bulk_Suggestions\Application\Bulk_Suggestions_Provider' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\AI\Bulk_Suggestions\Application\Bulk_Suggestions_Provider
+     */
+    protected function getBulkSuggestionsProviderService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\AI\\Bulk_Suggestions\\Application\\Bulk_Suggestions_Provider'] = new \Yoast\WP\SEO\Premium\AI\Bulk_Suggestions\Application\Bulk_Suggestions_Provider(($this->services['Yoast\\WP\\SEO\\AI\\Consent\\Application\\Consent_Handler'] ?? $this->getConsentHandlerService()), ($this->services['Yoast\\WP\\SEO\\AI\\Authentication\\Application\\AI_Request_Sender_Factory'] ?? $this->getAIRequestSenderFactoryService()), ($this->services['Yoast\\WP\\SEO\\Premium\\AI\\Bulk_Suggestions\\Infrastructure\\WordPress_Subject_Builder'] ?? $this->getWordPressSubjectBuilderService()));
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\AI\Bulk_Suggestions\Domain\Subject' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\AI\Bulk_Suggestions\Domain\Subject
+     */
+    protected function getSubjectService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\AI\\Bulk_Suggestions\\Domain\\Subject'] = new \Yoast\WP\SEO\Premium\AI\Bulk_Suggestions\Domain\Subject();
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\AI\Bulk_Suggestions\Domain\Subject_Build_Exception' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\AI\Bulk_Suggestions\Domain\Subject_Build_Exception
+     */
+    protected function getSubjectBuildExceptionService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\AI\\Bulk_Suggestions\\Domain\\Subject_Build_Exception'] = new \Yoast\WP\SEO\Premium\AI\Bulk_Suggestions\Domain\Subject_Build_Exception();
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\AI\Bulk_Suggestions\Infrastructure\WordPress_Subject_Builder' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\AI\Bulk_Suggestions\Infrastructure\WordPress_Subject_Builder
+     */
+    protected function getWordPressSubjectBuilderService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\AI\\Bulk_Suggestions\\Infrastructure\\WordPress_Subject_Builder'] = new \Yoast\WP\SEO\Premium\AI\Bulk_Suggestions\Infrastructure\WordPress_Subject_Builder(($this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository'] ?? $this->getIndexableRepository2Service()), ($this->services['Yoast\\WP\\SEO\\Helpers\\Language_Helper'] ?? $this->getLanguageHelperService()));
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\AI\Bulk_Suggestions\User_Interface\AI_Bulk_Suggestions_Route' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\AI\Bulk_Suggestions\User_Interface\AI_Bulk_Suggestions_Route
+     */
+    protected function getAIBulkSuggestionsRouteService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\AI\\Bulk_Suggestions\\User_Interface\\AI_Bulk_Suggestions_Route'] = new \Yoast\WP\SEO\Premium\AI\Bulk_Suggestions\User_Interface\AI_Bulk_Suggestions_Route(($this->services['Yoast\\WP\\SEO\\Premium\\AI\\Bulk_Suggestions\\Application\\Bulk_Suggestions_Provider'] ?? $this->getBulkSuggestionsProviderService()));
+    }
+
+    /**
      * Gets the public 'Yoast\WP\SEO\Premium\AI\Optimize\Optimizer\Application\Optimizer' shared autowired service.
      *
      * @return \Yoast\WP\SEO\Premium\AI\Optimize\Optimizer\Application\Optimizer
      */
     protected function getOptimizerService()
     {
-        return $this->services['Yoast\\WP\\SEO\\Premium\\AI\\Optimize\\Optimizer\\Application\\Optimizer'] = new \Yoast\WP\SEO\Premium\AI\Optimize\Optimizer\Application\Optimizer(($this->services['Yoast\\WP\\SEO\\Premium\\AI\\Optimize\\Suggestions_Postprocessor\\Application\\Suggestions_Unifier'] ?? $this->getSuggestionsUnifierService()), ($this->services['Yoast\\WP\\SEO\\AI\\Consent\\Application\\Consent_Handler'] ?? $this->getConsentHandlerService()), ($this->services['Yoast\\WP\\SEO\\AI\\HTTP_Request\\Application\\Request_Handler'] ?? $this->getRequestHandlerService()), ($this->services['Yoast\\WP\\SEO\\Premium\\AI\\Optimize\\Suggestions_Postprocessor\\Application\\Suggestion_Processor'] ?? $this->getSuggestionProcessorService()), ($this->services['Yoast\\WP\\SEO\\AI\\Authorization\\Application\\Token_Manager'] ?? $this->getTokenManagerService()), ($this->services['Yoast\\WP\\SEO\\Helpers\\User_Helper'] ?? $this->getUserHelperService()));
+        return $this->services['Yoast\\WP\\SEO\\Premium\\AI\\Optimize\\Optimizer\\Application\\Optimizer'] = new \Yoast\WP\SEO\Premium\AI\Optimize\Optimizer\Application\Optimizer(($this->services['Yoast\\WP\\SEO\\Premium\\AI\\Optimize\\Suggestions_Postprocessor\\Application\\Suggestions_Unifier'] ?? $this->getSuggestionsUnifierService()), ($this->services['Yoast\\WP\\SEO\\AI\\Consent\\Application\\Consent_Handler'] ?? $this->getConsentHandlerService()), ($this->services['Yoast\\WP\\SEO\\Premium\\AI\\Optimize\\Suggestions_Postprocessor\\Application\\Suggestion_Processor'] ?? $this->getSuggestionProcessorService()), ($this->services['Yoast\\WP\\SEO\\AI\\Authentication\\Application\\AI_Request_Sender_Factory'] ?? $this->getAIRequestSenderFactoryService()));
     }
 
     /**
@@ -910,7 +979,7 @@ class Cached_Container extends Container
      */
     protected function getSummarizerService()
     {
-        return $this->services['Yoast\\WP\\SEO\\Premium\\AI\\Summarize\\Application\\Summarizer'] = new \Yoast\WP\SEO\Premium\AI\Summarize\Application\Summarizer(($this->services['Yoast\\WP\\SEO\\AI\\Consent\\Application\\Consent_Handler'] ?? $this->getConsentHandlerService()), ($this->services['Yoast\\WP\\SEO\\AI\\HTTP_Request\\Application\\Request_Handler'] ?? $this->getRequestHandlerService()), ($this->services['Yoast\\WP\\SEO\\AI\\Authorization\\Application\\Token_Manager'] ?? $this->getTokenManagerService()), ($this->services['Yoast\\WP\\SEO\\Helpers\\User_Helper'] ?? $this->getUserHelperService()));
+        return $this->services['Yoast\\WP\\SEO\\Premium\\AI\\Summarize\\Application\\Summarizer'] = new \Yoast\WP\SEO\Premium\AI\Summarize\Application\Summarizer(($this->services['Yoast\\WP\\SEO\\AI\\Consent\\Application\\Consent_Handler'] ?? $this->getConsentHandlerService()), ($this->services['Yoast\\WP\\SEO\\AI\\Authentication\\Application\\AI_Request_Sender_Factory'] ?? $this->getAIRequestSenderFactoryService()));
     }
 
     /**

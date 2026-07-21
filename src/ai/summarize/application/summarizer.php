@@ -4,22 +4,20 @@ namespace Yoast\WP\SEO\Premium\AI\Summarize\Application;
 
 use RuntimeException;
 use WP_User;
-use Yoast\WP\SEO\AI\Authorization\Application\Token_Manager;
+use Yoast\WP\SEO\AI\Authentication\Application\AI_Request_Sender_Factory;
 use Yoast\WP\SEO\AI\Consent\Application\Consent_Handler;
 use Yoast\WP\SEO\AI\Generator\Domain\Suggestion;
 use Yoast\WP\SEO\AI\Generator\Domain\Suggestions_Bucket;
-use Yoast\WP\SEO\AI\HTTP_Request\Application\Request_Handler;
 use Yoast\WP\SEO\AI\HTTP_Request\Domain\Exceptions\Bad_Request_Exception;
 use Yoast\WP\SEO\AI\HTTP_Request\Domain\Exceptions\Forbidden_Exception;
+use Yoast\WP\SEO\AI\HTTP_Request\Domain\Exceptions\Insufficient_Scope_Exception;
 use Yoast\WP\SEO\AI\HTTP_Request\Domain\Exceptions\Internal_Server_Error_Exception;
 use Yoast\WP\SEO\AI\HTTP_Request\Domain\Exceptions\Not_Found_Exception;
 use Yoast\WP\SEO\AI\HTTP_Request\Domain\Exceptions\Payment_Required_Exception;
 use Yoast\WP\SEO\AI\HTTP_Request\Domain\Exceptions\Request_Timeout_Exception;
 use Yoast\WP\SEO\AI\HTTP_Request\Domain\Exceptions\Service_Unavailable_Exception;
 use Yoast\WP\SEO\AI\HTTP_Request\Domain\Exceptions\Too_Many_Requests_Exception;
-use Yoast\WP\SEO\AI\HTTP_Request\Domain\Exceptions\Unauthorized_Exception;
 use Yoast\WP\SEO\AI\HTTP_Request\Domain\Request;
-use Yoast\WP\SEO\Helpers\User_Helper;
 
 /**
  * Class used to summarize content using AI.
@@ -34,44 +32,24 @@ class Summarizer {
 	private $consent_handler;
 
 	/**
-	 * The request handler.
+	 * The AI request sender factory.
 	 *
-	 * @var Request_Handler
+	 * @var AI_Request_Sender_Factory
 	 */
-	private $request_handler;
-
-	/**
-	 * The AI token manager.
-	 *
-	 * @var Token_Manager
-	 */
-	private $token_manager;
-
-	/**
-	 * The user helper.
-	 *
-	 * @var User_Helper
-	 */
-	private $user_helper;
+	private $ai_request_sender_factory;
 
 	/**
 	 * Summarizer constructor.
 	 *
-	 * @param Consent_Handler $consent_handler The consent handler.
-	 * @param Request_Handler $request_handler The request handler.
-	 * @param Token_Manager   $token_manager   The token manager.
-	 * @param User_Helper     $user_helper     The user helper.
+	 * @param Consent_Handler           $consent_handler           The consent handler.
+	 * @param AI_Request_Sender_Factory $ai_request_sender_factory The AI request sender factory.
 	 */
 	public function __construct(
 		Consent_Handler $consent_handler,
-		Request_Handler $request_handler,
-		Token_Manager $token_manager,
-		User_Helper $user_helper
+		AI_Request_Sender_Factory $ai_request_sender_factory
 	) {
-		$this->consent_handler = $consent_handler;
-		$this->request_handler = $request_handler;
-		$this->token_manager   = $token_manager;
-		$this->user_helper     = $user_helper;
+		$this->consent_handler           = $consent_handler;
+		$this->ai_request_sender_factory = $ai_request_sender_factory;
 	}
 
 	// phpcs:disable Squiz.Commenting.FunctionCommentThrowTag.WrongNumber -- PHPCS doesn't take into account exceptions thrown in called methods.
@@ -79,42 +57,30 @@ class Summarizer {
 	/**
 	 * Action used to generate a summary through AI.
 	 *
-	 * @param WP_User $user                  The WP user.
-	 * @param string  $language              The language of the post.
-	 * @param string  $prompt_content        The excerpt taken from the post.
-	 * @param string  $focus_keyphrase       The focus keyphrase associated to the post.
-	 * @param bool    $retry_on_unauthorized Whether to retry when unauthorized (mechanism to retry once).
+	 * @param WP_User $user            The WP user.
+	 * @param string  $language        The language of the post.
+	 * @param string  $prompt_content  The excerpt taken from the post.
+	 * @param string  $focus_keyphrase The focus keyphrase associated to the post.
 	 *
 	 * @return string[] The summary list.
 	 *
 	 * @throws Bad_Request_Exception Bad_Request_Exception.
 	 * @throws Forbidden_Exception Forbidden_Exception.
+	 * @throws Insufficient_Scope_Exception Insufficient_Scope_Exception.
 	 * @throws Internal_Server_Error_Exception Internal_Server_Error_Exception.
 	 * @throws Not_Found_Exception Not_Found_Exception.
 	 * @throws Payment_Required_Exception Payment_Required_Exception.
 	 * @throws Request_Timeout_Exception Request_Timeout_Exception.
 	 * @throws Service_Unavailable_Exception Service_Unavailable_Exception.
 	 * @throws Too_Many_Requests_Exception Too_Many_Requests_Exception.
-	 * @throws Unauthorized_Exception Unauthorized_Exception.
 	 * @throws RuntimeException Unable to retrieve the access token.
 	 */
 	public function summarize(
 		WP_User $user,
 		string $language,
 		string $prompt_content,
-		string $focus_keyphrase,
-		bool $retry_on_unauthorized = true
+		string $focus_keyphrase
 	): array {
-		try {
-			$token = $this->token_manager->get_or_request_access_token( $user );
-		} catch ( Forbidden_Exception $exception ) {
-			// Follow the API in the consent being revoked (Use case: user sent an e-mail to revoke?).
-			$this->consent_handler->revoke_consent( $user->ID );
-			// phpcs:disable WordPress.Security.EscapeOutput.ExceptionNotEscaped -- false positive.
-			throw new Forbidden_Exception( 'CONSENT_REVOKED', $exception->getCode() );
-			// phpcs:enable WordPress.Security.EscapeOutput.ExceptionNotEscaped
-		}
-
 		$subject = [
 			'language' => $language,
 			'content'  => $prompt_content,
@@ -124,28 +90,16 @@ class Summarizer {
 			$subject['focus_keyphrase'] = $focus_keyphrase;
 		}
 
-		$request_body    = [
+		$request_body = [
 			'service' => 'openai',
-			'user_id' => (string) $user->ID,
 			'subject' => $subject,
-		];
-		$request_headers = [
-			'Authorization' => "Bearer $token",
 		];
 
 		try {
-			$response = $this->request_handler->handle( new Request( '/openai/summary', $request_body, $request_headers ) );
-		} catch ( Unauthorized_Exception $exception ) {
-			// Delete the stored JWT tokens, as they appear to be no longer valid.
-			$this->user_helper->delete_meta( $user->ID, '_yoast_wpseo_ai_generator_access_jwt' );
-			$this->user_helper->delete_meta( $user->ID, '_yoast_wpseo_ai_generator_refresh_jwt' );
-
-			if ( ! $retry_on_unauthorized ) {
-				throw $exception;
-			}
-
-			// Try again once more by fetching a new set of tokens and trying the endpoint again.
-			return $this->summarize( $user, $language, $prompt_content, $focus_keyphrase, false );
+			$sender   = $this->ai_request_sender_factory->create( $user );
+			$response = $sender->send( new Request( '/openai/summary', $request_body ), $user );
+		} catch ( Insufficient_Scope_Exception $exception ) {
+			throw $exception;
 		} catch ( Forbidden_Exception $exception ) {
 			// Follow the API in the consent being revoked (Use case: user sent an e-mail to revoke?).
 			$this->consent_handler->revoke_consent( $user->ID );
