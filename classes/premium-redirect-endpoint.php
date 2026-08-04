@@ -159,7 +159,7 @@ class WPSEO_Premium_Redirect_EndPoint implements WPSEO_WordPress_Integration {
 			self::REST_NAMESPACE,
 			self::ENDPOINT_UPDATE,
 			[
-				'methods'             => 'PUT',
+				'methods'             => WP_REST_Server::EDITABLE,
 				'args'                => [
 					'old_origin' => [
 						'required'    => true,
@@ -239,7 +239,7 @@ class WPSEO_Premium_Redirect_EndPoint implements WPSEO_WordPress_Integration {
 			self::REST_NAMESPACE,
 			self::ENDPOINT_SETTINGS,
 			[
-				'methods'             => 'PUT',
+				'methods'             => WP_REST_Server::EDITABLE,
 				'args'                => [
 					'disable_php_redirect' => [
 						'description'       => __( 'Whether to disable PHP-based redirects and use .htaccess instead.', 'wordpress-seo-premium' ),

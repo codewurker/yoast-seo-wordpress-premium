@@ -1,8 +1,7 @@
 *** Yoast SEO premium Changelog ***
 
 
-2026-07-21 - version 28.1
-* add -  Adds the bulk generation feature, which allows users to get AI-powered Metadata suggestions for multiple posts directly from the bulk editor page. 
-* fix -  Fixes a bug where Yoast SEO Premium could delete a version-controlled copy of Yoast SEO (for example a local Git checkout) when it automatically updated an outdated Yoast SEO installation in the background.
-* update -  Bumps the minimum required version of Yoast SEO to 28.1.
+2026-08-04 - version 28.2
+* fix -  Fixes a bug where editing a redirect or saving the redirect settings would fail when the site was behind a proxy that strips the X-HTTP-Method-Override header.
+* update -  Bumps the minimum required version of Yoast SEO to 28.2.
 
