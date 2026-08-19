@@ -1,7 +1,10 @@
 *** Yoast SEO premium Changelog ***
 
 
-2026-08-04 - version 28.2
-* fix -  Fixes a bug where editing a redirect or saving the redirect settings would fail when the site was behind a proxy that strips the X-HTTP-Method-Override header.
-* update -  Bumps the minimum required version of Yoast SEO to 28.2.
+2026-08-18 - version 28.3
+* add -  Improves the performance of the SEO optimization, by warming post and term cache when building data for the prominent words of the website.
+* fix -  Fixes a bug where the editor would not scroll to the changes proposed by Yoast AI Optimize in WordPress 6.9 and higher.
+* fix -  Fixes a bug where users without permission to manage redirects could delete existing redirects.
+* update -  Bumps the minimum required version of Yoast SEO to 28.3.
+* update -  Sets the minimum supported WordPress version to 6.9.
 

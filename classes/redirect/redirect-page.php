@@ -252,8 +252,6 @@ class WPSEO_Redirect_Page {
 	 * @return void
 	 */
 	private function initialize_admin() {
-		$this->fetch_bulk_action();
-
 		// Check if we need to save files after updating options.
 		add_action( 'update_option_wpseo_redirect', [ $this, 'save_redirect_files' ], 10, 2 );
 
@@ -281,30 +279,6 @@ class WPSEO_Redirect_Page {
 	}
 
 	/**
-	 * Getting the current active tab.
-	 *
-	 * @return string
-	 */
-	private function get_current_tab() {
-		static $current_tab;
-
-		if ( $current_tab === null ) {
-			// phpcs:ignore WordPress.Security.NonceVerification.Recommended --  We're not manipulating the value.
-			if ( isset( $_GET['tab'] ) && is_string( $_GET['tab'] )
-			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.NonceVerification.Recommended -- value sanitized in the if body, regex filters unwanted values.
-			&& in_array( wp_unslash( $_GET['tab'] ), [ WPSEO_Redirect_Formats::PLAIN, WPSEO_Redirect_Formats::REGEX, 'settings' ], true ) ) {
-			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- the regex takes care of filtering out unwanted values.
-				$current_tab = sanitize_text_field( wp_unslash( $_GET['tab'] ) );
-			}
-			else {
-				$current_tab = WPSEO_Redirect_Formats::PLAIN;
-			}
-		}
-
-		return $current_tab;
-	}
-
-	/**
 	 * Removes all current WP notices.
 	 *
 	 * @return void
@@ -314,59 +288,5 @@ class WPSEO_Redirect_Page {
 		remove_all_actions( 'user_admin_notices' );
 		remove_all_actions( 'network_admin_notices' );
 		remove_all_actions( 'all_admin_notices' );
-	}
-
-	/**
-	 * Setting redirect manager, based on the current active tab.
-	 *
-	 * @return WPSEO_Redirect_Manager
-	 */
-	private function get_redirect_manager() {
-		static $redirect_manager;
-
-		if ( $redirect_manager === null ) {
-			$redirects_format = WPSEO_Redirect_Formats::PLAIN;
-			if ( $this->get_current_tab() === WPSEO_Redirect_Formats::REGEX ) {
-				$redirects_format = WPSEO_Redirect_Formats::REGEX;
-			}
-
-			$redirect_manager = new WPSEO_Redirect_Manager( $redirects_format );
-		}
-
-		return $redirect_manager;
-	}
-
-	/**
-	 * Fetches the bulk action for removing redirects.
-	 *
-	 * @return void
-	 */
-	private function fetch_bulk_action() {
-		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Sanitized in wp_verify_none.
-		if ( ! isset( $_POST['wpseo_redirects_ajax_nonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['wpseo_redirects_ajax_nonce'] ), 'wpseo-redirects-ajax-security' ) ) {
-			return;
-		}
-
-		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- We're just strictly comparing the value.
-		if ( ( ! isset( $_POST['action'] ) || ! is_string( $_POST['action'] ) || ! wp_unslash( $_POST['action'] ) === 'delete' )
-		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- We're just strictly comparing the value.
-		&& ( ! isset( $_POST['action2'] ) || ! is_string( $_POST['action2'] ) || ! wp_unslash( $_POST['action2'] ) === 'delete' ) ) {
-			return;
-		}
-
-		if ( ! isset( $_POST['wpseo_redirects_bulk_delete'] ) || ! is_array( $_POST['wpseo_redirects_bulk_delete'] ) ) {
-			return;
-		}
-
-		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are sanitized one by one in the foreach loop.
-		$bulk_delete = wp_unslash( $_POST['wpseo_redirects_bulk_delete'] );
-		$redirects   = [];
-		foreach ( $bulk_delete as $origin ) {
-			$redirect = $this->get_redirect_manager()->get_redirect( $origin );
-			if ( $redirect !== false ) {
-				$redirects[] = $redirect;
-			}
-		}
-		$this->get_redirect_manager()->delete_redirects( $redirects );
 	}
 }

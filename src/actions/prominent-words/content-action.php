@@ -215,6 +215,8 @@ class Content_Action implements Indexation_Action_Interface {
 	 * @return array The data.
 	 */
 	protected function format_data( $indexables ) {
+		$this->prime_indexable_caches( $indexables );
+
 		$data = [];
 		foreach ( $indexables as $indexable ) {
 			// Use the meta context, so we are sure that the data is the same as is output on the frontend.
@@ -238,6 +240,42 @@ class Content_Action implements Indexation_Action_Interface {
 		}
 
 		return $data;
+	}
+
+	/**
+	 * Primes the WordPress post and term caches for the given indexables in bulk.
+	 *
+	 * Building the meta tags context loads each indexable's post or term object and its
+	 * metadata individually, so a batch of N indexables triggers roughly 2N uncached
+	 * queries (an N+1 pattern). Priming collapses that into a few queries per batch.
+	 * This only warms the cache; the formatted data is unchanged.
+	 *
+	 * @param Indexable[] $indexables The indexables to prime the caches for.
+	 *
+	 * @return void
+	 */
+	private function prime_indexable_caches( $indexables ) {
+		$post_ids = [];
+		$term_ids = [];
+
+		foreach ( $indexables as $indexable ) {
+			if ( $indexable->object_type === 'post' ) {
+				$post_ids[] = $indexable->object_id;
+			}
+			elseif ( $indexable->object_type === 'term' ) {
+				$term_ids[] = $indexable->object_id;
+			}
+		}
+
+		if ( $post_ids !== [] ) {
+			// Primes the post objects, their object terms and their post meta in bulk.
+			\_prime_post_caches( \array_unique( $post_ids ), true, true );
+		}
+
+		if ( $term_ids !== [] ) {
+			// Primes the term objects and their term meta in bulk, across all taxonomies.
+			\_prime_term_caches( \array_unique( $term_ids ) );
+		}
 	}
 
 	/**
