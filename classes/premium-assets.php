@@ -361,6 +361,17 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 				],
 			],
 			[
+				'name'         => 'wp-seo-premium-bulk-editor-morphology',
+				'path'         => 'assets/js/dist/',
+				'filename'     => 'bulk-editor-morphology-' . $version . WPSEO_CSSJS_SUFFIX . '.js',
+				'dependencies' => [
+					'jquery',
+					'lodash',
+					'wp-hooks',
+					'wp-polyfill',
+				],
+			],
+			[
 				'name'         => 'wp-seo-premium-introductions',
 				'path'         => 'assets/js/dist/',
 				'filename'     => 'introductions-' . $version . WPSEO_CSSJS_SUFFIX . '.js',

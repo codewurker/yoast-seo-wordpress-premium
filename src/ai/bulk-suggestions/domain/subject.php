@@ -51,6 +51,13 @@ class Subject {
 	private $platform;
 
 	/**
+	 * Whether the post has too little content for AI generation to work well.
+	 *
+	 * @var bool
+	 */
+	private $has_minimal_content = false;
+
+	/**
 	 * Sets the identifier of the subject.
 	 *
 	 * @param string $id The identifier of the subject.
@@ -114,6 +121,26 @@ class Subject {
 	 */
 	public function set_platform( string $platform ): void {
 		$this->platform = $platform;
+	}
+
+	/**
+	 * Sets whether the post has too little content for AI generation to work well.
+	 *
+	 * @param bool $has_minimal_content Whether the post has too little content for AI generation to work well.
+	 *
+	 * @return void
+	 */
+	public function set_has_minimal_content( bool $has_minimal_content ): void {
+		$this->has_minimal_content = $has_minimal_content;
+	}
+
+	/**
+	 * Returns whether the post has too little content for AI generation to work well.
+	 *
+	 * @return bool Whether the post has too little content for AI generation to work well.
+	 */
+	public function has_minimal_content(): bool {
+		return $this->has_minimal_content;
 	}
 
 	/**

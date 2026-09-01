@@ -78,8 +78,10 @@ class Bulk_Suggestions_Provider {
 	 * the AI service in a single request.
 	 *
 	 * @param WP_User                          $user          The WP user.
-	 * @param array<array<string, int|string>> $subject_specs The requested subjects: per item a post `id`,
-	 *                                                        a suggestion `type` and an optional `platform`.
+	 * @param array<array<string, int|string>> $subject_specs The requested subjects: per item a post `id`, a
+	 *                                                        suggestion `type`, the prompt `content` and its
+	 *                                                        `content_length`, both collected by the client, and
+	 *                                                        an optional `platform`.
 	 *
 	 * @return array<string, array|null> The response envelope: `summary`, `results` and `usage`.
 	 *
@@ -105,6 +107,9 @@ class Bulk_Suggestions_Provider {
 					(int) $spec['id'],
 					(string) $spec['type'],
 					(string) ( $spec['platform'] ?? self::DEFAULT_PLATFORM ),
+					// Read without a fallback: the route schema requires `content`, so an absent one never gets here.
+					(string) $spec['content'],
+					isset( $spec['content_length'] ) ? (int) $spec['content_length'] : null,
 				);
 			} catch ( Subject_Build_Exception $exception ) {
 				$local_errors[ $index ] = [
@@ -202,9 +207,12 @@ class Bulk_Suggestions_Provider {
 			if ( ! \is_array( $result ) ) {
 				throw new RuntimeException( 'Malformed result entry from the AI service' );
 			}
-			$index             = $subject_indices[ $position ];
-			$result['index']   = $index;
-			$results[ $index ] = $result;
+			$index           = $subject_indices[ $position ];
+			$result['index'] = $index;
+			// Carry the minimal-content flag from the subject onto its result, so the client can warn that AI
+			// generation is less accurate for the posts that had too little content.
+			$result['has_minimal_content'] = $subjects[ $index ]->has_minimal_content();
+			$results[ $index ]             = $result;
 		}
 
 		\ksort( $results );

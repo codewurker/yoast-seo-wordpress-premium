@@ -228,8 +228,6 @@ abstract class WPSEO_Watcher {
 		$message = sprintf(
 			$this->get_undo_slug_notification(),
 			'Yoast SEO Premium',
-			'<a target="_blank" href="' . $this->admin_redirect_url( $redirect->get_origin() ) . '">',
-			'</a>',
 		);
 
 		$message .= '<br>';
@@ -239,10 +237,19 @@ abstract class WPSEO_Watcher {
 		$message .= '<br><br>';
 
 		$message .= sprintf(
-			'<button type="button" class="button-primary" onclick="wpseoRemoveNotification( this );">%s</button>',
-			esc_html__( 'Ok', 'wordpress-seo-premium' ),
+			'<button type="button" class="button button-primary" onclick="wpseoRemoveNotification( this );">%s</button>',
+			esc_html__( 'Got it', 'wordpress-seo-premium' ),
 		);
 
+		$message .= ' ';
+		$message .= sprintf(
+			'<a class="button button-secondary" target="_blank" rel="noopener" href="%1$s">%2$s <span aria-hidden="true" class="dashicons dashicons-external"></span><span class="screen-reader-text">%3$s</span></a>',
+			esc_url( $this->admin_redirect_url( $redirect->get_origin() ) ),
+			esc_html__( 'Manage redirects', 'wordpress-seo-premium' ),
+			esc_html__( '(Opens in a new browser tab)', 'wordpress-seo-premium' ),
+		);
+
+		$message .= ' ';
 		$message .= sprintf(
 			'<span id="delete-link"><a class="delete" href="" onclick=\'%1$s\'>%2$s</a></span>',
 			$this->javascript_undo_redirect( $object_id, $object_type ),

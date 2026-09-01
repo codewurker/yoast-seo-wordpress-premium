@@ -35,6 +35,17 @@ class AI_Bulk_Suggestions_Route implements Route_Interface {
 	public const AI_BULK_SUGGESTIONS_ROUTE = self::ROUTE_PREFIX . '/bulk_suggestions';
 
 	/**
+	 * The maximum accepted length of a subject's prompt content, in characters.
+	 *
+	 * Defense in depth only: the client truncates the content to the prompt's token budget (300 tokens, 150 for
+	 * products and terms) before sending it, so legitimate payloads are an order of magnitude smaller than this.
+	 * The cap keeps a crafted request from growing the body sent on to the AI service without bound.
+	 *
+	 * @var int
+	 */
+	public const MAX_CONTENT_LENGTH = 20_000;
+
+	/**
 	 * Instance of the Bulk_Suggestions_Provider.
 	 *
 	 * @var Bulk_Suggestions_Provider
@@ -79,20 +90,30 @@ class AI_Bulk_Suggestions_Route implements Route_Interface {
 						'description' => 'The subjects to fetch suggestions for.',
 						'items'       => [
 							'type'       => 'object',
-							'required'   => [ 'id', 'type' ],
+							'required'   => [ 'id', 'type', 'content' ],
 							'properties' => [
-								'id'       => [
+								'id' => [
 									'type'        => 'integer',
 									'minimum'     => 1,
 									'description' => 'The post ID.',
 								],
-								'type'     => [
+								'type' => [
 									'type'        => 'string',
 									'enum'        => [
 										'seo-title',
 										'meta-description',
 									],
 									'description' => 'The type of suggestion requested.',
+								],
+								'content' => [
+									'type'        => 'string',
+									'maxLength'   => self::MAX_CONTENT_LENGTH,
+									'description' => 'The prompt content the suggestion should be based on, collected client-side by the analysis engine.',
+								],
+								'content_length' => [
+									'type'        => 'integer',
+									'minimum'     => 0,
+									'description' => 'The visible-text length of the post, measured client-side. Omitted when it could not be measured, in which case the content length is not judged.',
 								],
 								'platform' => [
 									'type'        => 'string',
