@@ -1795,7 +1795,7 @@ class Cached_Container extends Container
      */
     protected function getAIOptimizeClassicIntroductionService()
     {
-        return $this->services['Yoast\\WP\\SEO\\Premium\\Introductions\\Application\\AI_Optimize_Classic_Introduction'] = new \Yoast\WP\SEO\Premium\Introductions\Application\AI_Optimize_Classic_Introduction(($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] ?? $this->getOptionsHelperService()), ($this->services['Yoast\\WP\\SEO\\Helpers\\User_Helper'] ?? $this->getUserHelperService()));
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Introductions\\Application\\AI_Optimize_Classic_Introduction'] = new \Yoast\WP\SEO\Premium\Introductions\Application\AI_Optimize_Classic_Introduction(($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] ?? $this->getOptionsHelperService()), ($this->services['Yoast\\WP\\SEO\\Helpers\\User_Helper'] ?? $this->getUserHelperService()), ($this->services['Yoast\\WP\\SEO\\Helpers\\Current_Page_Helper'] ?? $this->getCurrentPageHelperService()));
     }
 
     /**

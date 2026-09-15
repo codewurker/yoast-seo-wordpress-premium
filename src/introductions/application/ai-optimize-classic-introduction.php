@@ -2,9 +2,9 @@
 
 namespace Yoast\WP\SEO\Premium\Introductions\Application;
 
-use WP_Screen;
 use Yoast\WP\SEO\Conditionals\Admin\Post_Conditional;
 use Yoast\WP\SEO\Conditionals\Third_Party\Elementor_Edit_Conditional;
+use Yoast\WP\SEO\Helpers\Current_Page_Helper;
 use Yoast\WP\SEO\Helpers\Options_Helper;
 use Yoast\WP\SEO\Helpers\User_Helper;
 use Yoast\WP\SEO\Introductions\Application\User_Allowed_Trait;
@@ -36,14 +36,23 @@ class AI_Optimize_Classic_Introduction implements Introduction_Interface {
 	private $user_helper;
 
 	/**
+	 * Holds the current page helper.
+	 *
+	 * @var Current_Page_Helper
+	 */
+	private $current_page_helper;
+
+	/**
 	 * Constructs the introduction.
 	 *
-	 * @param Options_Helper $options_helper The options helper.
-	 * @param User_Helper    $user_helper    The user helper.
+	 * @param Options_Helper      $options_helper      The options helper.
+	 * @param User_Helper         $user_helper         The user helper.
+	 * @param Current_Page_Helper $current_page_helper The current page helper.
 	 */
-	public function __construct( Options_Helper $options_helper, User_Helper $user_helper ) {
-		$this->options_helper = $options_helper;
-		$this->user_helper    = $user_helper;
+	public function __construct( Options_Helper $options_helper, User_Helper $user_helper, Current_Page_Helper $current_page_helper ) {
+		$this->options_helper      = $options_helper;
+		$this->user_helper         = $user_helper;
+		$this->current_page_helper = $current_page_helper;
 	}
 
 	/**
@@ -99,7 +108,7 @@ class AI_Optimize_Classic_Introduction implements Introduction_Interface {
 		}
 
 		// Check if the block editor is NOT active.
-		if ( WP_Screen::get()->is_block_editor() ) {
+		if ( $this->current_page_helper->is_block_editor() ) {
 			return false;
 		}
 

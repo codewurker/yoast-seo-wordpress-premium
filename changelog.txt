@@ -1,7 +1,7 @@
 *** Yoast SEO premium Changelog ***
 
 
-2026-09-01 - version 28.4
-* add -  Improves the copy and the actions of the notification that is shown when a redirect is automatically created after a slug change.
-* update -  Bumps the minimum required version of Yoast SEO to 28.4.
+2026-09-15 - version 28.5
+* fix -  Fixes a bug where the editor was unresponsive when WooCommerce's experimental block-based email editor was enabled.
+* update -  Bumps the minimum required version of Yoast SEO to 28.5.
 
