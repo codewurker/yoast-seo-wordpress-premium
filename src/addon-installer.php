@@ -45,7 +45,7 @@ class Addon_Installer {
 	/**
 	 * The minimum Yoast SEO version required.
 	 */
-	public const MINIMUM_YOAST_SEO_VERSION = '28.5';
+	public const MINIMUM_YOAST_SEO_VERSION = '28.6';
 
 	/**
 	 * The trunk download URL for Yoast SEO.

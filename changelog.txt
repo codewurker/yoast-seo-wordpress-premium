@@ -1,7 +1,6 @@
 *** Yoast SEO premium Changelog ***
 
 
-2026-09-15 - version 28.5
-* fix -  Fixes a bug where the editor was unresponsive when WooCommerce's experimental block-based email editor was enabled.
-* update -  Bumps the minimum required version of Yoast SEO to 28.5.
+2026-09-29 - version 28.6
+* update -  Bumps the minimum required version of Yoast SEO to 28.6.
 

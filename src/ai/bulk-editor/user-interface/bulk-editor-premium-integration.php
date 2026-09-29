@@ -133,7 +133,7 @@ class Bulk_Editor_Premium_Integration implements Integration_Interface {
 					'getUsage'        => '/' . Get_Usage_Route::ROUTE_NAMESPACE . Get_Usage_Route::ROUTE_PREFIX,
 				],
 				'pluginUrl'            => \plugins_url( '', \WPSEO_PREMIUM_FILE ),
-				'adminUrl'             => \admin_url(),
+				'adminUrl'             => \admin_url( 'admin.php' ),
 				'linkParams'           => $this->short_link_helper->get_query_params(),
 				'productSubscriptions' => [
 					'premiumSubscription'     => $this->addon_manager->has_valid_subscription( WPSEO_Addon_Manager::PREMIUM_SLUG ),
