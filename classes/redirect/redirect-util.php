@@ -69,7 +69,68 @@ class WPSEO_Redirect_Util {
 	}
 
 	/**
-	 * Returns whether or not the permalink structure has a trailing slash.
+	 * Attempts to resolve the ID of the post a redirect origin used to belong to, including posts
+	 * that were recently moved to the trash.
+	 *
+	 * @param string $origin The redirect origin.
+	 *
+	 * @return int The matched post ID, 0 when not found.
+	 */
+	public static function get_post_id_by_origin( $origin ) {
+		$post_id = url_to_postid( home_url( $origin ) );
+
+		if ( $post_id ) {
+			return $post_id;
+		}
+
+		$origin_path = trim( (string) wp_parse_url( home_url( $origin ), PHP_URL_PATH ), '/' );
+		// Permalink structures like `%postname%.html` add an extension, slugs can never contain a dot.
+		$slug = pathinfo( basename( $origin_path ), PATHINFO_FILENAME );
+
+		if ( $slug === '' ) {
+			return 0;
+		}
+
+		$trashed_posts = get_posts(
+			[
+				// Trashed posts get a `__trashed` suffix, the original slug is kept in this meta.
+				// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Reason: Only runs when adding a redirect for a trashed post.
+				'meta_key'       => '_wp_desired_post_slug',
+				// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- Reason: Only runs when adding a redirect for a trashed post.
+				'meta_value'     => $slug,
+				'post_status'    => 'trash',
+				// Unlike `any`, this includes post types excluded from search.
+				'post_type'      => WPSEO_Post_Type::get_accessible_post_types(),
+				'posts_per_page' => -1,
+			],
+		);
+
+		// Permalink structures like `%post_id%` end in the ID instead of the slug.
+		if ( is_numeric( $slug ) ) {
+			$post_by_id = get_post( (int) $slug );
+
+			if ( $post_by_id && $post_by_id->post_status === 'trash' ) {
+				$trashed_posts[] = $post_by_id;
+			}
+		}
+
+		foreach ( $trashed_posts as $trashed_post ) {
+			$desired_slug = get_post_meta( $trashed_post->ID, '_wp_desired_post_slug', true );
+
+			// Trashed posts only have plain permalinks, so rebuild the one the post had while published.
+			$trashed_post->post_name   = ( $desired_slug !== '' ) ? $desired_slug : $trashed_post->post_name;
+			$trashed_post->post_status = 'publish';
+
+			if ( trim( (string) wp_parse_url( get_permalink( $trashed_post ), PHP_URL_PATH ), '/' ) === $origin_path ) {
+				return $trashed_post->ID;
+			}
+		}
+
+		return 0;
+	}
+
+	/**
+	 * Returns whether the permalink structure has a trailing slash.
 	 *
 	 * @return bool
 	 */

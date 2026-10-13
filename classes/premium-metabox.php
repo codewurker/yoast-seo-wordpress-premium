@@ -201,6 +201,17 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 
 		$post = $this->get_post();
 
+		// Bail when the global post can't be resolved (e.g. third-party builders that enqueue scripts on a post-edit screen before $GLOBALS['post_ID'] is set).
+		if ( ! ( $post instanceof WP_Post ) ) {
+			return [
+				'linkSuggestionsEnabled'     => 'disabled',
+				'linkSuggestionsAvailable'   => false,
+				'linkSuggestionsUnindexed'   => false,
+				'isProminentWordsAvailable'  => false,
+				'isTitleAssessmentAvailable' => false,
+			];
+		}
+
 		$prominent_words_support      = new WPSEO_Premium_Prominent_Words_Support();
 		$is_prominent_words_available = $prominent_words_support->is_post_type_supported( $post->post_type );
 

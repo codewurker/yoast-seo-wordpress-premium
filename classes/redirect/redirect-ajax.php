@@ -194,7 +194,7 @@ class WPSEO_Redirect_Ajax {
 		$type          = ( $redirect->get_type() ?? '' );
 		$target        = ( $redirect->get_target() ?? '' );
 
-		if ( current_user_can( 'edit_posts' )
+		if ( current_user_can( 'edit_post', WPSEO_Redirect_Util::get_post_id_by_origin( $redirect->get_origin() ) )
 			&& in_array( $type, $allowed_types, true )
 			&& WPSEO_Redirect_Util::is_internal_url( $target ) ) {
 			return;

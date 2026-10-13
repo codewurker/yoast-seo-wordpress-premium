@@ -381,8 +381,9 @@ class WPSEO_Post_Watcher extends WPSEO_Watcher implements WPSEO_WordPress_Integr
 
 		// The post types should be a public one.
 		if ( $this->check_public_post_status( $post_id ) ) {
-			// Get the right URL.
-			$url = $this->get_target_url( $post_id );
+			// Stored origins are relative to the home URL, so the subdirectory has to be left out.
+			$url_formatter = new WPSEO_Redirect_Url_Formatter( $this->get_target_url( $post_id ) );
+			$url           = $url_formatter->format_without_subdirectory( get_home_url() );
 
 			// If $url is not a single /, there may be the option to create a redirect.
 			if ( $url !== '/' ) {

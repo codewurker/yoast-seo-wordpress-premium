@@ -1,6 +1,8 @@
 *** Yoast SEO premium Changelog ***
 
 
-2026-09-29 - version 28.6
-* update -  Bumps the minimum required version of Yoast SEO to 28.6.
+2026-10-13 - version 28.7
+* fix -  Fixes a bug where a PHP warning was emitted on the post edit screen when the global post could not be resolved at admin-enqueue time.
+* fix -  Fixes a bug where a user was able to add arbitrary internal redirects regardless of their role.
+* update -  Bumps the minimum required version of Yoast SEO to 28.7.
 
