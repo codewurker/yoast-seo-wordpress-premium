@@ -37,6 +37,7 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_Term_Indexation_Action' => 'getIndexableTermIndexationActionService',
             'Yoast\\WP\\SEO\\Builders\\Indexable_Term_Builder' => 'getIndexableTermBuilderService',
             'Yoast\\WP\\SEO\\Conditionals\\AI_Conditional' => 'getAIConditionalService',
+            'Yoast\\WP\\SEO\\Conditionals\\Abilities_API_Conditional' => 'getAbilitiesAPIConditionalService',
             'Yoast\\WP\\SEO\\Conditionals\\Admin\\Post_Conditional' => 'getPostConditionalService',
             'Yoast\\WP\\SEO\\Conditionals\\Admin\\Posts_Overview_Or_Ajax_Conditional' => 'getPostsOverviewOrAjaxConditionalService',
             'Yoast\\WP\\SEO\\Conditionals\\Admin_Conditional' => 'getAdminConditionalService',
@@ -90,6 +91,7 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Premium\\AI\\Summarize\\Application\\Summarizer' => 'getSummarizerService',
             'Yoast\\WP\\SEO\\Premium\\AI\\Summarize\\User_Interface\\AI_Summarize_Integration' => 'getAISummarizeIntegrationService',
             'Yoast\\WP\\SEO\\Premium\\AI\\Summarize\\User_Interface\\AI_Summarize_Route' => 'getAISummarizeRouteService',
+            'Yoast\\WP\\SEO\\Premium\\Abilities\\User_Interface\\Organization_Fields_Integration' => 'getOrganizationFieldsIntegrationService',
             'Yoast\\WP\\SEO\\Premium\\Actions\\Link_Suggestions_Action' => 'getLinkSuggestionsActionService',
             'Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Complete_Action' => 'getCompleteActionService',
             'Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Content_Action' => 'getContentActionService',
@@ -375,6 +377,16 @@ class Cached_Container extends Container
     protected function getAIConditionalService()
     {
         return $this->services['Yoast\\WP\\SEO\\Conditionals\\AI_Conditional'] = \Yoast\WP\Lib\Dependency_Injection\Container_Registry::get('yoast-seo', 'Yoast\\WP\\SEO\\Conditionals\\AI_Conditional');
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Conditionals\Abilities_API_Conditional' shared service.
+     *
+     * @return \Yoast\WP\SEO\Conditionals\Abilities_API_Conditional
+     */
+    protected function getAbilitiesAPIConditionalService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Conditionals\\Abilities_API_Conditional'] = \Yoast\WP\Lib\Dependency_Injection\Container_Registry::get('yoast-seo', 'Yoast\\WP\\SEO\\Conditionals\\Abilities_API_Conditional');
     }
 
     /**
@@ -716,6 +728,7 @@ class Cached_Container extends Container
     {
         $this->services['Yoast\\WP\\SEO\\Loader'] = $instance = new \Yoast\WP\SEO\Loader($this);
 
+        $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Abilities\\User_Interface\\Organization_Fields_Integration');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\AI\\Bulk_Editor\\User_Interface\\Bulk_Editor_Premium_Integration');
         $instance->register_route('Yoast\\WP\\SEO\\Premium\\AI\\Bulk_Suggestions\\User_Interface\\AI_Bulk_Suggestions_Route');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\AI\\Optimize\\Optimizer\\User_Interface\\AI_Optimize_Integration');
@@ -976,6 +989,16 @@ class Cached_Container extends Container
     protected function getAISummarizeRouteService()
     {
         return $this->services['Yoast\\WP\\SEO\\Premium\\AI\\Summarize\\User_Interface\\AI_Summarize_Route'] = new \Yoast\WP\SEO\Premium\AI\Summarize\User_Interface\AI_Summarize_Route(($this->services['Yoast\\WP\\SEO\\Premium\\AI\\Summarize\\Application\\Summarizer'] ?? $this->getSummarizerService()));
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Abilities\User_Interface\Organization_Fields_Integration' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Abilities\User_Interface\Organization_Fields_Integration
+     */
+    protected function getOrganizationFieldsIntegrationService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Abilities\\User_Interface\\Organization_Fields_Integration'] = new \Yoast\WP\SEO\Premium\Abilities\User_Interface\Organization_Fields_Integration();
     }
 
     /**

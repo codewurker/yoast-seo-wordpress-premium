@@ -135,6 +135,7 @@ return array(
     'Yoast\\WP\\SEO\\Premium\\AI\\Summarize\\Application\\Summarizer' => $baseDir . '/src/ai/summarize/application/summarizer.php',
     'Yoast\\WP\\SEO\\Premium\\AI\\Summarize\\User_Interface\\AI_Summarize_Integration' => $baseDir . '/src/ai/summarize/user-interface/ai-summarize-integration.php',
     'Yoast\\WP\\SEO\\Premium\\AI\\Summarize\\User_Interface\\AI_Summarize_Route' => $baseDir . '/src/ai/summarize/user-interface/ai-summarize-route.php',
+    'Yoast\\WP\\SEO\\Premium\\Abilities\\User_Interface\\Organization_Fields_Integration' => $baseDir . '/src/abilities/user-interface/organization-fields-integration.php',
     'Yoast\\WP\\SEO\\Premium\\Actions\\Link_Suggestions_Action' => $baseDir . '/src/actions/link-suggestions-action.php',
     'Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Complete_Action' => $baseDir . '/src/actions/prominent-words/complete-action.php',
     'Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Content_Action' => $baseDir . '/src/actions/prominent-words/content-action.php',

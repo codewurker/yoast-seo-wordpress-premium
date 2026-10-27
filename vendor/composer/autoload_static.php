@@ -150,6 +150,7 @@ class ComposerStaticIniteb868c9ca1ae6cdd8a66a85e711868d2
         'Yoast\\WP\\SEO\\Premium\\AI\\Summarize\\Application\\Summarizer' => __DIR__ . '/../..' . '/src/ai/summarize/application/summarizer.php',
         'Yoast\\WP\\SEO\\Premium\\AI\\Summarize\\User_Interface\\AI_Summarize_Integration' => __DIR__ . '/../..' . '/src/ai/summarize/user-interface/ai-summarize-integration.php',
         'Yoast\\WP\\SEO\\Premium\\AI\\Summarize\\User_Interface\\AI_Summarize_Route' => __DIR__ . '/../..' . '/src/ai/summarize/user-interface/ai-summarize-route.php',
+        'Yoast\\WP\\SEO\\Premium\\Abilities\\User_Interface\\Organization_Fields_Integration' => __DIR__ . '/../..' . '/src/abilities/user-interface/organization-fields-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Actions\\Link_Suggestions_Action' => __DIR__ . '/../..' . '/src/actions/link-suggestions-action.php',
         'Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Complete_Action' => __DIR__ . '/../..' . '/src/actions/prominent-words/complete-action.php',
         'Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Content_Action' => __DIR__ . '/../..' . '/src/actions/prominent-words/content-action.php',
