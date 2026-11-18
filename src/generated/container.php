@@ -43,6 +43,7 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Conditionals\\Admin_Conditional' => 'getAdminConditionalService',
             'Yoast\\WP\\SEO\\Conditionals\\Front_End_Conditional' => 'getFrontEndConditionalService',
             'Yoast\\WP\\SEO\\Conditionals\\Migrations_Conditional' => 'getMigrationsConditionalService',
+            'Yoast\\WP\\SEO\\Conditionals\\Non_Multisite_Conditional' => 'getNonMultisiteConditionalService',
             'Yoast\\WP\\SEO\\Conditionals\\Open_Graph_Conditional' => 'getOpenGraphConditionalService',
             'Yoast\\WP\\SEO\\Conditionals\\Robots_Txt_Conditional' => 'getRobotsTxtConditionalService',
             'Yoast\\WP\\SEO\\Conditionals\\Third_Party\\Elementor_Activated_Conditional' => 'getElementorActivatedConditionalService',
@@ -91,6 +92,15 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Premium\\AI\\Summarize\\Application\\Summarizer' => 'getSummarizerService',
             'Yoast\\WP\\SEO\\Premium\\AI\\Summarize\\User_Interface\\AI_Summarize_Integration' => 'getAISummarizeIntegrationService',
             'Yoast\\WP\\SEO\\Premium\\AI\\Summarize\\User_Interface\\AI_Summarize_Route' => 'getAISummarizeRouteService',
+            'Yoast\\WP\\SEO\\Premium\\Abilities\\Application\\Bot_Blocking_Manager' => 'getBotBlockingManagerService',
+            'Yoast\\WP\\SEO\\Premium\\Abilities\\Infrastructure\\Blockable_Bot_Map' => 'getBlockableBotMapService',
+            'Yoast\\WP\\SEO\\Premium\\Abilities\\Infrastructure\\Date_Field_Validator' => 'getDateFieldValidatorService',
+            'Yoast\\WP\\SEO\\Premium\\Abilities\\Infrastructure\\User_Schema_Repository' => 'getUserSchemaRepositoryService',
+            'Yoast\\WP\\SEO\\Premium\\Abilities\\User_Interface\\Abilities\\Get_Blocked_Bots_Ability' => 'getGetBlockedBotsAbilityService',
+            'Yoast\\WP\\SEO\\Premium\\Abilities\\User_Interface\\Abilities\\Update_Blocked_Bots_Ability' => 'getUpdateBlockedBotsAbilityService',
+            'Yoast\\WP\\SEO\\Premium\\Abilities\\User_Interface\\Abilities_Integration' => 'getAbilitiesIntegrationService',
+            'Yoast\\WP\\SEO\\Premium\\Abilities\\User_Interface\\Author_Fields_Integration' => 'getAuthorFieldsIntegrationService',
+            'Yoast\\WP\\SEO\\Premium\\Abilities\\User_Interface\\Global_Setting_Fields_Integration' => 'getGlobalSettingFieldsIntegrationService',
             'Yoast\\WP\\SEO\\Premium\\Abilities\\User_Interface\\Organization_Fields_Integration' => 'getOrganizationFieldsIntegrationService',
             'Yoast\\WP\\SEO\\Premium\\Actions\\Link_Suggestions_Action' => 'getLinkSuggestionsActionService',
             'Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Complete_Action' => 'getCompleteActionService',
@@ -440,6 +450,16 @@ class Cached_Container extends Container
     }
 
     /**
+     * Gets the public 'Yoast\WP\SEO\Conditionals\Non_Multisite_Conditional' shared service.
+     *
+     * @return \Yoast\WP\SEO\Conditionals\Non_Multisite_Conditional
+     */
+    protected function getNonMultisiteConditionalService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Conditionals\\Non_Multisite_Conditional'] = \Yoast\WP\Lib\Dependency_Injection\Container_Registry::get('yoast-seo', 'Yoast\\WP\\SEO\\Conditionals\\Non_Multisite_Conditional');
+    }
+
+    /**
      * Gets the public 'Yoast\WP\SEO\Conditionals\Open_Graph_Conditional' shared service.
      *
      * @return \Yoast\WP\SEO\Conditionals\Open_Graph_Conditional
@@ -728,6 +748,9 @@ class Cached_Container extends Container
     {
         $this->services['Yoast\\WP\\SEO\\Loader'] = $instance = new \Yoast\WP\SEO\Loader($this);
 
+        $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Abilities\\User_Interface\\Abilities_Integration');
+        $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Abilities\\User_Interface\\Author_Fields_Integration');
+        $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Abilities\\User_Interface\\Global_Setting_Fields_Integration');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Abilities\\User_Interface\\Organization_Fields_Integration');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\AI\\Bulk_Editor\\User_Interface\\Bulk_Editor_Premium_Integration');
         $instance->register_route('Yoast\\WP\\SEO\\Premium\\AI\\Bulk_Suggestions\\User_Interface\\AI_Bulk_Suggestions_Route');
@@ -992,13 +1015,103 @@ class Cached_Container extends Container
     }
 
     /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Abilities\Application\Bot_Blocking_Manager' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Abilities\Application\Bot_Blocking_Manager
+     */
+    protected function getBotBlockingManagerService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Abilities\\Application\\Bot_Blocking_Manager'] = new \Yoast\WP\SEO\Premium\Abilities\Application\Bot_Blocking_Manager(($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] ?? $this->getOptionsHelperService()), ($this->services['Yoast\\WP\\SEO\\Premium\\Abilities\\Infrastructure\\Blockable_Bot_Map'] ?? ($this->services['Yoast\\WP\\SEO\\Premium\\Abilities\\Infrastructure\\Blockable_Bot_Map'] = new \Yoast\WP\SEO\Premium\Abilities\Infrastructure\Blockable_Bot_Map())));
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Abilities\Infrastructure\Blockable_Bot_Map' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Abilities\Infrastructure\Blockable_Bot_Map
+     */
+    protected function getBlockableBotMapService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Abilities\\Infrastructure\\Blockable_Bot_Map'] = new \Yoast\WP\SEO\Premium\Abilities\Infrastructure\Blockable_Bot_Map();
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Abilities\Infrastructure\Date_Field_Validator' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Abilities\Infrastructure\Date_Field_Validator
+     */
+    protected function getDateFieldValidatorService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Abilities\\Infrastructure\\Date_Field_Validator'] = new \Yoast\WP\SEO\Premium\Abilities\Infrastructure\Date_Field_Validator();
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Abilities\Infrastructure\User_Schema_Repository' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Abilities\Infrastructure\User_Schema_Repository
+     */
+    protected function getUserSchemaRepositoryService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Abilities\\Infrastructure\\User_Schema_Repository'] = new \Yoast\WP\SEO\Premium\Abilities\Infrastructure\User_Schema_Repository(($this->services['Yoast\\WP\\SEO\\Helpers\\User_Helper'] ?? $this->getUserHelperService()));
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Abilities\User_Interface\Abilities\Get_Blocked_Bots_Ability' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Abilities\User_Interface\Abilities\Get_Blocked_Bots_Ability
+     */
+    protected function getGetBlockedBotsAbilityService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Abilities\\User_Interface\\Abilities\\Get_Blocked_Bots_Ability'] = new \Yoast\WP\SEO\Premium\Abilities\User_Interface\Abilities\Get_Blocked_Bots_Ability(($this->services['Yoast\\WP\\SEO\\Helpers\\Capability_Helper'] ?? $this->getCapabilityHelperService()), ($this->services['Yoast\\WP\\SEO\\Conditionals\\Non_Multisite_Conditional'] ?? $this->getNonMultisiteConditionalService()), ($this->services['Yoast\\WP\\SEO\\Premium\\Abilities\\Application\\Bot_Blocking_Manager'] ?? $this->getBotBlockingManagerService()), ($this->services['Yoast\\WP\\SEO\\Premium\\Abilities\\Infrastructure\\Blockable_Bot_Map'] ?? ($this->services['Yoast\\WP\\SEO\\Premium\\Abilities\\Infrastructure\\Blockable_Bot_Map'] = new \Yoast\WP\SEO\Premium\Abilities\Infrastructure\Blockable_Bot_Map())));
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Abilities\User_Interface\Abilities\Update_Blocked_Bots_Ability' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Abilities\User_Interface\Abilities\Update_Blocked_Bots_Ability
+     */
+    protected function getUpdateBlockedBotsAbilityService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Abilities\\User_Interface\\Abilities\\Update_Blocked_Bots_Ability'] = new \Yoast\WP\SEO\Premium\Abilities\User_Interface\Abilities\Update_Blocked_Bots_Ability(($this->services['Yoast\\WP\\SEO\\Helpers\\Capability_Helper'] ?? $this->getCapabilityHelperService()), ($this->services['Yoast\\WP\\SEO\\Conditionals\\Non_Multisite_Conditional'] ?? $this->getNonMultisiteConditionalService()), ($this->services['Yoast\\WP\\SEO\\Premium\\Abilities\\Application\\Bot_Blocking_Manager'] ?? $this->getBotBlockingManagerService()), ($this->services['Yoast\\WP\\SEO\\Premium\\Abilities\\Infrastructure\\Blockable_Bot_Map'] ?? ($this->services['Yoast\\WP\\SEO\\Premium\\Abilities\\Infrastructure\\Blockable_Bot_Map'] = new \Yoast\WP\SEO\Premium\Abilities\Infrastructure\Blockable_Bot_Map())));
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Abilities\User_Interface\Abilities_Integration' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Abilities\User_Interface\Abilities_Integration
+     */
+    protected function getAbilitiesIntegrationService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Abilities\\User_Interface\\Abilities_Integration'] = new \Yoast\WP\SEO\Premium\Abilities\User_Interface\Abilities_Integration(($this->services['Yoast\\WP\\SEO\\Premium\\Abilities\\User_Interface\\Abilities\\Get_Blocked_Bots_Ability'] ?? $this->getGetBlockedBotsAbilityService()), ($this->services['Yoast\\WP\\SEO\\Premium\\Abilities\\User_Interface\\Abilities\\Update_Blocked_Bots_Ability'] ?? $this->getUpdateBlockedBotsAbilityService()));
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Abilities\User_Interface\Author_Fields_Integration' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Abilities\User_Interface\Author_Fields_Integration
+     */
+    protected function getAuthorFieldsIntegrationService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Abilities\\User_Interface\\Author_Fields_Integration'] = new \Yoast\WP\SEO\Premium\Abilities\User_Interface\Author_Fields_Integration(($this->services['Yoast\\WP\\SEO\\Premium\\Abilities\\Infrastructure\\User_Schema_Repository'] ?? $this->getUserSchemaRepositoryService()), ($this->services['Yoast\\WP\\SEO\\Premium\\Abilities\\Infrastructure\\Date_Field_Validator'] ?? ($this->services['Yoast\\WP\\SEO\\Premium\\Abilities\\Infrastructure\\Date_Field_Validator'] = new \Yoast\WP\SEO\Premium\Abilities\Infrastructure\Date_Field_Validator())));
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Abilities\User_Interface\Global_Setting_Fields_Integration' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Abilities\User_Interface\Global_Setting_Fields_Integration
+     */
+    protected function getGlobalSettingFieldsIntegrationService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Abilities\\User_Interface\\Global_Setting_Fields_Integration'] = new \Yoast\WP\SEO\Premium\Abilities\User_Interface\Global_Setting_Fields_Integration();
+    }
+
+    /**
      * Gets the public 'Yoast\WP\SEO\Premium\Abilities\User_Interface\Organization_Fields_Integration' shared autowired service.
      *
      * @return \Yoast\WP\SEO\Premium\Abilities\User_Interface\Organization_Fields_Integration
      */
     protected function getOrganizationFieldsIntegrationService()
     {
-        return $this->services['Yoast\\WP\\SEO\\Premium\\Abilities\\User_Interface\\Organization_Fields_Integration'] = new \Yoast\WP\SEO\Premium\Abilities\User_Interface\Organization_Fields_Integration();
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Abilities\\User_Interface\\Organization_Fields_Integration'] = new \Yoast\WP\SEO\Premium\Abilities\User_Interface\Organization_Fields_Integration(($this->services['Yoast\\WP\\SEO\\Premium\\Abilities\\Infrastructure\\Date_Field_Validator'] ?? ($this->services['Yoast\\WP\\SEO\\Premium\\Abilities\\Infrastructure\\Date_Field_Validator'] = new \Yoast\WP\SEO\Premium\Abilities\Infrastructure\Date_Field_Validator())));
     }
 
     /**

@@ -5,11 +5,28 @@ namespace Yoast\WP\SEO\Premium\Abilities\User_Interface;
 
 use Yoast\WP\SEO\Conditionals\Abilities_API_Conditional;
 use Yoast\WP\SEO\Integrations\Integration_Interface;
+use Yoast\WP\SEO\Premium\Abilities\Infrastructure\Date_Field_Validator;
 
 /**
  * Adds the site representation settings of Yoast SEO Premium to the fields the site representation abilities can write.
  */
 class Organization_Fields_Integration implements Integration_Interface {
+
+	/**
+	 * The validator of the date fields.
+	 *
+	 * @var Date_Field_Validator
+	 */
+	private $date_field_validator;
+
+	/**
+	 * Constructor.
+	 *
+	 * @param Date_Field_Validator $date_field_validator The validator of the date fields.
+	 */
+	public function __construct( Date_Field_Validator $date_field_validator ) {
+		$this->date_field_validator = $date_field_validator;
+	}
 
 	/**
 	 * Returns the conditionals based on which this loadable should be active.
@@ -72,7 +89,7 @@ class Organization_Fields_Integration implements Integration_Interface {
 			'type'              => 'string',
 			'pattern'           => '^(\d{4}-\d{2}-\d{2})?$',
 			'description'       => \__( 'The date the organization was founded, in the YYYY-MM-DD format.', 'wordpress-seo-premium' ),
-			'validate_callback' => [ $this, 'validate_founding_date' ],
+			'validate_callback' => [ $this->date_field_validator, 'validate' ],
 		];
 		$fields['org-number-employees'] = [
 			'type'              => 'string',
@@ -167,32 +184,6 @@ class Organization_Fields_Integration implements Integration_Interface {
 		}
 
 		return $this->validate_local_seo_field( $value, $field_name );
-	}
-
-	/**
-	 * Skips saving a founding date that does not exist, like the 31st of February.
-	 *
-	 * @param string $value      The value to save, which the schema guarantees to be empty or in the YYYY-MM-DD format.
-	 * @param string $field_name The option name of the field.
-	 *
-	 * @return string|null A warning when the value cannot be saved, null otherwise.
-	 */
-	public function validate_founding_date( $value, string $field_name ): ?string {
-		if ( $value === '' ) {
-			return null;
-		}
-
-		[ $year, $month, $day ] = \explode( '-', $value );
-
-		if ( \checkdate( (int) $month, (int) $day, (int) $year ) ) {
-			return null;
-		}
-
-		return \sprintf(
-			/* translators: %s expands to the name of a setting. */
-			\__( 'The %s setting was not changed, because it is not an existing date.', 'wordpress-seo-premium' ),
-			$field_name,
-		);
 	}
 
 	/**
